@@ -125,6 +125,18 @@ const RPC_CACHE_TIER: Record<string, CacheTier> = {
   '/api/news/v1/list-feed-digest': 'slow',
   '/api/intelligence/v1/classify-event': 'static',
   '/api/news/v1/summarize-article-cache': 'slow',
+
+  // Trading service — no-store for mutations, slow for reads
+  '/api/trading/v1/list-templates': 'static',
+  '/api/trading/v1/create-strategy': 'no-store',
+  '/api/trading/v1/get-strategy': 'fast',
+  '/api/trading/v1/list-strategies': 'fast',
+  '/api/trading/v1/update-strategy': 'no-store',
+  '/api/trading/v1/delete-strategy': 'no-store',
+  '/api/trading/v1/run-backtest': 'no-store',
+  '/api/trading/v1/get-backtest-run': 'fast',
+  '/api/trading/v1/list-backtest-runs': 'fast',
+  '/api/trading/v1/get-portfolio': 'fast',
 };
 
 const PREMIUM_RPC_PATHS = new Set([
