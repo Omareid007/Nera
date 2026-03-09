@@ -1,4 +1,5 @@
 import { parseBody, jsonResponse, errorResponse } from './handler';
+import { isValidSymbol } from './_shared';
 import { getStrategy, storeStrategy } from './trading-store';
 import type { StrategyStatus } from './types';
 
@@ -70,7 +71,12 @@ export async function updateStrategy(req: Request): Promise<Response> {
   }
   if (body.parameters !== undefined) existing.parameters = body.parameters as Record<string, unknown>;
   if (body.universe !== undefined && Array.isArray(body.universe)) {
-    existing.universe = (body.universe as string[]).map((s) => String(s).toUpperCase());
+    const newUniverse = body.universe as string[];
+    if (newUniverse.length === 0) return errorResponse('universe must be a non-empty array');
+    if (newUniverse.length > 30) return errorResponse('universe must contain at most 30 symbols');
+    const invalid = newUniverse.filter((s) => !isValidSymbol(String(s)));
+    if (invalid.length > 0) return errorResponse(`Invalid symbols: ${invalid.slice(0, 5).join(', ')}`);
+    existing.universe = newUniverse.map((s) => String(s).toUpperCase());
   }
 
   existing.updatedAt = Date.now();

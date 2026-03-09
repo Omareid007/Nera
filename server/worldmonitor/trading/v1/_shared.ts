@@ -7,6 +7,8 @@ export function generateId(): string {
   return randomUUID();
 }
 
+const MAX_BODY_BYTES = 512_000; // 512 KB
+
 /** Parse JSON body from POST request, return query params for GET. */
 export async function parseBody(req: Request): Promise<Record<string, unknown>> {
   if (req.method === 'GET') {
@@ -18,6 +20,10 @@ export async function parseBody(req: Request): Promise<Record<string, unknown>> 
     return result;
   }
   try {
+    const contentLength = req.headers.get('content-length');
+    if (contentLength && parseInt(contentLength, 10) > MAX_BODY_BYTES) {
+      return {};
+    }
     return await req.json();
   } catch {
     return {};

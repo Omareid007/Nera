@@ -1,7 +1,7 @@
 import { parseBody, jsonResponse, errorResponse } from './handler';
 import { storeStrategy } from './trading-store';
 import { getTemplate } from './strategy-templates';
-import { generateId } from './_shared';
+import { generateId, isValidSymbol } from './_shared';
 import type { Strategy } from './types';
 
 export async function createStrategy(req: Request): Promise<Response> {
@@ -27,6 +27,13 @@ export async function createStrategy(req: Request): Promise<Response> {
 
   if (!universe || !Array.isArray(universe) || universe.length === 0) {
     return errorResponse('universe must be a non-empty array of symbols');
+  }
+  if (universe.length > 30) {
+    return errorResponse('universe must contain at most 30 symbols');
+  }
+  const invalidSymbols = universe.filter((s) => !isValidSymbol(String(s)));
+  if (invalidSymbols.length > 0) {
+    return errorResponse(`Invalid symbols: ${invalidSymbols.slice(0, 5).join(', ')}`);
   }
 
   // Merge defaults with provided parameters

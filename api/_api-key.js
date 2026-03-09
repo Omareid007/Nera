@@ -1,3 +1,16 @@
+import { timingSafeEqual } from 'node:crypto';
+
+function safeKeyMatch(candidate, validKeys) {
+  const candidateBuf = Buffer.from(candidate);
+  for (const k of validKeys) {
+    const keyBuf = Buffer.from(k);
+    if (candidateBuf.length === keyBuf.length && timingSafeEqual(candidateBuf, keyBuf)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 const DESKTOP_ORIGIN_PATTERNS = [
   /^https?:\/\/tauri\.localhost(:\d+)?$/,
   /^https?:\/\/[a-z0-9-]+\.tauri\.localhost(:\d+)?$/i,
@@ -42,7 +55,7 @@ export function validateApiKey(req, options = {}) {
   if (isDesktopOrigin(origin)) {
     if (!key) return { valid: false, required: true, error: 'API key required for desktop access' };
     const validKeys = (process.env.WORLDMONITOR_VALID_KEYS || '').split(',').filter(Boolean);
-    if (!validKeys.includes(key)) return { valid: false, required: true, error: 'Invalid API key' };
+    if (!safeKeyMatch(key, validKeys)) return { valid: false, required: true, error: 'Invalid API key' };
     return { valid: true, required: true };
   }
 
@@ -53,7 +66,7 @@ export function validateApiKey(req, options = {}) {
     }
     if (key) {
       const validKeys = (process.env.WORLDMONITOR_VALID_KEYS || '').split(',').filter(Boolean);
-      if (!validKeys.includes(key)) return { valid: false, required: true, error: 'Invalid API key' };
+      if (!safeKeyMatch(key, validKeys)) return { valid: false, required: true, error: 'Invalid API key' };
     }
     return { valid: true, required: forceKey };
   }
@@ -61,7 +74,7 @@ export function validateApiKey(req, options = {}) {
   // Explicit key provided from unknown origin — validate it
   if (key) {
     const validKeys = (process.env.WORLDMONITOR_VALID_KEYS || '').split(',').filter(Boolean);
-    if (!validKeys.includes(key)) return { valid: false, required: true, error: 'Invalid API key' };
+    if (!safeKeyMatch(key, validKeys)) return { valid: false, required: true, error: 'Invalid API key' };
     return { valid: true, required: true };
   }
 
