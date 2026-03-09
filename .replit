@@ -1,12 +1,12 @@
-entrypoint = "replit-server.ts"
+entrypoint = "index.html"
 modules = ["nodejs-20"]
 
-hidden = [".config", "node_modules", ".git", "src-tauri", "e2e", "pro-test", ".claude", ".agent", ".agents", ".factory", ".windsurf"]
+hidden = [".config", "node_modules", ".git", "src-tauri", "e2e", "pro-test", ".claude", ".agent", ".agents", ".factory", ".windsurf", "src"]
 
-onBoot = "npm install && cd trading && npm install && npm run build"
+onBoot = "npm install"
 
 [run]
-args = ["npx", "tsx", "replit-server.ts"]
+args = ["npx", "vite", "--port", "5000", "--host", "0.0.0.0"]
 
 [run.env]
 NODE_ENV = "development"
@@ -21,12 +21,9 @@ externalPort = 80
 
 [deployment]
 run = ["npx", "tsx", "replit-server.ts"]
-build = "npm install && cd trading && npm install && npm run build"
+build = "npm install && npx vite build"
 deploymentTarget = "cloudrun"
 ignorePorts = false
-
-[gitHubImport]
-requiredFiles = [".replit", "replit.nix", "replit-server.ts"]
 
 [packager]
 language = "nodejs"
