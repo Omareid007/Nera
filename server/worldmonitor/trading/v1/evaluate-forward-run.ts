@@ -145,10 +145,12 @@ export async function evaluateForwardRun(req: Request): Promise<Response> {
 
   const newSignals: ForwardSignal[] = [];
   const newActions: ProposedAction[] = [];
+  const latestPrices: Record<string, number> = {};
 
   for (const symbol of strategy.universe) {
     const quote = await fetchQuote(symbol);
     if (!quote || quote.price === 0) continue;
+    latestPrices[symbol] = quote.price;
 
     // Fetch 5d of closes for signal computation
     try {
@@ -209,12 +211,7 @@ export async function evaluateForwardRun(req: Request): Promise<Response> {
   run.proposedActions = [...run.proposedActions, ...newActions].slice(-50);
   run.lastEvaluatedAt = Date.now();
 
-  // Update paper P&L: compare each prior proposed action's entry price to current price
-  const latestPrices: Record<string, number> = {};
-  for (const sig of newSignals) {
-    const matchingAction = newActions.find((a) => a.symbol === sig.symbol);
-    if (matchingAction) latestPrices[sig.symbol] = matchingAction.price;
-  }
+  // Update paper P&L using live quotes collected during signal evaluation
   let paperPnl = 0;
   for (const action of run.proposedActions) {
     const currentPrice = latestPrices[action.symbol];
