@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Loader2, FlaskConical, Trash2, Brain } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
@@ -24,7 +24,7 @@ export function StrategyDetailPage() {
     ]).finally(() => setLoading(false));
   }, [id]);
 
-  const handleBacktest = async () => {
+  const handleBacktest = useCallback(async () => {
     if (!id) return;
     setRunning(true);
     try {
@@ -33,9 +33,9 @@ export function StrategyDetailPage() {
     } catch {
       setRunning(false);
     }
-  };
+  }, [id, navigate]);
 
-  const handleInterpret = async () => {
+  const handleInterpret = useCallback(async () => {
     if (!id) return;
     setInterpreting(true);
     try {
@@ -44,9 +44,9 @@ export function StrategyDetailPage() {
     } catch {
       setInterpreting(false);
     }
-  };
+  }, [id, navigate]);
 
-  const handleDelete = async () => {
+  const handleDelete = useCallback(async () => {
     if (!id || !confirm('Delete this strategy? This cannot be undone.')) return;
     setDeleting(true);
     try {
@@ -55,7 +55,7 @@ export function StrategyDetailPage() {
     } catch {
       setDeleting(false);
     }
-  };
+  }, [id, navigate]);
 
   if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={24} /></div>;
   if (!strategy) return <div className="py-20 text-center text-sm text-[var(--color-text-muted)]">Strategy not found</div>;

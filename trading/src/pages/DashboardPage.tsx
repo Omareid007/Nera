@@ -224,7 +224,7 @@ export function DashboardPage() {
             </div>
           </div>
 
-          {/* World Monitor Intel — live status */}
+          {/* Intel sources — live status */}
           <div>
             <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[var(--color-text-tertiary)]"><Globe size={14} /> Intel Sources</h2>
             <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">

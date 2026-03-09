@@ -3,10 +3,10 @@ import { Search, Globe, TrendingUp, Shield, Zap, Newspaper, Building2, Loader2 }
 import { PageHeader } from '@/components/PageHeader';
 import { getIntelStatus, type IntelSource } from '@/lib/api';
 
-/** Predefined research universes with World Monitor intelligence linkage. */
+/** Predefined research universes with intelligence feed linkage. */
 const UNIVERSES = [
   { id: 'tech-mega', name: 'Tech Mega-Caps', symbols: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA'], icon: Zap, color: 'text-blue-400', description: 'US mega-cap technology leaders' },
-  { id: 'defense', name: 'Defense & Aerospace', symbols: ['LMT', 'RTX', 'NOC', 'GD', 'BA', 'LHX'], icon: Shield, color: 'text-amber-400', description: 'Linked to World Monitor conflict intelligence (ACLED, UCDP)' },
+  { id: 'defense', name: 'Defense & Aerospace', symbols: ['LMT', 'RTX', 'NOC', 'GD', 'BA', 'LHX'], icon: Shield, color: 'text-amber-400', description: 'Linked to conflict intelligence (ACLED, UCDP)' },
   { id: 'energy', name: 'Energy & Commodities', symbols: ['XOM', 'CVX', 'COP', 'SLB', 'OXY', 'MPC'], icon: TrendingUp, color: 'text-emerald-400', description: 'Linked to EIA energy data and sanctions intelligence' },
   { id: 'financials', name: 'Financials', symbols: ['JPM', 'BAC', 'GS', 'MS', 'WFC', 'C', 'BLK'], icon: Building2, color: 'text-purple-400', description: 'Major financial institutions' },
   { id: 'emerging', name: 'Emerging Markets ETFs', symbols: ['EEM', 'VWO', 'IEMG', 'INDA', 'EWZ', 'FXI'], icon: Globe, color: 'text-teal-400', description: 'Linked to CII country risk scores and geopolitical intelligence' },
@@ -34,7 +34,7 @@ export function ResearchPage() {
 
   return (
     <div>
-      <PageHeader title="Research" description="Universe and watchlist management — symbols linked to World Monitor intelligence feeds" />
+      <PageHeader title="Research" description="Universe and watchlist management — symbols linked to Nera intelligence feeds" />
 
       <div className="mb-6">
         <div className="relative">
@@ -66,7 +66,7 @@ export function ResearchPage() {
       </div>
 
       <div>
-        <h2 className="mb-3 text-sm font-semibold text-[var(--color-text-tertiary)]">World Monitor Data Sources (Live)</h2>
+        <h2 className="mb-3 text-sm font-semibold text-[var(--color-text-tertiary)]">Intelligence Data Sources (Live)</h2>
         {loadingIntel ? (
           <div className="flex justify-center py-8"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={20} /></div>
         ) : (

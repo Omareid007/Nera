@@ -2,7 +2,7 @@
  * AlertsPage — Create, manage, and track price/risk threshold alerts.
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Loader2, Bell, BellOff, Plus, Trash2, AlertTriangle, TrendingUp, TrendingDown, Activity, Shield, BarChart3 } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
 import { listAlerts, createAlertApi, dismissAlert, deleteAlertApi, evaluateAlerts, type Alert } from '@/lib/api';
@@ -47,11 +47,11 @@ export function AlertsPage() {
   const [symbol, setSymbol] = useState('');
   const [threshold, setThreshold] = useState('');
 
-  const refresh = () => {
+  const refresh = useCallback(() => {
     listAlerts().then((r) => setAlerts(r.alerts)).catch((e) => setActionError(e instanceof Error ? e.message : 'Failed to load alerts')).finally(() => setLoading(false));
-  };
+  }, []);
 
-  useEffect(() => { refresh(); }, []);
+  useEffect(() => { refresh(); }, [refresh]);
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();

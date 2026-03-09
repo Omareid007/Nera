@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Loader2, TrendingUp, TrendingDown, ShieldAlert, BarChart3, RefreshCw, Plus, Minus } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
 import { MetricCard } from '@/components/MetricCard';
@@ -78,14 +78,14 @@ export function PortfolioPage() {
   const [fundLoading, setFundLoading] = useState(false);
   const [fundMsg, setFundMsg] = useState('');
 
-  const load = () => {
+  const load = useCallback(() => {
     getPortfolio()
       .then((r) => setPortfolio(r.portfolio))
       .catch((e) => setError(e instanceof Error ? e.message : 'Failed to load portfolio'))
       .finally(() => setLoading(false));
-  };
+  }, []);
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => { load(); }, [load]);
 
   const handleRefresh = async () => {
     setRefreshing(true);

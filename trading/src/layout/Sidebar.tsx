@@ -128,7 +128,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         ))}
       </nav>
 
-      {/* World Monitor link + collapse toggle */}
+      {/* Intelligence Hub link + collapse toggle */}
       <div className="border-t border-[var(--color-border-subtle)] p-2">
         <a
           href="/"

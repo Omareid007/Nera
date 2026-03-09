@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { ArrowRightLeft, Loader2 } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
 import { StatusBadge } from '@/components/StatusBadge';
@@ -18,11 +18,11 @@ export function ExecutionPage() {
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
 
-  const load = async () => {
+  const load = useCallback(async () => {
     try { const res = await listOrders(); setOrders(res.orders); } catch (e) { setError(e instanceof Error ? e.message : 'Failed to load orders'); } finally { setLoading(false); }
-  };
+  }, []);
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => { load(); }, [load]);
 
   const handleSubmit = async () => {
     if (!symbol.trim()) return;
