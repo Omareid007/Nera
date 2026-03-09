@@ -89,8 +89,8 @@ export default async function handler(req) {
   try {
     const parsedUrl = new URL(feedUrl);
 
-    // Security: Check if domain is allowed (normalize www prefix)
-    const hostname = parsedUrl.hostname;
+    // Security: Check if domain is allowed (normalize case and www prefix)
+    const hostname = parsedUrl.hostname.toLowerCase();
     const bare = hostname.replace(/^www\./, '');
     const withWww = hostname.startsWith('www.') ? hostname : `www.${hostname}`;
     if (!ALLOWED_DOMAINS.includes(hostname) && !ALLOWED_DOMAINS.includes(bare) && !ALLOWED_DOMAINS.includes(withWww)) {

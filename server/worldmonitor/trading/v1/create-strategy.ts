@@ -46,14 +46,31 @@ export async function createStrategy(req: Request): Promise<Response> {
   // Validate parameters against template field constraints
   for (const field of template.fields) {
     const val = mergedParams[field.key];
-    if (field.type === 'number' && typeof val === 'number') {
+    if (field.type === 'number') {
+      if (typeof val !== 'number' || !Number.isFinite(val)) {
+        return errorResponse(`${field.key} must be a finite number`);
+      }
       if (field.min !== undefined && val < field.min) {
         return errorResponse(`${field.key} must be >= ${field.min}`);
       }
       if (field.max !== undefined && val > field.max) {
         return errorResponse(`${field.key} must be <= ${field.max}`);
       }
+    } else if (field.type === 'boolean') {
+      if (typeof val !== 'boolean') {
+        return errorResponse(`${field.key} must be a boolean`);
+      }
+    } else if (field.type === 'string') {
+      if (typeof val !== 'string' || val.length > 1000) {
+        return errorResponse(`${field.key} must be a string (max 1000 chars)`);
+      }
     }
+  }
+
+  const VALID_FREQUENCIES = new Set(['hourly', 'daily', 'weekly']);
+  const frequency = (body.frequency as string) || 'daily';
+  if (!VALID_FREQUENCIES.has(frequency)) {
+    return errorResponse(`frequency must be one of: ${[...VALID_FREQUENCIES].join(', ')}`);
   }
 
   const riskLimits = body.riskLimits as Strategy['riskLimits'] | undefined;
@@ -66,7 +83,7 @@ export async function createStrategy(req: Request): Promise<Response> {
     parameters: mergedParams,
     universe: universe.map((s) => String(s).toUpperCase()),
     riskLimits: riskLimits ?? template.defaultRiskLimits,
-    frequency: (body.frequency as string) || 'daily',
+    frequency,
     status: 'draft',
     createdAt: Date.now(),
     updatedAt: Date.now(),
