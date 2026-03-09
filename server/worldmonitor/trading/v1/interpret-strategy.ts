@@ -37,7 +37,7 @@ function buildPrompt(strategy: {
   description: string;
 }): string {
   const params = Object.entries(strategy.parameters)
-    .map(([k, v]) => `${k}=${v}`)
+    .map(([k, v]) => `${k}=${typeof v === 'object' ? JSON.stringify(v) : String(v)}`)
     .join(', ');
 
   return [

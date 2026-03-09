@@ -49,7 +49,7 @@ export async function listEvidence(req: Request): Promise<Response> {
       id: le.id,
       type: le.type,
       category,
-      strategyId: null,
+      strategyId: (le as { strategyId?: string | null }).strategyId ?? null,
       summary: `${le.type}: ${le.symbol ?? 'system'}`,
       timestamp: le.timestamp,
     });

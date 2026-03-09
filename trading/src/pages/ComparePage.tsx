@@ -7,7 +7,6 @@ import { useState, useEffect, useMemo } from 'react';
 import { Loader2, BarChart3, TrendingUp, Plus, X, ArrowUpDown } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, BarChart, Bar, Cell } from 'recharts';
 import { PageHeader } from '@/components/PageHeader';
-import { StatusBadge } from '@/components/StatusBadge';
 import { listBacktestRuns, getBacktestRun, type BacktestIndexEntry, type BacktestRun } from '@/lib/api';
 
 const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#06b6d4', '#84cc16'];
@@ -271,7 +270,7 @@ export function ComparePage() {
                         <td className="py-2 pr-4 text-[var(--color-text-secondary)]">Template</td>
                         {runs.map((r) => (
                           <td key={r.id} className="py-2 px-3 text-right text-[var(--color-text-tertiary)]">
-                            <StatusBadge status={r.templateId as 'active'} />
+                            <span className="rounded-md bg-[var(--color-surface-2)] px-2 py-0.5 text-[10px]">{r.templateId}</span>
                           </td>
                         ))}
                       </tr>

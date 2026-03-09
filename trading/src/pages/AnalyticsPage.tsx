@@ -4,6 +4,7 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Loader2, TrendingUp, TrendingDown, BarChart3, Activity, RefreshCw } from 'lucide-react';
 import {
   ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip,
@@ -41,8 +42,10 @@ type CandlePoint = Candle & {
 };
 
 export function AnalyticsPage() {
-  const [symbol, setSymbol] = useState('AAPL');
-  const [symbolInput, setSymbolInput] = useState('AAPL');
+  const [searchParams] = useSearchParams();
+  const initialSymbol = searchParams.get('symbol')?.toUpperCase() || 'AAPL';
+  const [symbol, setSymbol] = useState(initialSymbol);
+  const [symbolInput, setSymbolInput] = useState(initialSymbol);
   const [interval, setInterval] = useState('1d');
   const [range, setRange] = useState('6mo');
   const [data, setData] = useState<MarketDataResponse | null>(null);

@@ -141,13 +141,13 @@ export async function getPortfolioSnapshot(): Promise<PortfolioSnapshot | null> 
 export async function storeLedgerEntry(entry: LedgerEntry): Promise<void> {
   await setCachedJson(`${LEDGER_PREFIX}${entry.id}`, entry, TTL_90D);
   const index = await getLedgerIndex();
-  index.push({ id: entry.id, type: entry.type, symbol: entry.symbol, timestamp: entry.timestamp });
+  index.push({ id: entry.id, type: entry.type, symbol: entry.symbol, strategyId: entry.strategyId ?? null, timestamp: entry.timestamp });
   // Keep last 500 entries in index
   if (index.length > 500) index.splice(0, index.length - 500);
   await setCachedJson(LEDGER_INDEX, index, TTL_90D);
 }
 
-type LedgerIndexEntry = { id: string; type: string; symbol: string | null; timestamp: number };
+type LedgerIndexEntry = { id: string; type: string; symbol: string | null; strategyId: string | null; timestamp: number };
 
 export async function getLedgerIndex(): Promise<LedgerIndexEntry[]> {
   return (await getCachedJson(LEDGER_INDEX)) ?? [];

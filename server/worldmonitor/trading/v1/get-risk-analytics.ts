@@ -179,11 +179,11 @@ export async function getRiskAnalytics(req: Request): Promise<Response> {
     const sortedReturns = [...returns].sort((a, b) => a - b);
     const var95 = returns.length > 10 ? Math.abs(percentile(sortedReturns, 5)) * pos.marketValue : 0;
 
-    let maxDD = 0, peak = 0;
+    let maxDD = 0, cumReturn = 1, peak = 1;
     for (const r of returns) {
-      peak = Math.max(peak, peak * (1 + r));
-      if (peak === 0) peak = 1;
-      const dd = (peak - peak * (1 + r)) / peak;
+      cumReturn *= (1 + r);
+      peak = Math.max(peak, cumReturn);
+      const dd = (peak - cumReturn) / peak;
       maxDD = Math.max(maxDD, dd);
     }
 
@@ -199,7 +199,8 @@ export async function getRiskAnalytics(req: Request): Promise<Response> {
   }
 
   // Portfolio-weighted returns
-  const minLen = Math.min(...symbols.map((s) => (returnsMap[s] ?? []).length).filter((l) => l > 0), 252);
+  const validLengths = symbols.map((s) => (returnsMap[s] ?? []).length).filter((l) => l > 0);
+  const minLen = validLengths.length > 0 ? Math.min(...validLengths, 252) : 0;
   const portfolioReturns: number[] = [];
   for (let t = 0; t < minLen; t++) {
     let dayReturn = 0;

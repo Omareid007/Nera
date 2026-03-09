@@ -199,11 +199,8 @@ function updatePortfolioWithFill(portfolio: PortfolioSnapshot, order: Order): vo
         existing.unrealizedPnl = (existing.currentPrice - existing.avgEntryPrice) * existing.quantity;
         existing.unrealizedPnlPct = (existing.currentPrice / existing.avgEntryPrice - 1) * 100;
       }
-    } else {
-      // No long position to sell — reject in paper mode (short selling disabled)
-      // In paper mode, we don't allow opening short positions to avoid
-      // margin complexity and position management edge cases
     }
+    // Note: sell without position is rejected by validation at top of handler
   }
 
   // Recompute totals
