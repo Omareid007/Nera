@@ -9,6 +9,14 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, '../public/trading'),
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-charts': ['recharts'],
+        },
+      },
+    },
   },
   resolve: {
     alias: {
