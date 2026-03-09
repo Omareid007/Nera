@@ -157,6 +157,17 @@ const RPC_CACHE_TIER: Record<string, CacheTier> = {
   '/api/trading/v1/interpret-strategy': 'no-store',
   '/api/trading/v1/list-ai-events': 'fast',
   '/api/trading/v1/get-ai-event': 'fast',
+
+  // Market Data & Analytics
+  '/api/trading/v1/get-market-data': 'fast',
+  '/api/trading/v1/get-watchlist-quotes': 'fast',
+  '/api/trading/v1/get-risk-analytics': 'fast',
+
+  // Alerts
+  '/api/trading/v1/create-alert': 'no-store',
+  '/api/trading/v1/list-alerts': 'fast',
+  '/api/trading/v1/dismiss-alert': 'no-store',
+  '/api/trading/v1/delete-alert': 'no-store',
 };
 
 const PREMIUM_RPC_PATHS = new Set([

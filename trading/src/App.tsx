@@ -14,6 +14,9 @@ import { ResearchPage } from './pages/ResearchPage';
 import { EvidencePage } from './pages/EvidencePage';
 import { AdminPage } from './pages/AdminPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { AnalyticsPage } from './pages/AnalyticsPage';
+import { RiskMatrixPage } from './pages/RiskMatrixPage';
+import { AlertsPage } from './pages/AlertsPage';
 
 export function App() {
   return (
@@ -31,6 +34,9 @@ export function App() {
         <Route path="/ai" element={<AiPage />} />
         <Route path="/research" element={<ResearchPage />} />
         <Route path="/evidence" element={<EvidencePage />} />
+        <Route path="/analytics" element={<AnalyticsPage />} />
+        <Route path="/risk" element={<RiskMatrixPage />} />
+        <Route path="/alerts" element={<AlertsPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />

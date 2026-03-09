@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { PlusCircle, Play, FlaskConical, Brain, Loader2, ArrowRightLeft, Shield, Globe, FileCheck, BarChart3, Activity } from 'lucide-react';
+import { PlusCircle, Play, FlaskConical, Brain, Loader2, ArrowRightLeft, Shield, Globe, FileCheck, BarChart3, Activity, RefreshCw, TrendingUp, TrendingDown, Bell } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
 import { MetricCard } from '@/components/MetricCard';
 import { StatusBadge } from '@/components/StatusBadge';
 import {
-  listStrategies, listBacktestRuns, getPortfolio, listAiEvents, listForwardRuns, listEvidence,
-  type StrategyIndexEntry, type BacktestIndexEntry, type PortfolioSnapshot, type AiEventIndexEntry, type ForwardRunIndexEntry, type EvidenceEntry,
+  listStrategies, listBacktestRuns, getPortfolio, listAiEvents, listForwardRuns, listEvidence, getWatchlistQuotes, listAlerts,
+  type StrategyIndexEntry, type BacktestIndexEntry, type PortfolioSnapshot, type AiEventIndexEntry, type ForwardRunIndexEntry, type EvidenceEntry, type WatchlistQuote, type Alert,
 } from '@/lib/api';
+
+const TICKER_SYMBOLS = ['SPY', 'QQQ', 'DIA', 'AAPL', 'MSFT', 'NVDA', 'BTC-USD', 'ETH-USD', 'GLD', 'TLT'];
 
 function timeAgo(ts: number): string {
   const diff = Date.now() - ts;
@@ -24,27 +26,75 @@ export function DashboardPage() {
   const [aiEvents, setAiEvents] = useState<AiEventIndexEntry[]>([]);
   const [forwardRuns, setForwardRuns] = useState<ForwardRunIndexEntry[]>([]);
   const [evidence, setEvidence] = useState<EvidenceEntry[]>([]);
+  const [ticker, setTicker] = useState<WatchlistQuote[]>([]);
+  const [alerts, setAlerts] = useState<Alert[]>([]);
   const [loading, setLoading] = useState(true);
+  const [autoRefresh, setAutoRefresh] = useState(true);
+  const [lastRefresh, setLastRefresh] = useState(Date.now());
 
-  useEffect(() => {
-    Promise.all([
+  const fetchAll = useCallback(() => {
+    return Promise.all([
       listStrategies().then((r) => setStrategies(r.strategies)).catch(() => {}),
       listBacktestRuns().then((r) => setBacktests(r.backtestRuns)).catch(() => {}),
       getPortfolio().then((r) => setPortfolio(r.portfolio)).catch(() => {}),
       listAiEvents().then((r) => setAiEvents(r.aiEvents)).catch(() => {}),
       listForwardRuns().then((r) => setForwardRuns(r.forwardRuns)).catch(() => {}),
       listEvidence().then((r) => setEvidence(r.evidence)).catch(() => {}),
-    ]).finally(() => setLoading(false));
+      getWatchlistQuotes(TICKER_SYMBOLS).then((r) => setTicker(r.quotes)).catch(() => {}),
+      listAlerts().then((r) => setAlerts(r.alerts)).catch(() => {}),
+    ]).finally(() => { setLoading(false); setLastRefresh(Date.now()); });
   }, []);
+
+  useEffect(() => { fetchAll(); }, [fetchAll]);
+
+  // Auto-refresh every 60s
+  useEffect(() => {
+    if (!autoRefresh) return;
+    const id = window.setInterval(fetchAll, 60_000);
+    return () => window.clearInterval(id);
+  }, [autoRefresh, fetchAll]);
 
   const activeStrategies = strategies.filter((s) => s.status === 'active' || s.status === 'paper').length;
   const runningForward = forwardRuns.filter((r) => r.status === 'running').length;
+  const activeAlerts = alerts.filter((a) => a.status === 'active').length;
+  const triggeredAlerts = alerts.filter((a) => a.status === 'triggered').length;
 
   if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={24} /></div>;
 
   return (
     <div>
-      <PageHeader title="Command Center" description="Unified intelligence — portfolio, strategies, AI activity, and World Monitor feeds" />
+      <PageHeader title="Command Center" description="Unified intelligence — portfolio, strategies, AI activity, and World Monitor feeds"
+        actions={
+          <div className="flex items-center gap-2">
+            <button onClick={() => setAutoRefresh(!autoRefresh)}
+              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium ${
+                autoRefresh ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-[var(--color-surface-2)] text-[var(--color-text-tertiary)]'
+              }`}>
+              <RefreshCw size={12} className={autoRefresh ? 'animate-spin' : ''} /> {autoRefresh ? 'Live' : 'Paused'}
+            </button>
+            <span className="text-[10px] text-[var(--color-text-muted)]">{timeAgo(lastRefresh)}</span>
+          </div>
+        }
+      />
+
+      {/* Live market ticker */}
+      {ticker.length > 0 && (
+        <div className="mb-4 overflow-x-auto">
+          <div className="flex gap-2">
+            {ticker.map((q) => (
+              <Link key={q.symbol} to={`/analytics?symbol=${q.symbol}`}
+                className="flex shrink-0 items-center gap-2 rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] px-3 py-2 text-xs transition-colors hover:border-[var(--color-accent)]">
+                <span className="font-medium text-[var(--color-text-primary)]">{q.symbol}</span>
+                <span className="text-[var(--color-text-secondary)]">${q.price.toFixed(2)}</span>
+                <span className={`flex items-center gap-0.5 font-medium ${q.changePct >= 0 ? 'text-[var(--color-profit)]' : 'text-[var(--color-loss)]'}`}>
+                  {q.changePct >= 0 ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
+                  {q.changePct >= 0 ? '+' : ''}{q.changePct.toFixed(2)}%
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Top metrics row */}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-6">
@@ -54,20 +104,22 @@ export function DashboardPage() {
         <MetricCard label="Strategies" value={String(strategies.length)} subtitle={activeStrategies > 0 ? `${activeStrategies} active` : undefined} />
         <MetricCard label="Backtests" value={String(backtests.length)} subtitle={backtests.filter((b) => b.status === 'complete').length > 0 ? `${backtests.filter((b) => b.status === 'complete').length} complete` : undefined} />
         <MetricCard label="Forward Runs" value={String(forwardRuns.length)} subtitle={runningForward > 0 ? `${runningForward} running` : undefined} />
-        <MetricCard label="AI Events" value={String(aiEvents.length)} subtitle={aiEvents.length > 0 ? `Latest: ${timeAgo(aiEvents[0]?.timestamp ?? 0)}` : undefined} />
+        <MetricCard label="Alerts" value={String(alerts.length)} subtitle={triggeredAlerts > 0 ? `${triggeredAlerts} triggered` : activeAlerts > 0 ? `${activeAlerts} active` : undefined} />
       </div>
 
       {/* Quick actions */}
       <div className="mt-8">
         <h2 className="mb-3 text-sm font-semibold text-[var(--color-text-tertiary)]">Quick Actions</h2>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-9">
           <QuickAction to="/create" icon={PlusCircle} label="Create Strategy" />
           <QuickAction to="/backtests" icon={FlaskConical} label="Backtests" />
           <QuickAction to="/forward" icon={Play} label="Forward Runner" />
           <QuickAction to="/execution" icon={ArrowRightLeft} label="Execution" />
           <QuickAction to="/portfolio" icon={BarChart3} label="Portfolio" />
+          <QuickAction to="/analytics" icon={Activity} label="Analytics" />
+          <QuickAction to="/risk" icon={Shield} label="Risk Matrix" />
           <QuickAction to="/ai" icon={Brain} label="AI Pulse" />
-          <QuickAction to="/evidence" icon={FileCheck} label="Evidence" />
+          <QuickAction to="/alerts" icon={Bell} label="Alerts" />
         </div>
       </div>
 
@@ -200,7 +252,7 @@ export function DashboardPage() {
           {/* Evidence trail */}
           <div>
             <div className="mb-3 flex items-center justify-between">
-              <h2 className="flex items-center gap-2 text-sm font-semibold text-[var(--color-text-tertiary)]"><Shield size={14} /> Audit Trail</h2>
+              <h2 className="flex items-center gap-2 text-sm font-semibold text-[var(--color-text-tertiary)]"><FileCheck size={14} /> Audit Trail</h2>
               <Link to="/evidence" className="text-xs text-[var(--color-accent)] hover:underline">View all</Link>
             </div>
             <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">

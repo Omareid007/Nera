@@ -28,6 +28,10 @@ import { submitOrder } from './submit-order';
 import { listOrders } from './list-orders';
 import { listLedger } from './list-ledger';
 import { listEvidence } from './list-evidence';
+import { getMarketData } from './get-market-data';
+import { getWatchlistQuotes } from './get-watchlist-quotes';
+import { getRiskAnalytics } from './get-risk-analytics';
+import { createAlert, listAlerts, dismissAlert, deleteAlert } from './alerts';
 
 const BASE = '/api/trading/v1';
 
@@ -100,5 +104,16 @@ export function createTradingRoutes(): RouteDescriptor[] {
     { method: 'POST', path: `${BASE}/interpret-strategy`,     handler: interpretStrategy },
     { method: 'GET',  path: `${BASE}/list-ai-events`,         handler: listAiEventsHandler },
     { method: 'GET',  path: `${BASE}/get-ai-event`,           handler: getAiEventHandler },
+
+    // Market Data & Analytics
+    { method: 'GET',  path: `${BASE}/get-market-data`,        handler: getMarketData },
+    { method: 'GET',  path: `${BASE}/get-watchlist-quotes`,   handler: getWatchlistQuotes },
+    { method: 'GET',  path: `${BASE}/get-risk-analytics`,     handler: getRiskAnalytics },
+
+    // Alerts
+    { method: 'POST', path: `${BASE}/create-alert`,           handler: createAlert },
+    { method: 'GET',  path: `${BASE}/list-alerts`,            handler: listAlerts },
+    { method: 'POST', path: `${BASE}/dismiss-alert`,          handler: dismissAlert },
+    { method: 'POST', path: `${BASE}/delete-alert`,           handler: deleteAlert },
   ];
 }

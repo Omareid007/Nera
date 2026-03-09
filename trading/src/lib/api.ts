@@ -428,3 +428,148 @@ export interface EvidenceEntry {
 export function listEvidence(type?: string) {
   return rpc<{ evidence: EvidenceEntry[] }>('GET', 'list-evidence', type ? { type } : undefined);
 }
+
+// --- Market Data ---
+
+export interface Candle {
+  timestamp: number;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+}
+
+export interface QuoteData {
+  symbol: string;
+  price: number;
+  change: number;
+  changePct: number;
+  open: number;
+  high: number;
+  low: number;
+  prevClose: number;
+  volume: number;
+  avgVolume: number;
+  marketCap: number | null;
+  fiftyTwoWeekHigh: number;
+  fiftyTwoWeekLow: number;
+  name: string;
+  exchange: string;
+  currency: string;
+  timestamp: number;
+}
+
+export interface MarketDataResponse {
+  quote: QuoteData;
+  candles: Candle[];
+  sma20: number[];
+  sma50: number[];
+  ema12: number[];
+  ema26: number[];
+  rsi14: number[];
+  bollingerUpper: number[];
+  bollingerLower: number[];
+  bollingerMid: number[];
+  macd: number[];
+  macdSignal: number[];
+  macdHistogram: number[];
+  volumeSma20: number[];
+}
+
+export function getMarketData(symbol: string, interval = '1d', range = '6mo') {
+  return rpc<MarketDataResponse>('GET', 'get-market-data', { symbol, interval, range });
+}
+
+export interface WatchlistQuote {
+  symbol: string;
+  price: number;
+  change: number;
+  changePct: number;
+  volume: number;
+  name: string;
+  timestamp: number;
+}
+
+export function getWatchlistQuotes(symbols: string[]) {
+  return rpc<{ quotes: WatchlistQuote[] }>('GET', 'get-watchlist-quotes', { symbols: symbols.join(',') });
+}
+
+// --- Risk Analytics ---
+
+export interface PositionRisk {
+  symbol: string;
+  weight: number;
+  beta: number;
+  volatility: number;
+  var95: number;
+  maxDrawdown: number;
+  correlationToPortfolio: number;
+}
+
+export interface StressScenario {
+  name: string;
+  description: string;
+  portfolioImpactPct: number;
+  positionImpacts: { symbol: string; impactPct: number }[];
+}
+
+export interface RiskAnalytics {
+  parametricVaR95: number;
+  parametricVaR99: number;
+  historicalVaR95: number;
+  expectedShortfall95: number;
+  portfolioBeta: number;
+  portfolioVolatility: number;
+  sharpeRatio: number;
+  sortinoRatio: number;
+  informationRatio: number;
+  trackingError: number;
+  herfindahlIndex: number;
+  topHolding: { symbol: string; weight: number } | null;
+  sectorConcentration: Record<string, number>;
+  longExposurePct: number;
+  shortExposurePct: number;
+  netExposurePct: number;
+  grossExposurePct: number;
+  leverageRatio: number;
+  cashPct: number;
+  correlationMatrix: { symbols: string[]; matrix: number[][] };
+  stressTests: StressScenario[];
+  positionRisks: PositionRisk[];
+  timestamp: number;
+}
+
+export function getRiskAnalytics() {
+  return rpc<{ analytics: RiskAnalytics }>('GET', 'get-risk-analytics');
+}
+
+// --- Alerts ---
+
+export interface Alert {
+  id: string;
+  name: string;
+  type: string;
+  symbol: string | null;
+  threshold: number;
+  status: 'active' | 'triggered' | 'dismissed';
+  triggeredAt: number | null;
+  triggeredValue: number | null;
+  createdAt: number;
+}
+
+export function createAlertApi(data: { name: string; type: string; symbol?: string; threshold: number }) {
+  return rpc<{ alert: Alert }>('POST', 'create-alert', data);
+}
+
+export function listAlerts() {
+  return rpc<{ alerts: Alert[] }>('GET', 'list-alerts');
+}
+
+export function dismissAlert(id: string) {
+  return rpc<{ alert: Alert }>('POST', 'dismiss-alert', { id });
+}
+
+export function deleteAlertApi(id: string) {
+  return rpc<{ deleted: boolean }>('POST', 'delete-alert', { id });
+}

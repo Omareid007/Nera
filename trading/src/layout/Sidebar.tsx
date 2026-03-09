@@ -16,6 +16,9 @@ import {
   Globe,
   ChevronLeft,
   ChevronRight,
+  Activity,
+  AlertTriangle,
+  Bell,
 } from 'lucide-react';
 
 const NAV_SECTIONS = [
@@ -35,6 +38,14 @@ const NAV_SECTIONS = [
       { to: '/execution', icon: ArrowRightLeft, label: 'Execution' },
       { to: '/portfolio', icon: PieChart, label: 'Portfolio' },
       { to: '/ledger', icon: ScrollText, label: 'Ledger' },
+    ],
+  },
+  {
+    label: 'Analytics',
+    items: [
+      { to: '/analytics', icon: Activity, label: 'Charts' },
+      { to: '/risk', icon: AlertTriangle, label: 'Risk Matrix' },
+      { to: '/alerts', icon: Bell, label: 'Alerts' },
     ],
   },
   {
