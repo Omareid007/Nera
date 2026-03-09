@@ -796,7 +796,7 @@ function calcConflictScore(data: CountryData, countryCode: string): number {
     const battleCount = events.filter(e => e.eventType === 'battle').length;
     const explosionCount = events.filter(e => e.eventType === 'explosion' || e.eventType === 'remote_violence').length;
     const civilianCount = events.filter(e => e.eventType === 'violence_against_civilians').length;
-    const totalFatalities = events.reduce((sum, e) => sum + e.fatalities, 0);
+    const totalFatalities = events.reduce((sum, e) => sum + (e.fatalities || 0), 0);
 
     const eventScore = Math.min(50, (battleCount * 3 + explosionCount * 4 + civilianCount * 5) * multiplier);
     const fatalityScore = Math.min(40, Math.sqrt(totalFatalities) * 5 * multiplier);
