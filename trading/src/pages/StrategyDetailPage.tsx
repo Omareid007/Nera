@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Loader2, FlaskConical, Trash2 } from 'lucide-react';
+import { Loader2, FlaskConical, Trash2, Brain } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
 import { StatusBadge } from '@/components/StatusBadge';
 import { MetricCard } from '@/components/MetricCard';
-import { getStrategy, deleteStrategy, runBacktest, listBacktestRuns, type Strategy, type BacktestIndexEntry } from '@/lib/api';
+import { getStrategy, deleteStrategy, runBacktest, listBacktestRuns, interpretStrategy, type Strategy, type BacktestIndexEntry } from '@/lib/api';
 
 export function StrategyDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -14,6 +14,7 @@ export function StrategyDetailPage() {
   const [loading, setLoading] = useState(true);
   const [running, setRunning] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [interpreting, setInterpreting] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -31,6 +32,17 @@ export function StrategyDetailPage() {
       navigate(`/backtests?highlight=${result.backtestRun.id}`);
     } catch {
       setRunning(false);
+    }
+  };
+
+  const handleInterpret = async () => {
+    if (!id) return;
+    setInterpreting(true);
+    try {
+      await interpretStrategy(id);
+      navigate('/ai');
+    } catch {
+      setInterpreting(false);
     }
   };
 
@@ -54,6 +66,11 @@ export function StrategyDetailPage() {
         actions={
           <div className="flex items-center gap-2">
             <StatusBadge status={strategy.status as 'draft'} />
+            <button onClick={handleInterpret} disabled={interpreting}
+              className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-blue-700 disabled:opacity-50">
+              {interpreting ? <Loader2 size={14} className="animate-spin" /> : <Brain size={14} />}
+              {interpreting ? 'Analyzing...' : 'AI Interpret'}
+            </button>
             <button onClick={handleBacktest} disabled={running}
               className="flex items-center gap-1.5 rounded-lg bg-[var(--color-accent)] px-3 py-1.5 text-xs font-medium text-[var(--color-surface-0)] disabled:opacity-50">
               {running ? <Loader2 size={14} className="animate-spin" /> : <FlaskConical size={14} />}

@@ -243,3 +243,54 @@ export interface Position {
 export function getPortfolio() {
   return rpc<{ portfolio: PortfolioSnapshot }>('GET', 'get-portfolio');
 }
+
+// --- AI Events ---
+
+export interface AiEventIndexEntry {
+  id: string;
+  type: string;
+  strategyId: string | null;
+  timestamp: number;
+}
+
+export interface AiInterpretation {
+  summary: string;
+  strengths: string[];
+  risks: string[];
+  market_conditions: string;
+  confidence: number;
+}
+
+export interface AiEventDetail {
+  id: string;
+  type: string;
+  strategyId: string | null;
+  provider: string;
+  model: string;
+  promptTemplate: string;
+  tokenUsage: { prompt: number; completion: number; total: number };
+  costEstimate: number | null;
+  input: string;
+  output: string;
+  timestamp: number;
+}
+
+export function interpretStrategy(strategyId: string) {
+  return rpc<{ aiEvent: AiEventDetail; interpretation: AiInterpretation; llmAvailable: boolean }>(
+    'POST',
+    'interpret-strategy',
+    { strategyId },
+  );
+}
+
+export function listAiEvents(strategyId?: string) {
+  return rpc<{ aiEvents: AiEventIndexEntry[] }>(
+    'GET',
+    'list-ai-events',
+    strategyId ? { strategyId } : undefined,
+  );
+}
+
+export function getAiEvent(id: string) {
+  return rpc<{ aiEvent: AiEventDetail }>('GET', 'get-ai-event', { id });
+}

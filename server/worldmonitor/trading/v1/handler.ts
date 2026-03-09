@@ -16,6 +16,9 @@ import { runBacktest } from './run-backtest';
 import { getBacktestRunHandler } from './get-backtest-run';
 import { listBacktestRuns } from './list-backtest-runs';
 import { getPortfolioHandler } from './get-portfolio';
+import { interpretStrategy } from './interpret-strategy';
+import { listAiEventsHandler } from './list-ai-events';
+import { getAiEventHandler } from './get-ai-event';
 
 const BASE = '/api/trading/v1';
 
@@ -68,5 +71,10 @@ export function createTradingRoutes(): RouteDescriptor[] {
 
     // Portfolio
     { method: 'GET',  path: `${BASE}/get-portfolio`,        handler: getPortfolioHandler },
+
+    // AI
+    { method: 'POST', path: `${BASE}/interpret-strategy`,   handler: interpretStrategy },
+    { method: 'GET',  path: `${BASE}/list-ai-events`,       handler: listAiEventsHandler },
+    { method: 'GET',  path: `${BASE}/get-ai-event`,         handler: getAiEventHandler },
   ];
 }

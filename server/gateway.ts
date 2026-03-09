@@ -137,6 +137,11 @@ const RPC_CACHE_TIER: Record<string, CacheTier> = {
   '/api/trading/v1/get-backtest-run': 'fast',
   '/api/trading/v1/list-backtest-runs': 'fast',
   '/api/trading/v1/get-portfolio': 'fast',
+
+  // AI
+  '/api/trading/v1/interpret-strategy': 'no-store',
+  '/api/trading/v1/list-ai-events': 'fast',
+  '/api/trading/v1/get-ai-event': 'fast',
 };
 
 const PREMIUM_RPC_PATHS = new Set([
