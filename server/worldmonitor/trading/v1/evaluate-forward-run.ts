@@ -7,7 +7,7 @@
 
 import { parseBody, jsonResponse, errorResponse } from './handler';
 import { getForwardRun, storeForwardRun, getStrategy } from './trading-store';
-import { generateId } from './_shared';
+import { generateId, DEFAULT_PAPER_CAPITAL } from './_shared';
 import { CHROME_UA } from '../../../_shared/constants';
 import type { ForwardSignal, ProposedAction } from './types';
 
@@ -179,7 +179,7 @@ export async function evaluateForwardRun(req: Request): Promise<Response> {
       // Generate proposed action for strong signals in assisted/semi_auto modes
       if (strength >= 65 && direction !== 'flat' && run.mode !== 'insight_only') {
         const positionSize = strategy.riskLimits.maxPositionPct / 100;
-        const capital = 100_000; // Paper account default
+        const capital = DEFAULT_PAPER_CAPITAL;
         const qty = Math.floor((capital * positionSize) / quote.price);
         if (qty > 0) {
           const action: ProposedAction = {

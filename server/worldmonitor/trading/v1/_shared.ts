@@ -1,7 +1,12 @@
+import { randomUUID } from 'node:crypto';
+
 export const UPSTREAM_TIMEOUT_MS = 25_000;
 
+/** Default starting capital for paper trading accounts. */
+export const DEFAULT_PAPER_CAPITAL = 100_000;
+
 export function generateId(): string {
-  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+  return randomUUID();
 }
 
 /** Parse JSON body from POST request, return empty object for GET. */

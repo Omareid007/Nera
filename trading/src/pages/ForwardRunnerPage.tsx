@@ -5,7 +5,7 @@ import { StatusBadge } from '@/components/StatusBadge';
 import { MetricCard } from '@/components/MetricCard';
 import {
   listStrategies, listForwardRuns, getForwardRun, startForwardRun, stopForwardRun, evaluateForwardRun,
-  type StrategyIndexEntry, type ForwardRunIndexEntry, type ForwardRun, type ForwardSignal, type ProposedAction,
+  type StrategyIndexEntry, type ForwardRunIndexEntry, type ForwardRun, type ForwardSignal, type ProposedAction, type ForwardRunMode,
 } from '@/lib/api';
 import { timeAgo } from '@/lib/utils';
 
@@ -56,7 +56,7 @@ export function ForwardRunnerPage() {
   const [runs, setRuns] = useState<ForwardRunIndexEntry[]>([]);
   const [activeRun, setActiveRun] = useState<ForwardRun | null>(null);
   const [selectedStrategyId, setSelectedStrategyId] = useState('');
-  const [selectedMode, setSelectedMode] = useState('insight_only');
+  const [selectedMode, setSelectedMode] = useState<ForwardRunMode>('insight_only');
   const [starting, setStarting] = useState(false);
   const [evaluating, setEvaluating] = useState(false);
   const [stopping, setStopping] = useState(false);
@@ -122,7 +122,7 @@ export function ForwardRunnerPage() {
             </div>
             <div>
               <label className="mb-1 block text-xs font-medium text-[var(--color-text-secondary)]">Mode</label>
-              <select value={selectedMode} onChange={(e) => setSelectedMode(e.target.value)}
+              <select value={selectedMode} onChange={(e) => setSelectedMode(e.target.value as ForwardRunMode)}
                 className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-2)] px-3 py-2 text-sm text-[var(--color-text-primary)]">
                 <option value="insight_only">Insight Only</option>
                 <option value="assisted">Assisted</option>

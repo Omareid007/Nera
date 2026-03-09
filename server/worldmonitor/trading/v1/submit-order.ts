@@ -7,7 +7,7 @@
 
 import { parseBody, jsonResponse, errorResponse } from './handler';
 import { storeOrder, getPortfolioSnapshot, storePortfolioSnapshot, storeLedgerEntry } from './trading-store';
-import { generateId } from './_shared';
+import { generateId, DEFAULT_PAPER_CAPITAL } from './_shared';
 import { CHROME_UA } from '../../../_shared/constants';
 import type { Order, Position, PortfolioSnapshot, LedgerEntry } from './types';
 
@@ -132,8 +132,8 @@ export async function submitOrder(req: Request): Promise<Response> {
 
 function createDefaultPortfolio(): PortfolioSnapshot {
   return {
-    totalEquity: 100_000,
-    cash: 100_000,
+    totalEquity: DEFAULT_PAPER_CAPITAL,
+    cash: DEFAULT_PAPER_CAPITAL,
     positionsValue: 0,
     unrealizedPnl: 0,
     realizedPnl: 0,
@@ -216,7 +216,7 @@ function updatePortfolioWithFill(portfolio: PortfolioSnapshot, order: Order): vo
   portfolio.unrealizedPnl = unrealizedPnl;
   portfolio.totalEquity = portfolio.cash + positionsValue;
   portfolio.totalPnl = portfolio.realizedPnl + unrealizedPnl;
-  portfolio.totalPnlPct = portfolio.totalEquity > 0 ? ((portfolio.totalEquity - 100_000) / 100_000) * 100 : 0;
+  portfolio.totalPnlPct = portfolio.totalEquity > 0 ? ((portfolio.totalEquity - DEFAULT_PAPER_CAPITAL) / DEFAULT_PAPER_CAPITAL) * 100 : 0;
   portfolio.longExposure = longExposure;
   portfolio.shortExposure = shortExposure;
   portfolio.netExposure = longExposure - shortExposure;

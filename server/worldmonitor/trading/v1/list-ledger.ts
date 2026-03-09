@@ -10,23 +10,14 @@ export async function listLedger(req: Request): Promise<Response> {
   let index = await getLedgerIndex();
 
   if (typeFilter) index = index.filter((e) => e.type === typeFilter);
-  if (strategyFilter) {
-    // Need to load entries to filter by strategy
-    const filtered = [];
-    for (const idx of index) {
-      const entry = await getLedgerEntry(idx.id);
-      if (entry && entry.strategyId === strategyFilter) filtered.push(idx);
-    }
-    index = filtered;
-  }
 
-  // Return newest first, limited to 200
+  // strategyId is stored in the index — filter without loading individual entries
+  if (strategyFilter) index = index.filter((e) => e.strategyId === strategyFilter);
+
+  // Return newest first, limited to 200, fetched in parallel
   const recent = index.slice(-200).reverse();
-  const entries: LedgerEntry[] = [];
-  for (const idx of recent) {
-    const entry = await getLedgerEntry(idx.id);
-    if (entry) entries.push(entry);
-  }
+  const results = await Promise.all(recent.map((idx) => getLedgerEntry(idx.id)));
+  const entries: LedgerEntry[] = results.filter((e): e is LedgerEntry => e !== null);
 
   return jsonResponse({ ledgerEntries: entries });
 }

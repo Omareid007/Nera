@@ -2,6 +2,16 @@
  * Trading API client — communicates with /api/trading/v1/ endpoints.
  */
 
+// ── Shared type aliases (mirrored from server/worldmonitor/trading/v1/types.ts) ──
+
+export type TemplateId = 'momentum' | 'mean_reversion' | 'breakout' | 'trend_following' | 'etf_rotation' | 'sector_rotation' | 'event_driven' | 'custom';
+export type StrategyStatus = 'draft' | 'backtesting' | 'validated' | 'paper' | 'active' | 'paused' | 'archived';
+export type BacktestStatus = 'pending' | 'running' | 'complete' | 'failed';
+export type ForwardRunMode = 'insight_only' | 'assisted' | 'semi_auto';
+export type ForwardRunStatus = 'running' | 'paused' | 'stopped';
+export type OrderSide = 'buy' | 'sell';
+export type PositionSide = 'long' | 'short';
+
 const BASE = '/api/trading/v1';
 
 async function rpc<T>(method: 'GET' | 'POST', path: string, body?: Record<string, unknown>): Promise<T> {
@@ -26,7 +36,7 @@ async function rpc<T>(method: 'GET' | 'POST', path: string, body?: Record<string
 // --- Templates ---
 
 export interface AlgorithmTemplate {
-  id: string;
+  id: TemplateId;
   name: string;
   description: string;
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
@@ -75,19 +85,19 @@ export interface Strategy {
   id: string;
   name: string;
   description: string;
-  templateId: string;
+  templateId: TemplateId;
   parameters: Record<string, unknown>;
   universe: string[];
   riskLimits: RiskLimits;
   frequency: string;
-  status: string;
+  status: StrategyStatus;
   createdAt: number;
   updatedAt: number;
 }
 
 export function createStrategy(data: {
   name: string;
-  templateId: string;
+  templateId: TemplateId;
   universe: string[];
   parameters?: Record<string, unknown>;
   riskLimits?: RiskLimits;
@@ -108,8 +118,8 @@ export function listStrategies() {
 export interface StrategyIndexEntry {
   id: string;
   name: string;
-  templateId: string;
-  status: string;
+  templateId: TemplateId;
+  status: StrategyStatus;
   updatedAt: number;
 }
 
@@ -142,7 +152,7 @@ export interface BacktestMetrics {
 export interface BacktestTrade {
   id: string;
   symbol: string;
-  side: string;
+  side: PositionSide;
   entryDate: string;
   entryPrice: number;
   exitDate: string;
@@ -164,13 +174,13 @@ export interface BacktestRun {
   id: string;
   strategyId: string;
   strategyName: string;
-  templateId: string;
+  templateId: TemplateId;
   parameters: Record<string, unknown>;
   universe: string[];
   startDate: string;
   endDate: string;
   initialCapital: number;
-  status: string;
+  status: BacktestStatus;
   metrics: BacktestMetrics | null;
   trades: BacktestTrade[];
   equityCurve: EquityCurvePoint[];
@@ -203,7 +213,7 @@ export interface BacktestIndexEntry {
   id: string;
   strategyId: string;
   strategyName: string;
-  status: string;
+  status: BacktestStatus;
   createdAt: number;
   totalReturn: number | null;
 }
@@ -235,7 +245,7 @@ export interface Position {
   unrealizedPnl: number;
   unrealizedPnlPct: number;
   realizedPnl: number;
-  side: string;
+  side: PositionSide;
   strategyId: string;
   openedAt: number;
 }
@@ -314,7 +324,7 @@ export interface ProposedAction {
   quantity: number;
   price: number;
   reason: string;
-  status: string;
+  status: 'pending' | 'approved' | 'rejected' | 'executed';
   timestamp: number;
 }
 
@@ -322,8 +332,8 @@ export interface ForwardRun {
   id: string;
   strategyId: string;
   strategyName: string;
-  mode: string;
-  status: string;
+  mode: ForwardRunMode;
+  status: ForwardRunStatus;
   signals: ForwardSignal[];
   proposedActions: ProposedAction[];
   startedAt: number;
@@ -335,11 +345,11 @@ export interface ForwardRunIndexEntry {
   id: string;
   strategyId: string;
   strategyName: string;
-  status: string;
+  status: ForwardRunStatus;
   startedAt: number;
 }
 
-export function startForwardRun(strategyId: string, mode: string = 'insight_only') {
+export function startForwardRun(strategyId: string, mode: ForwardRunMode = 'insight_only') {
   return rpc<{ forwardRun: ForwardRun }>('POST', 'start-forward-run', { strategyId, mode });
 }
 
@@ -371,7 +381,7 @@ export interface OrderEntry {
   strategyId: string | null;
   orderId: string | null;
   symbol: string | null;
-  side: string | null;
+  side: OrderSide | null;
   quantity: number | null;
   price: number | null;
   amount: number;
@@ -402,7 +412,7 @@ export interface LedgerEntry {
   strategyId: string | null;
   orderId: string | null;
   symbol: string | null;
-  side: string | null;
+  side: OrderSide | null;
   quantity: number | null;
   price: number | null;
   amount: number;
