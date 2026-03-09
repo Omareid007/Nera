@@ -8,6 +8,7 @@ import { getCachedJson, setCachedJson } from '../../../_shared/redis';
 import { getPortfolioSnapshot } from './trading-store';
 import { CHROME_UA } from '../../../_shared/constants';
 import type { Alert } from './alerts';
+import { sendNotification } from './notifications';
 
 const ALERTS_KEY = 'trading:alerts:v1:list';
 const TTL_90D = 90 * 24 * 3600;
@@ -162,6 +163,7 @@ export async function evaluateAlerts(_req: Request): Promise<Response> {
         alert.triggeredAt = Date.now();
         alert.triggeredValue = currentValue;
         triggered.push(alert);
+        sendNotification('alert_triggered', `Alert: ${alert.name}`, `${alert.type} triggered for ${alert.symbol ?? 'portfolio'} at ${currentValue}`, { alertId: alert.id, alertName: alert.name, type: alert.type, symbol: alert.symbol, threshold: alert.threshold, currentValue });
       }
     }
 

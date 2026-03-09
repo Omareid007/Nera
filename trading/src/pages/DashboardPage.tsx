@@ -63,7 +63,7 @@ export function DashboardPage() {
 
   return (
     <div>
-      <PageHeader title="Command Center" description="Unified intelligence — portfolio, strategies, AI activity, and World Monitor feeds"
+      <PageHeader title="Command Center" description="Unified intelligence — portfolio, strategies, AI activity, and global intelligence feeds"
         actions={
           <div className="flex items-center gap-2">
             <button onClick={() => setAutoRefresh(!autoRefresh)}
@@ -245,7 +245,7 @@ export function DashboardPage() {
                   <p className="text-xs text-[var(--color-text-muted)]">Loading intel sources...</p>
                 )}
               </div>
-              <a href="/" className="mt-3 block text-center text-xs text-[var(--color-accent)] hover:underline">Open World Monitor</a>
+              <a href="/" className="mt-3 block text-center text-xs text-[var(--color-accent)] hover:underline">Open Intelligence Hub</a>
             </div>
           </div>
 

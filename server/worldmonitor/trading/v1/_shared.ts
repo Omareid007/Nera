@@ -32,7 +32,7 @@ export async function parseBody(req: Request): Promise<Record<string, unknown>> 
 const CORS_HEADERS: Record<string, string> = {
   'Access-Control-Allow-Origin': process.env.CORS_ORIGIN || '*',
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-WorldMonitor-Key',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Nera-Key',
 };
 
 /** Create a JSON response with CORS headers. */

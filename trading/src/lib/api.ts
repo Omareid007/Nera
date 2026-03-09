@@ -735,3 +735,144 @@ export interface Attribution {
 export function getAttribution(backtestId: string) {
   return rpc<{ attribution: Attribution; backtestId: string; strategyName: string; templateId: TemplateId }>('GET', 'get-attribution', { backtestId });
 }
+
+// --- Audit Log ---
+
+export interface AuditEntry {
+  id: string;
+  action: string;
+  method: string;
+  actor: string;
+  ip: string | null;
+  userAgent: string | null;
+  requestBody: Record<string, unknown> | null;
+  responseStatus: number;
+  durationMs: number;
+  timestamp: number;
+}
+
+export interface AuditIndexEntry {
+  id: string;
+  action: string;
+  actor: string;
+  responseStatus: number;
+  timestamp: number;
+}
+
+export function listAuditLog() {
+  return rpc<{ entries: AuditIndexEntry[]; total: number }>('GET', 'list-audit-log');
+}
+
+export function getAuditEntryById(id: string) {
+  return rpc<{ entry: AuditEntry }>('GET', 'get-audit-entry', { id });
+}
+
+// --- Data Export ---
+
+export function exportData(entity: 'strategies' | 'backtests' | 'ledger' | 'orders' | 'portfolio', format: 'json' | 'csv' = 'json') {
+  if (format === 'csv') {
+    // For CSV, trigger a download
+    const url = `${BASE}/export-data?entity=${entity}&format=csv`;
+    window.open(url, '_blank');
+    return Promise.resolve({ entity, format: 'csv', downloading: true });
+  }
+  return rpc<{ entity: string; format: string; count: number; data: Record<string, unknown>[]; exportedAt: string }>('GET', 'export-data', { entity, format });
+}
+
+// --- Notifications ---
+
+export type NotificationEventType = 'alert_triggered' | 'order_filled' | 'drawdown_warning' | 'forward_signal' | 'system_alert';
+
+export interface NotificationConfig {
+  webhookUrl: string | null;
+  webhookSecret: string | null;
+  enabledEvents: NotificationEventType[];
+  inAppEnabled: boolean;
+  updatedAt: number;
+}
+
+export interface NotificationRecord {
+  id: string;
+  eventType: NotificationEventType;
+  channel: 'webhook' | 'in_app';
+  title: string;
+  message: string;
+  status: 'sent' | 'failed' | 'pending';
+  error: string | null;
+  timestamp: number;
+}
+
+export function getNotificationConfig() {
+  return rpc<{ config: NotificationConfig }>('GET', 'get-notification-config');
+}
+
+export function updateNotificationConfig(data: Partial<NotificationConfig>) {
+  return rpc<{ config: NotificationConfig }>('POST', 'update-notification-config', data);
+}
+
+export function listNotifications() {
+  return rpc<{ notifications: NotificationRecord[]; total: number }>('GET', 'list-notifications');
+}
+
+export function testWebhook() {
+  return rpc<{ record: NotificationRecord; success: boolean }>('POST', 'test-webhook');
+}
+
+// --- Platform Configuration ---
+
+export interface FeatureFlag {
+  id: string;
+  name: string;
+  enabled: boolean;
+  description: string;
+  category: 'trading' | 'ai' | 'analytics' | 'admin' | 'integration';
+}
+
+export interface PlatformConfig {
+  version: number;
+  featureFlags: FeatureFlag[];
+  aiModelPolicy: {
+    primaryProvider: string;
+    fallbackProviders: string[];
+    maxTokensPerRequest: number;
+    maxRequestsPerHour: number;
+  };
+  tradingLimits: {
+    maxStrategies: number;
+    maxBacktestsPerDay: number;
+    maxForwardRuns: number;
+    maxWatchlists: number;
+    maxAlertsPerUser: number;
+  };
+  updatedAt: number;
+  updatedBy: string;
+  changeNote: string;
+}
+
+export interface ConfigHistoryEntry {
+  id: string;
+  version: number;
+  changeNote: string;
+  updatedBy: string;
+  timestamp: number;
+}
+
+export function getPlatformConfig() {
+  return rpc<{ config: PlatformConfig }>('GET', 'get-platform-config');
+}
+
+export function updatePlatformConfig(data: { featureFlags?: { id: string; enabled: boolean }[]; aiModelPolicy?: Partial<PlatformConfig['aiModelPolicy']>; tradingLimits?: Partial<PlatformConfig['tradingLimits']>; changeNote?: string }) {
+  return rpc<{ config: PlatformConfig }>('POST', 'update-platform-config', data);
+}
+
+export function toggleFeatureFlagApi(flagId: string, enabled: boolean, changeNote?: string) {
+  return rpc<{ config: PlatformConfig; toggled: { flagId: string; enabled: boolean } }>('POST', 'toggle-feature-flag', { flagId, enabled, changeNote });
+}
+
+export function rollbackConfigApi(version: number) {
+  return rpc<{ config: PlatformConfig; rolledBackFrom: number; rolledBackTo: number }>('POST', 'rollback-config', { version });
+}
+
+export function listConfigHistory() {
+  return rpc<{ history: ConfigHistoryEntry[]; total: number }>('GET', 'list-config-history');
+}

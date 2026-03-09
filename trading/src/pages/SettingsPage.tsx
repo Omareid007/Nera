@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Save, Loader2, CheckCircle } from 'lucide-react';
+import { Save, Loader2, CheckCircle, Send, AlertTriangle } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
-import { getSettings, updateSettings, type UserSettings } from '@/lib/api';
+import {
+  getSettings, updateSettings, type UserSettings,
+  getNotificationConfig, updateNotificationConfig, testWebhook,
+} from '@/lib/api';
 
 export function SettingsPage() {
   const [settings, setSettings] = useState<UserSettings | null>(null);
@@ -9,12 +12,19 @@ export function SettingsPage() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [webhookUrl, setWebhookUrl] = useState('');
+  const [webhookTesting, setWebhookTesting] = useState(false);
+  const [webhookTestResult, setWebhookTestResult] = useState<string | null>(null);
 
   useEffect(() => {
-    getSettings()
-      .then((r) => setSettings(r.settings))
-      .catch(() => setError('Failed to load settings'))
-      .finally(() => setLoading(false));
+    Promise.all([
+      getSettings().then((r) => {
+        setSettings(r.settings);
+      }),
+      getNotificationConfig().then((r) => {
+        setWebhookUrl(r.config.webhookUrl ?? '');
+      }).catch(() => {}),
+    ]).catch(() => setError('Failed to load settings')).finally(() => setLoading(false));
   }, []);
 
   const save = async () => {
@@ -137,6 +147,65 @@ export function SettingsPage() {
             <p className="mt-1 text-[10px] text-[var(--color-text-muted)]">{settings.defaultWatchlistSymbols.length} symbols</p>
           </div>
         </SettingsSection>
+
+        <SettingsSection title="Webhook Notifications">
+          <div>
+            <p className="mb-2 text-xs text-[var(--color-text-muted)]">Receive notifications when alerts trigger, orders fill, or drawdowns occur.</p>
+            <div className="space-y-3">
+              <div>
+                <label className="mb-1 block text-xs text-[var(--color-text-tertiary)]">Webhook URL</label>
+                <input type="url" value={webhookUrl}
+                  onChange={(e) => setWebhookUrl(e.target.value)}
+                  placeholder="https://hooks.example.com/nera"
+                  className="w-full rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-2)] px-3 py-1.5 text-xs text-[var(--color-text-secondary)]" />
+              </div>
+              <div className="flex gap-2">
+                <button onClick={async () => {
+                  try {
+                    await updateNotificationConfig({ webhookUrl: webhookUrl || null });
+                    setSaved(true);
+                    setTimeout(() => setSaved(false), 3000);
+                  } catch (e) {
+                    setError(e instanceof Error ? e.message : 'Failed to save webhook');
+                  }
+                }}
+                  className="rounded-lg bg-[var(--color-surface-3)] px-3 py-1.5 text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">
+                  Save Webhook
+                </button>
+                <button onClick={async () => {
+                  setWebhookTesting(true);
+                  setWebhookTestResult(null);
+                  try {
+                    const r = await testWebhook();
+                    setWebhookTestResult(r.success ? 'Test sent successfully' : 'Test failed — check URL');
+                  } catch { setWebhookTestResult('Test failed'); }
+                  setWebhookTesting(false);
+                  setTimeout(() => setWebhookTestResult(null), 5000);
+                }}
+                  disabled={webhookTesting || !webhookUrl}
+                  className="flex items-center gap-1 rounded-lg bg-[var(--color-surface-3)] px-3 py-1.5 text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] disabled:opacity-50">
+                  {webhookTesting ? <Loader2 size={12} className="animate-spin" /> : <Send size={12} />} Test
+                </button>
+              </div>
+              {webhookTestResult && (
+                <p className={`text-xs ${webhookTestResult.includes('success') ? 'text-[var(--color-profit)]' : 'text-[var(--color-loss)]'}`}>
+                  {webhookTestResult}
+                </p>
+              )}
+            </div>
+          </div>
+        </SettingsSection>
+      </div>
+
+      {/* Disclaimer */}
+      <div className="mt-6 rounded-2xl border border-amber-500/20 bg-amber-500/5 p-4">
+        <div className="flex items-start gap-2">
+          <AlertTriangle size={14} className="mt-0.5 shrink-0 text-amber-400" />
+          <div className="text-xs text-amber-300/80">
+            <p className="font-medium">Risk Disclaimer</p>
+            <p className="mt-1">Nera is a research and paper trading platform. AI outputs are advisory only and do not constitute financial advice. All backtest results are based on historical data and do not guarantee future performance. Paper trading simulations may not reflect actual market conditions.</p>
+          </div>
+        </div>
       </div>
 
       <p className="mt-4 text-[10px] text-[var(--color-text-muted)]">

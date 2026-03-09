@@ -23,7 +23,7 @@ export function TopBar({ onMenuToggle }: TopBarProps) {
       </div>
 
       <div className="flex items-center gap-2">
-        <span className="text-xs text-[var(--color-text-tertiary)]">v0.1.0</span>
+        <span className="text-xs text-[var(--color-text-tertiary)]">v2.0.0</span>
       </div>
     </header>
   );
