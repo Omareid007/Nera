@@ -3,7 +3,7 @@ modules = ["nodejs-20"]
 
 hidden = [".config", "node_modules", ".git", "src-tauri", "e2e", "pro-test", ".claude", ".agent", ".agents", ".factory", ".windsurf"]
 
-onBoot = "npm install && cd trading && npm install"
+onBoot = "npm install && cd trading && npm install && npm run build"
 
 [run]
 args = ["npx", "tsx", "replit-server.ts"]

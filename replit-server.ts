@@ -1,13 +1,9 @@
 /**
  * Replit-compatible HTTP server for Nera Trading Platform.
  *
- * Bridges Node.js http.IncomingMessage to Web Standard Request/Response,
- * allowing the existing Vercel Edge Function handlers to run unchanged.
- *
  * Serves:
- *   /api/trading/v1/* → Trading API handlers (same as Vercel edge functions)
- *   /trading/*         → Trading SPA (pre-built static files)
- *   /*                 → Main SPA (pre-built static files)
+ *   /api/trading/v1/* → Trading API handlers
+ *   /*                → Nera Trading SPA (the primary app)
  */
 
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
@@ -64,7 +60,6 @@ async function toWebRequest(req: IncomingMessage): Promise<Request> {
     }
   }
 
-  // For Replit: add forwarded IP from socket if not present
   if (!headers.has('x-forwarded-for') && req.socket?.remoteAddress) {
     headers.set('x-forwarded-for', req.socket.remoteAddress);
   }
@@ -106,8 +101,8 @@ async function sendWebResponse(webRes: Response, res: ServerResponse): Promise<v
 }
 
 // --- Static file serving ---
-const PUBLIC_DIR = join(__dirname, 'public');
-const TRADING_DIR = join(PUBLIC_DIR, 'trading');
+// Nera trading app is the primary app, built to /dist
+const DIST_DIR = join(__dirname, 'dist');
 
 function serveStaticFile(filePath: string, res: ServerResponse): boolean {
   if (!existsSync(filePath)) return false;
@@ -170,7 +165,6 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse): Promise
 
       const webRes = await handler(webReq);
 
-      // Merge CORS headers into response
       const mergedHeaders = new Headers(webRes.headers);
       mergedHeaders.set('Access-Control-Allow-Origin', '*');
       mergedHeaders.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -191,39 +185,23 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse): Promise
     return;
   }
 
-  // Trading SPA static files
-  if (pathname.startsWith('/trading')) {
-    const subPath = pathname.replace(/^\/trading\/?/, '');
-    const filePath = join(TRADING_DIR, subPath);
-
-    // Try exact file first (for assets like .js, .css)
-    if (subPath && serveStaticFile(filePath, res)) return;
-
-    // SPA fallback — serve index.html for all trading routes
-    const indexPath = join(TRADING_DIR, 'index.html');
-    if (serveStaticFile(indexPath, res)) return;
-
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Trading app not found. Run: cd trading && npm run build');
-    return;
+  // Nera Trading SPA — try exact static file first
+  if (pathname !== '/') {
+    const filePath = join(DIST_DIR, pathname);
+    if (serveStaticFile(filePath, res)) return;
   }
 
-  // Main SPA static files
-  const mainFile = join(PUBLIC_DIR, pathname === '/' ? 'index.html' : pathname);
-  if (serveStaticFile(mainFile, res)) return;
+  // SPA fallback — serve index.html for all routes (client-side routing)
+  const indexPath = join(DIST_DIR, 'index.html');
+  if (serveStaticFile(indexPath, res)) return;
 
-  // SPA fallback for main app
-  const mainIndex = join(PUBLIC_DIR, 'index.html');
-  if (existsSync(mainIndex) && serveStaticFile(mainIndex, res)) return;
-
-  // If no main app, redirect to trading
-  res.writeHead(302, { Location: '/trading/' });
-  res.end();
+  res.writeHead(404, { 'Content-Type': 'text/plain' });
+  res.end('App not found. Run: cd trading && npm run build');
 }
 
 // --- Start server ---
 const PORT = parseInt(process.env.PORT || '5000', 10);
-const HOST = '0.0.0.0'; // Required by Replit for external access
+const HOST = '0.0.0.0';
 
 const server = createServer((req, res) => {
   handleRequest(req, res).catch((err) => {
@@ -238,8 +216,7 @@ const server = createServer((req, res) => {
 server.listen(PORT, HOST, () => {
   console.log(`\n  Nera Trading Platform`);
   console.log(`  ────────────────────`);
-  console.log(`  Server:    http://${HOST}:${PORT}`);
-  console.log(`  Trading:   http://${HOST}:${PORT}/trading/`);
+  console.log(`  App:       http://${HOST}:${PORT}/`);
   console.log(`  API:       http://${HOST}:${PORT}/api/trading/v1/`);
   console.log(`  Env:       ${process.env.NODE_ENV || 'development'}`);
   console.log(`  Redis:     ${process.env.UPSTASH_REDIS_REST_URL ? 'configured' : 'not configured (in-memory mode)'}\n`);

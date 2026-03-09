@@ -5,9 +5,9 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/trading/',
+  base: '/',
   build: {
-    outDir: path.resolve(__dirname, '../public/trading'),
+    outDir: path.resolve(__dirname, '../dist'),
     emptyOutDir: true,
     rollupOptions: {
       output: {

@@ -13,7 +13,6 @@ import {
   FileCheck,
   Shield,
   Settings,
-  Globe,
   ChevronLeft,
   ChevronRight,
   Activity,
@@ -128,16 +127,8 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         ))}
       </nav>
 
-      {/* Intelligence Hub link + collapse toggle */}
+      {/* Collapse toggle */}
       <div className="border-t border-[var(--color-border-subtle)] p-2">
-        <a
-          href="/"
-          className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-[var(--color-text-secondary)] transition-colors hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text-primary)]"
-          title="Intelligence Hub"
-        >
-          <Globe size={18} className="shrink-0" />
-          {!collapsed && <span>Intelligence Hub</span>}
-        </a>
         <button
           onClick={onToggle}
           className="mt-1 flex w-full items-center justify-center rounded-lg py-1.5 text-[var(--color-text-tertiary)] transition-colors hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text-primary)] max-md:hidden"
