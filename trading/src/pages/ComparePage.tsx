@@ -97,11 +97,11 @@ export function ComparePage() {
 
   // Build metrics comparison data
   const metricsComparison = useMemo(() => {
-    return runs.map((r) => ({
+    return runs.map((r): Record<string, string | number> => ({
       id: r.id,
       name: r.strategyName,
       templateId: r.templateId,
-      ...(r.metrics as Record<string, number>),
+      ...(r.metrics as unknown as Record<string, number>),
     }));
   }, [runs]);
 
@@ -115,11 +115,14 @@ export function ComparePage() {
   }, [metricsComparison, sortBy, sortDesc]);
 
   // Bar chart for selected metric
-  const barData = sorted.map((s) => ({
-    name: s.name.length > 12 ? s.name.slice(0, 12) + '...' : s.name,
-    value: (s[sortBy] as number) ?? 0,
-    fullName: s.name,
-  }));
+  const barData = sorted.map((s) => {
+    const label = String(s.name);
+    return {
+      name: label.length > 12 ? label.slice(0, 12) + '...' : label,
+      value: (s[sortBy] as number) ?? 0,
+      fullName: label,
+    };
+  });
 
   if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={24} /></div>;
 

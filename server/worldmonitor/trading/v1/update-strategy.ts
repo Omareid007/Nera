@@ -1,5 +1,20 @@
 import { parseBody, jsonResponse, errorResponse } from './handler';
 import { getStrategy, storeStrategy } from './trading-store';
+import type { StrategyStatus } from './types';
+
+const VALID_STATUSES: StrategyStatus[] = ['draft', 'backtesting', 'validated', 'paper', 'active', 'paused', 'archived'];
+const VALID_FREQUENCIES = ['daily', '4h', '1h', 'weekly'];
+
+/** Allowed state transitions (from → to). */
+const STATUS_TRANSITIONS: Record<string, string[]> = {
+  draft: ['backtesting', 'archived'],
+  backtesting: ['draft', 'validated', 'archived'],
+  validated: ['paper', 'draft', 'archived'],
+  paper: ['active', 'paused', 'validated', 'archived'],
+  active: ['paused', 'archived'],
+  paused: ['active', 'paper', 'archived'],
+  archived: ['draft'],
+};
 
 export async function updateStrategy(req: Request): Promise<Response> {
   const body = await parseBody(req);
@@ -9,6 +24,39 @@ export async function updateStrategy(req: Request): Promise<Response> {
   const existing = await getStrategy(id);
   if (!existing) return errorResponse('Strategy not found', 404);
 
+  // Validate status transition
+  if (body.status !== undefined) {
+    const newStatus = String(body.status);
+    if (!VALID_STATUSES.includes(newStatus as StrategyStatus)) {
+      return errorResponse(`Invalid status: ${newStatus}. Valid: ${VALID_STATUSES.join(', ')}`);
+    }
+    const allowed = STATUS_TRANSITIONS[existing.status] ?? [];
+    if (!allowed.includes(newStatus)) {
+      return errorResponse(`Cannot transition from "${existing.status}" to "${newStatus}". Allowed: ${allowed.join(', ')}`);
+    }
+    existing.status = newStatus as StrategyStatus;
+  }
+
+  // Validate risk limits
+  if (body.riskLimits !== undefined) {
+    const rl = body.riskLimits as Record<string, unknown>;
+    for (const [key, val] of Object.entries(rl)) {
+      if (typeof val !== 'number' || val < 0) {
+        return errorResponse(`riskLimits.${key} must be a non-negative number`);
+      }
+    }
+    existing.riskLimits = { ...existing.riskLimits, ...rl } as typeof existing.riskLimits;
+  }
+
+  // Validate frequency
+  if (body.frequency !== undefined) {
+    const freq = String(body.frequency);
+    if (!VALID_FREQUENCIES.includes(freq)) {
+      return errorResponse(`Invalid frequency: ${freq}. Valid: ${VALID_FREQUENCIES.join(', ')}`);
+    }
+    existing.frequency = freq;
+  }
+
   // Allowed updates
   if (body.name !== undefined) existing.name = String(body.name);
   if (body.description !== undefined) existing.description = String(body.description);
@@ -16,9 +64,6 @@ export async function updateStrategy(req: Request): Promise<Response> {
   if (body.universe !== undefined && Array.isArray(body.universe)) {
     existing.universe = (body.universe as string[]).map((s) => String(s).toUpperCase());
   }
-  if (body.riskLimits !== undefined) existing.riskLimits = body.riskLimits as typeof existing.riskLimits;
-  if (body.status !== undefined) existing.status = body.status as typeof existing.status;
-  if (body.frequency !== undefined) existing.frequency = String(body.frequency);
 
   existing.updatedAt = Date.now();
 

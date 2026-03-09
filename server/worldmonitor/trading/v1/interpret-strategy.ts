@@ -152,7 +152,11 @@ export async function interpretStrategy(req: Request): Promise<Response> {
     timestamp: Date.now(),
   };
 
-  await storeAiEvent(aiEvent);
+  try {
+    await storeAiEvent(aiEvent);
+  } catch {
+    // Redis failure shouldn't block returning the interpretation to the user
+  }
 
   return jsonResponse({
     aiEvent,

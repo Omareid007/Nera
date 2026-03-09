@@ -133,6 +133,12 @@ export async function getMarketData(req: Request): Promise<Response> {
 
   if (!symbol) return errorResponse('symbol is required');
 
+  // Validate interval and range to prevent URL injection
+  const VALID_INTERVALS = ['1m', '2m', '5m', '15m', '30m', '60m', '90m', '1h', '1d', '5d', '1wk', '1mo', '3mo'];
+  const VALID_RANGES = ['1d', '5d', '1mo', '3mo', '6mo', '1y', '2y', '5y', '10y', 'ytd', 'max'];
+  if (!VALID_INTERVALS.includes(interval)) return errorResponse(`Invalid interval: ${interval}`);
+  if (!VALID_RANGES.includes(range)) return errorResponse(`Invalid range: ${range}`);
+
   try {
     const url = `https://query2.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?interval=${interval}&range=${range}&includePrePost=false`;
     const res = await fetch(url, {

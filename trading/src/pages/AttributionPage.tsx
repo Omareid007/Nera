@@ -240,7 +240,7 @@ export function AttributionPage() {
                       <Tooltip contentStyle={{ backgroundColor: 'var(--color-surface-2)', border: '1px solid var(--color-border-subtle)', borderRadius: 8, fontSize: 11 }}
                         formatter={(v: number) => [v, 'Trades']} />
                       <Bar dataKey="count" radius={[4, 4, 0, 0]}>
-                        {tradeDistribution.map((d, i) => (
+                        {tradeDistribution.map((_d, i) => (
                           <Cell key={i} fill={i < 4 ? 'var(--color-loss)' : 'var(--color-profit)'} fillOpacity={0.5 + Math.abs(i - 3.5) * 0.1} />
                         ))}
                       </Bar>

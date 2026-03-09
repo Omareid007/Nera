@@ -141,6 +141,12 @@ export async function runBacktest(req: Request): Promise<Response> {
   const strategy = await getStrategy(strategyId);
   if (!strategy) return errorResponse('Strategy not found', 404);
 
+  // Cap universe size to prevent unbounded latency (each symbol requires a sequential fetch)
+  const MAX_UNIVERSE = 30;
+  if (strategy.universe.length > MAX_UNIVERSE) {
+    return errorResponse(`Universe size ${strategy.universe.length} exceeds maximum of ${MAX_UNIVERSE} symbols`, 400);
+  }
+
   // Determine date range
   const now = new Date();
   const start = startDate ? new Date(startDate) : new Date(now.getTime() - 180 * 86_400_000);
