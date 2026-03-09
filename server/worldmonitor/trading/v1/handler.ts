@@ -5,7 +5,15 @@
  * because the trading service is new and doesn't have proto files yet.
  */
 
-import { timingSafeEqual } from 'node:crypto';
+/** Constant-time string comparison (edge-runtime compatible, no node:crypto). */
+function timingSafeStringEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let mismatch = 0;
+  for (let i = 0; i < a.length; i++) {
+    mismatch |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return mismatch === 0;
+}
 import type { RouteDescriptor } from '../../../router';
 import { createStrategy } from './create-strategy';
 import { getStrategyHandler } from './get-strategy';
@@ -54,7 +62,7 @@ function withAuth(handler: (req: Request) => Promise<Response>, requireForGET = 
     if (req.method === 'GET' && !requireForGET) return handler(req);
 
     const provided = req.headers.get('X-WorldMonitor-Key') ?? req.headers.get('Authorization')?.replace(/^Bearer\s+/, '');
-    if (!provided || provided.length !== apiKey.length || !timingSafeEqual(Buffer.from(provided), Buffer.from(apiKey))) {
+    if (!provided || !timingSafeStringEqual(provided, apiKey)) {
       return errorResponse('Unauthorized — provide TRADING_API_KEY via X-WorldMonitor-Key header', 401);
     }
     return handler(req);

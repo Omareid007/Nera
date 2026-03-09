@@ -1,10 +1,8 @@
-import { randomUUID } from 'node:crypto';
-
 /** Default starting capital for paper trading accounts. */
 export const DEFAULT_PAPER_CAPITAL = 100_000;
 
 export function generateId(): string {
-  return randomUUID();
+  return crypto.randomUUID();
 }
 
 const MAX_BODY_BYTES = 512_000; // 512 KB
