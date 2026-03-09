@@ -13,7 +13,7 @@ service NewsService {
 
   // SummarizeArticle generates an LLM summary with provider selection and fallback support.
   rpc SummarizeArticle(SummarizeArticleRequest) returns (SummarizeArticleResponse) {
-    option (sebuf.http.config) = {path: "/summarize-article"};
+    option (sebuf.http.config) = {path: "/summarize-article", method: HTTP_METHOD_POST};
   }
 
   // GetSummarizeArticleCache looks up a cached summary by deterministic key (CDN-cacheable GET).
