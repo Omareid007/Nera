@@ -3,7 +3,7 @@
  * Follows the pattern from premium-stock-store.ts.
  */
 
-import { getCachedJson, setCachedJson } from '../../../_shared/redis';
+import { getCachedJson, setCachedJson, runRedisPipeline } from '../../../_shared/redis';
 import type {
   Strategy,
   BacktestRun,
@@ -38,14 +38,17 @@ const TTL_30D = 30 * 24 * 3600;
 // --- Strategies ---
 
 export async function storeStrategy(s: Strategy): Promise<void> {
-  await setCachedJson(`${STRATEGY_PREFIX}${s.id}`, s, TTL_90D);
   // Update index
   const index = await getStrategyIndex();
   const entry = { id: s.id, name: s.name, templateId: s.templateId, status: s.status, updatedAt: s.updatedAt };
   const existing = index.findIndex((e) => e.id === s.id);
   if (existing >= 0) index[existing] = entry;
   else index.push(entry);
-  await setCachedJson(STRATEGY_INDEX, index, TTL_90D);
+  // Pipeline: write entity + index in a single round-trip
+  await runRedisPipeline([
+    ['SET', `${STRATEGY_PREFIX}${s.id}`, JSON.stringify(s), 'EX', TTL_90D],
+    ['SET', STRATEGY_INDEX, JSON.stringify(index), 'EX', TTL_90D],
+  ]);
 }
 
 export async function getStrategy(id: string): Promise<Strategy | null> {
@@ -59,16 +62,17 @@ export async function getStrategyIndex(): Promise<StrategyIndexEntry[]> {
 }
 
 export async function deleteStrategy(id: string): Promise<void> {
-  await setCachedJson(`${STRATEGY_PREFIX}${id}`, null, 1); // TTL=1 to expire
   const index = await getStrategyIndex();
   const filtered = index.filter((e) => e.id !== id);
-  await setCachedJson(STRATEGY_INDEX, filtered, TTL_90D);
+  await runRedisPipeline([
+    ['SET', `${STRATEGY_PREFIX}${id}`, JSON.stringify(null), 'EX', 1],
+    ['SET', STRATEGY_INDEX, JSON.stringify(filtered), 'EX', TTL_90D],
+  ]);
 }
 
 // --- Backtests ---
 
 export async function storeBacktestRun(run: BacktestRun): Promise<void> {
-  await setCachedJson(`${BACKTEST_PREFIX}${run.id}`, run, TTL_30D);
   const index = await getBacktestIndex();
   const entry = {
     id: run.id,
@@ -81,7 +85,10 @@ export async function storeBacktestRun(run: BacktestRun): Promise<void> {
   const existing = index.findIndex((e) => e.id === run.id);
   if (existing >= 0) index[existing] = entry;
   else index.push(entry);
-  await setCachedJson(BACKTEST_INDEX, index, TTL_30D);
+  await runRedisPipeline([
+    ['SET', `${BACKTEST_PREFIX}${run.id}`, JSON.stringify(run), 'EX', TTL_30D],
+    ['SET', BACKTEST_INDEX, JSON.stringify(index), 'EX', TTL_30D],
+  ]);
 }
 
 export async function getBacktestRun(id: string): Promise<BacktestRun | null> {
@@ -97,13 +104,15 @@ export async function getBacktestIndex(): Promise<BacktestIndexEntry[]> {
 // --- Forward Runs ---
 
 export async function storeForwardRun(run: ForwardRun): Promise<void> {
-  await setCachedJson(`${FORWARD_PREFIX}${run.id}`, run, TTL_90D);
   const index = await getForwardIndex();
   const entry = { id: run.id, strategyId: run.strategyId, strategyName: run.strategyName, status: run.status, startedAt: run.startedAt };
   const existing = index.findIndex((e) => e.id === run.id);
   if (existing >= 0) index[existing] = entry;
   else index.push(entry);
-  await setCachedJson(FORWARD_INDEX, index, TTL_90D);
+  await runRedisPipeline([
+    ['SET', `${FORWARD_PREFIX}${run.id}`, JSON.stringify(run), 'EX', TTL_90D],
+    ['SET', FORWARD_INDEX, JSON.stringify(index), 'EX', TTL_90D],
+  ]);
 }
 
 export async function getForwardRun(id: string): Promise<ForwardRun | null> {
@@ -139,12 +148,14 @@ export async function getPortfolioSnapshot(): Promise<PortfolioSnapshot | null> 
 // --- Ledger ---
 
 export async function storeLedgerEntry(entry: LedgerEntry): Promise<void> {
-  await setCachedJson(`${LEDGER_PREFIX}${entry.id}`, entry, TTL_90D);
   const index = await getLedgerIndex();
   index.push({ id: entry.id, type: entry.type, symbol: entry.symbol, strategyId: entry.strategyId ?? null, timestamp: entry.timestamp });
   // Keep last 500 entries in index
   if (index.length > 500) index.splice(0, index.length - 500);
-  await setCachedJson(LEDGER_INDEX, index, TTL_90D);
+  await runRedisPipeline([
+    ['SET', `${LEDGER_PREFIX}${entry.id}`, JSON.stringify(entry), 'EX', TTL_90D],
+    ['SET', LEDGER_INDEX, JSON.stringify(index), 'EX', TTL_90D],
+  ]);
 }
 
 type LedgerIndexEntry = { id: string; type: string; symbol: string | null; strategyId: string | null; timestamp: number };
@@ -160,11 +171,13 @@ export async function getLedgerEntry(id: string): Promise<LedgerEntry | null> {
 // --- AI Events ---
 
 export async function storeAiEvent(event: AiEvent): Promise<void> {
-  await setCachedJson(`${AI_EVENT_PREFIX}${event.id}`, event, TTL_30D);
   const index = await getAiEventIndex();
   index.push({ id: event.id, type: event.type, strategyId: event.strategyId, timestamp: event.timestamp });
   if (index.length > 200) index.splice(0, index.length - 200);
-  await setCachedJson(AI_EVENT_INDEX, index, TTL_30D);
+  await runRedisPipeline([
+    ['SET', `${AI_EVENT_PREFIX}${event.id}`, JSON.stringify(event), 'EX', TTL_30D],
+    ['SET', AI_EVENT_INDEX, JSON.stringify(index), 'EX', TTL_30D],
+  ]);
 }
 
 type AiEventIndexEntry = { id: string; type: string; strategyId: string | null; timestamp: number };

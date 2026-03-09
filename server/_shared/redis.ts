@@ -46,15 +46,14 @@ export async function setCachedJson(key: string, value: unknown, ttlSeconds: num
   const url = process.env.UPSTASH_REDIS_REST_URL;
   const token = process.env.UPSTASH_REDIS_REST_TOKEN;
   if (!url || !token) return;
-  try {
-    // Atomic SET with EX — single call avoids race between SET and EXPIRE (C-3 fix)
-    await fetch(`${url}/set/${encodeURIComponent(prefixKey(key))}/${encodeURIComponent(JSON.stringify(value))}/EX/${ttlSeconds}`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
-      signal: AbortSignal.timeout(REDIS_OP_TIMEOUT_MS),
-    });
-  } catch (err) {
-    console.warn('[redis] setCachedJson failed:', errMsg(err));
+  // Atomic SET with EX — single call avoids race between SET and EXPIRE (C-3 fix)
+  const resp = await fetch(`${url}/set/${encodeURIComponent(prefixKey(key))}/${encodeURIComponent(JSON.stringify(value))}/EX/${ttlSeconds}`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}` },
+    signal: AbortSignal.timeout(REDIS_OP_TIMEOUT_MS),
+  });
+  if (!resp.ok) {
+    throw new Error(`[redis] setCachedJson HTTP ${resp.status} for key "${key}"`);
   }
 }
 

@@ -6,7 +6,7 @@
  */
 
 import { parseBody, jsonResponse, errorResponse } from './handler';
-import { getForwardRun, storeForwardRun, getStrategy } from './trading-store';
+import { getForwardRun, storeForwardRun, getStrategy, getPortfolioSnapshot } from './trading-store';
 import { generateId, DEFAULT_PAPER_CAPITAL } from './_shared';
 import { CHROME_UA } from '../../../_shared/constants';
 import type { ForwardSignal, ProposedAction } from './types';
@@ -143,6 +143,10 @@ export async function evaluateForwardRun(req: Request): Promise<Response> {
   const strategy = await getStrategy(run.strategyId);
   if (!strategy) return errorResponse('Strategy not found', 404);
 
+  // Use actual portfolio equity for position sizing, fall back to default capital
+  const portfolio = await getPortfolioSnapshot();
+  const capital = portfolio?.totalEquity ?? DEFAULT_PAPER_CAPITAL;
+
   const newSignals: ForwardSignal[] = [];
   const newActions: ProposedAction[] = [];
   const latestPrices: Record<string, number> = {};
@@ -181,7 +185,6 @@ export async function evaluateForwardRun(req: Request): Promise<Response> {
       // Generate proposed action for strong signals in assisted/semi_auto modes
       if (strength >= 65 && direction !== 'flat' && run.mode !== 'insight_only') {
         const positionSize = strategy.riskLimits.maxPositionPct / 100;
-        const capital = DEFAULT_PAPER_CAPITAL;
         const qty = Math.floor((capital * positionSize) / quote.price);
         if (qty > 0) {
           const action: ProposedAction = {
