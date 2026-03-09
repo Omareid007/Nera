@@ -127,7 +127,7 @@ const RPC_CACHE_TIER: Record<string, CacheTier> = {
   '/api/intelligence/v1/classify-event': 'static',
   '/api/news/v1/summarize-article-cache': 'slow',
 
-  // Trading service — no-store for mutations, slow for reads
+  // Trading service — no-store for mutations, fast for reads
   '/api/trading/v1/list-templates': 'static',
   '/api/trading/v1/create-strategy': 'no-store',
   '/api/trading/v1/get-strategy': 'fast',

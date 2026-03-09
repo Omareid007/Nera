@@ -132,7 +132,7 @@ export const OPTIONAL_LIVE_CHANNELS: LiveChannel[] = [
   { id: 'ndtv', name: 'NDTV 24x7', handle: '@NDTV' },
   { id: 'cna-asia', name: 'CNA (NewsAsia)', handle: '@channelnewsasia', fallbackVideoId: 'XWq5kBlakcQ' },
   { id: 'nhk-world', name: 'NHK World Japan', handle: '@NHKWORLDJAPAN', fallbackVideoId: 'f0lYfG_vY_U' },
-  { id: 'arirang-news', name: 'Arirang News', handle: '@ArirangCoKrArirangNEWS' },
+  { id: 'arirang-news', name: 'Arirang News', handle: '@ArirangCoKrArirangNEWS', fallbackVideoId: '3IY2kBz0qgE' },
   { id: 'india-today', name: 'India Today', handle: '@indiatoday', fallbackVideoId: 'sYZtOFzM78M' },
   { id: 'abp-news', name: 'ABP News', handle: '@ABPNews', fallbackVideoId: 'UxANhTiVGeo' },
   // Middle East (defaults first)
@@ -153,7 +153,7 @@ export const OPTIONAL_LIVE_CHANNELS: LiveChannel[] = [
   { id: 'channels-tv', name: 'Channels TV', handle: '@ChannelsTelevision' },
   { id: 'ktn-news', name: 'KTN News', handle: '@ktnnews_kenya', fallbackVideoId: 'RmHtsdVb3mo' },
   { id: 'enca', name: 'eNCA', handle: '@encanews' },
-  { id: 'sabc-news', name: 'SABC News', handle: '@SABCDigitalNews' },
+  { id: 'sabc-news', name: 'SABC News', handle: '@SABCDigitalNews', fallbackVideoId: 'vKXz5MCPU8E' },
   { id: 'arise-news', name: 'Arise News', handle: '@AriseNewsChannel', fallbackVideoId: '4uHZdlX-DT4' },
   // Europe (additional)
   { id: 'welt', name: 'WELT', handle: '@WELTVideoTV', fallbackVideoId: 'L-TNmYmaAKQ', geoAvailability: ['DE', 'AT', 'CH'] },
@@ -163,8 +163,8 @@ export const OPTIONAL_LIVE_CHANNELS: LiveChannel[] = [
   { id: 'france-info', name: 'France Info', handle: '@franceinfo', fallbackVideoId: 'Z-Nwo-ypKtM' },
   { id: 'bfmtv', name: 'BFMTV', handle: '@BFMTV', fallbackVideoId: 'smB_F6DW7cI' },
   { id: 'tv5monde-info', name: 'TV5 Monde Info', handle: '@TV5MONDEInfo', fallbackVideoId: 'vGvWRxTCNME' },
-  { id: 'nrk1', name: 'NRK1', handle: '@nrk' },
-  { id: 'aljazeera-balkans', name: 'Al Jazeera Balkans', handle: '@AlJazeeraBalkans' },
+  { id: 'nrk1', name: 'NRK1', handle: '@nrk', fallbackVideoId: 'NM8wMRhGfJg' },
+  { id: 'aljazeera-balkans', name: 'Al Jazeera Balkans', handle: '@AlJazeeraBalkans', fallbackVideoId: 'RfdFGjBfCOg' },
   // Oceania
   { id: 'abc-news-au', name: 'ABC News Australia', handle: '@abcnewsaustralia', fallbackVideoId: 'vOTiJkg1voo' },
 ];
