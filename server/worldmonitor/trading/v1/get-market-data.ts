@@ -196,12 +196,13 @@ export async function getMarketData(req: Request): Promise<Response> {
     const timestamps = chartResult.timestamp ?? [];
     const ohlcv = chartResult.indicators?.quote?.[0] ?? {};
 
-    // Build candles
+    // Build candles (cap at 5000 to prevent memory exhaustion on range=max)
+    const MAX_CANDLES = 5000;
     const candles: Candle[] = [];
     const closes: number[] = [];
     const volumes: number[] = [];
 
-    for (let i = 0; i < timestamps.length; i++) {
+    for (let i = 0; i < timestamps.length && candles.length < MAX_CANDLES; i++) {
       const o = ohlcv.open?.[i];
       const h = ohlcv.high?.[i];
       const l = ohlcv.low?.[i];

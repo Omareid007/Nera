@@ -162,6 +162,11 @@ function dataSize(parsed) {
   return typeof parsed === 'string' ? parsed.length : 1;
 }
 
+// In-memory response cache to prevent Redis hammering from frequent health polls.
+let cachedResponse = null;
+let cachedAt = 0;
+const CACHE_TTL_MS = 15_000; // 15 seconds
+
 export default async function handler(req) {
   const headers = {
     'Content-Type': 'application/json',
@@ -174,6 +179,14 @@ export default async function handler(req) {
   }
 
   const now = Date.now();
+
+  // Serve cached response if still fresh (prevents Redis pipeline abuse)
+  if (cachedResponse && now - cachedAt < CACHE_TTL_MS) {
+    return new Response(cachedResponse.body, {
+      status: cachedResponse.status,
+      headers,
+    });
+  }
 
   const allDataKeys = [
     ...Object.values(BOOTSTRAP_KEYS),
@@ -355,7 +368,13 @@ export default async function handler(req) {
     if (Object.keys(problems).length > 0) body.problems = problems;
   }
 
-  return new Response(JSON.stringify(body, null, compact ? 0 : 2), {
+  const responseBody = JSON.stringify(body, null, compact ? 0 : 2);
+
+  // Cache the response to serve repeated requests without hitting Redis
+  cachedResponse = { body: responseBody, status: httpStatus };
+  cachedAt = now;
+
+  return new Response(responseBody, {
     status: httpStatus,
     headers,
   });

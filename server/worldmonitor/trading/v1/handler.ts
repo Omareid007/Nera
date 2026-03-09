@@ -49,14 +49,21 @@ import { errorResponse } from './_shared';
 const BASE = '/api/trading/v1';
 
 /**
- * Optional API key authentication for trading endpoints.
- * Set TRADING_API_KEY env var to enable. If not set, all requests are allowed (dev mode).
+ * API key authentication for trading mutation endpoints.
+ * Set TRADING_API_KEY env var in production. If not set AND running locally
+ * (NODE_ENV !== 'production'), mutations are allowed (dev mode).
+ * In production without TRADING_API_KEY, mutations are blocked (fail-closed).
  * Read-only endpoints (GET) skip auth for convenience; mutations (POST) always require it.
  */
 function withAuth(handler: (req: Request) => Promise<Response>, requireForGET = false): (req: Request) => Promise<Response> {
   return async (req: Request) => {
     const apiKey = process.env.TRADING_API_KEY;
-    if (!apiKey) return handler(req); // No key configured = dev mode, skip auth
+    if (!apiKey) {
+      // Fail-closed in production: block mutations when no key is configured
+      const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL === '1';
+      if (isProduction) return errorResponse('Trading API key not configured', 503);
+      return handler(req); // Dev mode only
+    }
 
     // Skip auth for GET requests unless explicitly required
     if (req.method === 'GET' && !requireForGET) return handler(req);
