@@ -1,4 +1,6 @@
+import { AlertTriangle } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
+import { StatusBadge } from '@/components/StatusBadge';
 
 export function SettingsPage() {
   return (
@@ -6,7 +8,15 @@ export function SettingsPage() {
       <PageHeader
         title="Settings"
         description="Preferences, risk guardrails, provider configuration, and account settings"
+        actions={<StatusBadge status="paper" label="PREVIEW" />}
       />
+
+      <div className="mb-4 rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-2">
+        <p className="flex items-center gap-2 text-xs font-medium text-amber-400">
+          <AlertTriangle size={14} />
+          Settings are not persisted yet. Changes here are for preview only and will reset on reload.
+        </p>
+      </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Appearance */}

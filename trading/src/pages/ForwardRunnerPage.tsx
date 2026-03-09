@@ -7,14 +7,7 @@ import {
   listStrategies, listForwardRuns, getForwardRun, startForwardRun, stopForwardRun, evaluateForwardRun,
   type StrategyIndexEntry, type ForwardRunIndexEntry, type ForwardRun, type ForwardSignal, type ProposedAction,
 } from '@/lib/api';
-
-function timeAgo(ts: number): string {
-  const diff = Date.now() - ts;
-  if (diff < 60_000) return 'just now';
-  if (diff < 3600_000) return `${Math.floor(diff / 60_000)}m ago`;
-  if (diff < 86400_000) return `${Math.floor(diff / 3600_000)}h ago`;
-  return `${Math.floor(diff / 86400_000)}d ago`;
-}
+import { timeAgo } from '@/lib/utils';
 
 function DirectionIcon({ direction }: { direction: string }) {
   if (direction === 'long') return <ArrowUpRight size={14} className="text-[var(--color-profit)]" />;

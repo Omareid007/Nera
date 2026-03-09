@@ -2,14 +2,7 @@ import { useState, useEffect } from 'react';
 import { ScrollText, Loader2 } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
 import { listLedger, listStrategies, type LedgerEntry, type StrategyIndexEntry } from '@/lib/api';
-
-function timeAgo(ts: number): string {
-  const diff = Date.now() - ts;
-  if (diff < 60_000) return 'just now';
-  if (diff < 3600_000) return `${Math.floor(diff / 60_000)}m ago`;
-  if (diff < 86400_000) return `${Math.floor(diff / 3600_000)}h ago`;
-  return new Date(ts).toLocaleDateString();
-}
+import { timeAgo } from '@/lib/utils';
 
 const TYPE_COLORS: Record<string, string> = {
   order: 'bg-blue-500/20 text-blue-400',

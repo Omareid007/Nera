@@ -3,14 +3,7 @@ import { ArrowRightLeft, Loader2 } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
 import { StatusBadge } from '@/components/StatusBadge';
 import { listOrders, submitOrder, type OrderEntry } from '@/lib/api';
-
-function timeAgo(ts: number): string {
-  const diff = Date.now() - ts;
-  if (diff < 60_000) return 'just now';
-  if (diff < 3600_000) return `${Math.floor(diff / 60_000)}m ago`;
-  if (diff < 86400_000) return `${Math.floor(diff / 3600_000)}h ago`;
-  return `${Math.floor(diff / 86400_000)}d ago`;
-}
+import { timeAgo } from '@/lib/utils';
 
 export function ExecutionPage() {
   const [orders, setOrders] = useState<OrderEntry[]>([]);

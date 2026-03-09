@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Shell } from './layout/Shell';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { DashboardPage } from './pages/DashboardPage';
 import { StrategiesPage } from './pages/StrategiesPage';
 import { CreateStrategyPage } from './pages/CreateStrategyPage';
@@ -24,6 +25,7 @@ import { AttributionPage } from './pages/AttributionPage';
 export function App() {
   return (
     <Shell>
+      <ErrorBoundary>
       <Routes>
         <Route path="/" element={<DashboardPage />} />
         <Route path="/strategies" element={<StrategiesPage />} />
@@ -47,6 +49,7 @@ export function App() {
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      </ErrorBoundary>
     </Shell>
   );
 }

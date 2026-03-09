@@ -4,20 +4,13 @@ import { PlusCircle, Play, FlaskConical, Brain, Loader2, ArrowRightLeft, Shield,
 import { PageHeader } from '@/components/PageHeader';
 import { MetricCard } from '@/components/MetricCard';
 import { StatusBadge } from '@/components/StatusBadge';
+import { timeAgo } from '@/lib/utils';
 import {
   listStrategies, listBacktestRuns, getPortfolio, listAiEvents, listForwardRuns, listEvidence, getWatchlistQuotes, listAlerts,
   type StrategyIndexEntry, type BacktestIndexEntry, type PortfolioSnapshot, type AiEventIndexEntry, type ForwardRunIndexEntry, type EvidenceEntry, type WatchlistQuote, type Alert,
 } from '@/lib/api';
 
 const TICKER_SYMBOLS = ['SPY', 'QQQ', 'DIA', 'AAPL', 'MSFT', 'NVDA', 'BTC-USD', 'ETH-USD', 'GLD', 'TLT'];
-
-function timeAgo(ts: number): string {
-  const diff = Date.now() - ts;
-  if (diff < 60_000) return 'just now';
-  if (diff < 3600_000) return `${Math.floor(diff / 60_000)}m ago`;
-  if (diff < 86400_000) return `${Math.floor(diff / 3600_000)}h ago`;
-  return `${Math.floor(diff / 86400_000)}d ago`;
-}
 
 export function DashboardPage() {
   const [strategies, setStrategies] = useState<StrategyIndexEntry[]>([]);

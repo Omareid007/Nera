@@ -40,7 +40,7 @@ export function AdminPage() {
 
   return (
     <div>
-      <PageHeader title="Admin" description="System health, provider status, platform metrics, and feature flags"
+      <PageHeader title="Admin" description="System health, provider status, platform metrics, and feature flags — live data from API"
         actions={
           <button onClick={load} className="flex items-center gap-1.5 rounded-lg bg-[var(--color-surface-2)] px-3 py-1.5 text-xs text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-3)]">
             {loading ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />} Refresh
@@ -97,7 +97,7 @@ export function AdminPage() {
             <InfoRow label="Version" value="1.0.0-beta" />
             <InfoRow label="Mode" value="Paper Trading" valueColor="text-[var(--color-info)]" />
             <InfoRow label="Live Trading" value="Disabled" valueColor="text-[var(--color-loss)]" />
-            <InfoRow label="API Endpoints" value="24 RPCs" />
+            <InfoRow label="API Endpoints" value="31 RPCs" />
             <InfoRow label="Storage" value="Redis (Upstash) + Convex" />
             <InfoRow label="Intelligence Sources" value="22 domains (ACLED, GDELT, UCDP, EIA, FRED, ...)" />
             <InfoRow label="LLM Providers" value="Ollama → Groq → OpenRouter (fallback chain)" />

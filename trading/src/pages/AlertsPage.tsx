@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { Loader2, Bell, BellOff, Plus, Trash2, AlertTriangle, TrendingUp, TrendingDown, Activity, Shield, BarChart3 } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
 import { listAlerts, createAlertApi, dismissAlert, deleteAlertApi, type Alert } from '@/lib/api';
+import { timeAgo } from '@/lib/utils';
 
 const ALERT_TYPES = [
   { value: 'price_above', label: 'Price Above', icon: TrendingUp, description: 'Triggers when price rises above threshold' },
@@ -16,14 +17,6 @@ const ALERT_TYPES = [
   { value: 'rsi_overbought', label: 'RSI Overbought', icon: TrendingUp, description: 'Triggers when RSI exceeds threshold (default 70)' },
   { value: 'rsi_oversold', label: 'RSI Oversold', icon: TrendingDown, description: 'Triggers when RSI drops below threshold (default 30)' },
 ];
-
-function timeAgo(ts: number): string {
-  const diff = Date.now() - ts;
-  if (diff < 60_000) return 'just now';
-  if (diff < 3600_000) return `${Math.floor(diff / 60_000)}m ago`;
-  if (diff < 86400_000) return `${Math.floor(diff / 3600_000)}h ago`;
-  return `${Math.floor(diff / 86400_000)}d ago`;
-}
 
 export function AlertsPage() {
   const [alerts, setAlerts] = useState<Alert[]>([]);
