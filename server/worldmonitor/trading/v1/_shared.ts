@@ -26,11 +26,18 @@ export async function parseBody(req: Request): Promise<Record<string, unknown>> 
   }
 }
 
-/** Create a JSON response. */
+/** Standard CORS headers for trading API responses. */
+const CORS_HEADERS: Record<string, string> = {
+  'Access-Control-Allow-Origin': process.env.CORS_ORIGIN || '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-WorldMonitor-Key',
+};
+
+/** Create a JSON response with CORS headers. */
 export function jsonResponse(data: unknown, status = 200): Response {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
   });
 }
 

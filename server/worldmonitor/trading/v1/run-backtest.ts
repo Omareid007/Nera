@@ -299,8 +299,8 @@ export async function runBacktest(req: Request): Promise<Response> {
       }
     }
     const equity = cash + positionValue;
-    const drawdown = peakEquity > 0 ? (peakEquity - equity) / peakEquity : 0;
     if (equity > peakEquity) peakEquity = equity;
+    const drawdown = peakEquity > 0 ? (peakEquity - equity) / peakEquity : 0;
 
     equityCurve.push({ date: dateStr, equity, drawdown, cash });
   }

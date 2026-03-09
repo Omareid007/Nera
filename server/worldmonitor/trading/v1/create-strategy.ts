@@ -16,6 +16,10 @@ export async function createStrategy(req: Request): Promise<Response> {
     return errorResponse('templateId and name are required');
   }
 
+  if (name.length > 200) return errorResponse('name must be 200 characters or fewer');
+  const description = body.description as string | undefined;
+  if (description && description.length > 2000) return errorResponse('description must be 2000 characters or fewer');
+
   const template = getTemplate(templateId);
   if (!template) {
     return errorResponse(`Unknown template: ${templateId}`);

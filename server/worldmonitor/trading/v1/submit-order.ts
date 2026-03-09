@@ -40,11 +40,20 @@ export async function submitOrder(req: Request): Promise<Response> {
   if (!symbol) return errorResponse('symbol is required');
   if (!side || !['buy', 'sell'].includes(side)) return errorResponse('side must be buy or sell');
   if (!quantity || quantity <= 0) return errorResponse('quantity must be positive');
+  if (quantity > 1_000_000) return errorResponse('quantity exceeds maximum of 1,000,000 shares');
+
+  const validSources: Order['source'][] = ['manual', 'forward_runner', 'rebalance'];
+  if (!validSources.includes(source as Order['source'])) {
+    return errorResponse('source must be one of: manual, forward_runner, rebalance');
+  }
+
+  // Normalize symbol to uppercase for consistent matching
+  const normalizedSymbol = symbol.toUpperCase();
 
   // Paper mode: reject short sells (selling without an existing long position)
   if (side === 'sell') {
     const existingPortfolio = await getPortfolioSnapshot();
-    const longPosition = existingPortfolio?.positions.find((p) => p.symbol === symbol.toUpperCase() && p.side === 'long');
+    const longPosition = existingPortfolio?.positions.find((p) => p.symbol === normalizedSymbol && p.side === 'long');
     if (!longPosition || longPosition.quantity <= 0) {
       return errorResponse('Cannot sell — no long position in ' + symbol + '. Short selling is disabled in paper mode.');
     }
@@ -54,15 +63,24 @@ export async function submitOrder(req: Request): Promise<Response> {
   }
 
   // Fetch current price for paper fill
-  const price = await fetchCurrentPrice(symbol);
-  if (!price) return errorResponse('Could not fetch current price for ' + symbol, 502);
+  const price = await fetchCurrentPrice(normalizedSymbol);
+  if (!price) return errorResponse('Could not fetch current price for ' + normalizedSymbol, 502);
+
+  // Validate sufficient cash for buy orders
+  if (side === 'buy') {
+    const currentPortfolio = await getPortfolioSnapshot() ?? createDefaultPortfolio();
+    const cost = price * quantity;
+    if (cost > currentPortfolio.cash) {
+      return errorResponse(`Insufficient cash: need $${cost.toFixed(2)} but only $${currentPortfolio.cash.toFixed(2)} available`);
+    }
+  }
 
   // Create order (immediately filled for paper)
   const order: Order = {
     id: generateId(),
     strategyId,
     forwardRunId,
-    symbol,
+    symbol: normalizedSymbol,
     side: side as 'buy' | 'sell',
     type: 'market',
     quantity,
@@ -97,12 +115,12 @@ export async function submitOrder(req: Request): Promise<Response> {
     type: 'order',
     strategyId: strategyId || null,
     orderId: order.id,
-    symbol,
+    symbol: normalizedSymbol,
     side: side as 'buy' | 'sell',
     quantity,
     price,
     amount: price * quantity * (side === 'buy' ? -1 : 1),
-    description: `${side.toUpperCase()} ${quantity} ${symbol} @ $${price.toFixed(2)} (paper)`,
+    description: `${side.toUpperCase()} ${quantity} ${normalizedSymbol} @ $${price.toFixed(2)} (paper)`,
     timestamp: Date.now(),
   };
 
@@ -111,12 +129,12 @@ export async function submitOrder(req: Request): Promise<Response> {
     type: 'fill',
     strategyId: strategyId || null,
     orderId: order.id,
-    symbol,
+    symbol: normalizedSymbol,
     side: side as 'buy' | 'sell',
     quantity,
     price,
     amount: price * quantity * (side === 'buy' ? -1 : 1),
-    description: `Filled: ${side.toUpperCase()} ${quantity} ${symbol} @ $${price.toFixed(2)}`,
+    description: `Filled: ${side.toUpperCase()} ${quantity} ${normalizedSymbol} @ $${price.toFixed(2)}`,
     timestamp: Date.now(),
   };
 

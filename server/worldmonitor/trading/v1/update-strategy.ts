@@ -57,9 +57,17 @@ export async function updateStrategy(req: Request): Promise<Response> {
     existing.frequency = freq;
   }
 
-  // Allowed updates
-  if (body.name !== undefined) existing.name = String(body.name);
-  if (body.description !== undefined) existing.description = String(body.description);
+  // Allowed updates (with length limits)
+  if (body.name !== undefined) {
+    const newName = String(body.name);
+    if (newName.length > 200) return errorResponse('name must be 200 characters or fewer');
+    existing.name = newName;
+  }
+  if (body.description !== undefined) {
+    const newDesc = String(body.description);
+    if (newDesc.length > 2000) return errorResponse('description must be 2000 characters or fewer');
+    existing.description = newDesc;
+  }
   if (body.parameters !== undefined) existing.parameters = body.parameters as Record<string, unknown>;
   if (body.universe !== undefined && Array.isArray(body.universe)) {
     existing.universe = (body.universe as string[]).map((s) => String(s).toUpperCase());

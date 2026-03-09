@@ -37,6 +37,7 @@ export async function createAlert(req: Request): Promise<Response> {
   const threshold = Number(body.threshold);
 
   if (!name) return errorResponse('name is required');
+  if (name.length > 200) return errorResponse('name must be 200 characters or fewer');
   if (!type) return errorResponse('type is required');
   const validTypes = ['price_above', 'price_below', 'pnl_threshold', 'drawdown_threshold', 'volume_spike', 'rsi_overbought', 'rsi_oversold'];
   if (!validTypes.includes(type)) return errorResponse('invalid alert type');
@@ -54,8 +55,12 @@ export async function createAlert(req: Request): Promise<Response> {
     createdAt: Date.now(),
   };
 
+  const MAX_ALERTS = 100;
   try {
     const alerts = await getAlerts();
+    if (alerts.length >= MAX_ALERTS) {
+      return errorResponse(`Maximum of ${MAX_ALERTS} alerts reached. Delete some before creating new ones.`);
+    }
     alerts.push(alert);
     await saveAlerts(alerts);
   } catch {
@@ -96,6 +101,9 @@ export async function deleteAlert(req: Request): Promise<Response> {
   try {
     const alerts = await getAlerts();
     const filtered = alerts.filter((a) => a.id !== id);
+    if (filtered.length === alerts.length) {
+      return errorResponse('Alert not found', 404);
+    }
     await saveAlerts(filtered);
     return jsonResponse({ deleted: true });
   } catch {
