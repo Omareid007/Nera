@@ -138,6 +138,21 @@ const RPC_CACHE_TIER: Record<string, CacheTier> = {
   '/api/trading/v1/list-backtest-runs': 'fast',
   '/api/trading/v1/get-portfolio': 'fast',
 
+  // Forward Runner
+  '/api/trading/v1/start-forward-run': 'no-store',
+  '/api/trading/v1/stop-forward-run': 'no-store',
+  '/api/trading/v1/evaluate-forward-run': 'no-store',
+  '/api/trading/v1/list-forward-runs': 'fast',
+  '/api/trading/v1/get-forward-run': 'fast',
+
+  // Execution & Orders
+  '/api/trading/v1/submit-order': 'no-store',
+  '/api/trading/v1/list-orders': 'fast',
+
+  // Ledger & Evidence
+  '/api/trading/v1/list-ledger': 'fast',
+  '/api/trading/v1/list-evidence': 'fast',
+
   // AI
   '/api/trading/v1/interpret-strategy': 'no-store',
   '/api/trading/v1/list-ai-events': 'fast',

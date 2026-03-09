@@ -294,3 +294,137 @@ export function listAiEvents(strategyId?: string) {
 export function getAiEvent(id: string) {
   return rpc<{ aiEvent: AiEventDetail }>('GET', 'get-ai-event', { id });
 }
+
+// --- Forward Runner ---
+
+export interface ForwardSignal {
+  id: string;
+  symbol: string;
+  direction: 'long' | 'short' | 'flat';
+  strength: number;
+  reason: string;
+  timestamp: number;
+}
+
+export interface ProposedAction {
+  id: string;
+  signalId: string;
+  symbol: string;
+  side: 'buy' | 'sell';
+  quantity: number;
+  price: number;
+  reason: string;
+  status: string;
+  timestamp: number;
+}
+
+export interface ForwardRun {
+  id: string;
+  strategyId: string;
+  strategyName: string;
+  mode: string;
+  status: string;
+  signals: ForwardSignal[];
+  proposedActions: ProposedAction[];
+  startedAt: number;
+  lastEvaluatedAt: number | null;
+  paperPnl: number;
+}
+
+export interface ForwardRunIndexEntry {
+  id: string;
+  strategyId: string;
+  strategyName: string;
+  status: string;
+  startedAt: number;
+}
+
+export function startForwardRun(strategyId: string, mode: string = 'insight_only') {
+  return rpc<{ forwardRun: ForwardRun }>('POST', 'start-forward-run', { strategyId, mode });
+}
+
+export function stopForwardRun(id: string) {
+  return rpc<{ forwardRun: ForwardRun }>('POST', 'stop-forward-run', { id });
+}
+
+export function evaluateForwardRun(id: string) {
+  return rpc<{ forwardRun: ForwardRun; newSignals: ForwardSignal[]; newActions: ProposedAction[] }>(
+    'POST', 'evaluate-forward-run', { id },
+  );
+}
+
+export function listForwardRuns(strategyId?: string) {
+  return rpc<{ forwardRuns: ForwardRunIndexEntry[] }>(
+    'GET', 'list-forward-runs', strategyId ? { strategyId } : undefined,
+  );
+}
+
+export function getForwardRun(id: string) {
+  return rpc<{ forwardRun: ForwardRun }>('GET', 'get-forward-run', { id });
+}
+
+// --- Execution ---
+
+export interface OrderEntry {
+  id: string;
+  type: string;
+  strategyId: string | null;
+  orderId: string | null;
+  symbol: string | null;
+  side: string | null;
+  quantity: number | null;
+  price: number | null;
+  amount: number;
+  description: string;
+  timestamp: number;
+}
+
+export function submitOrder(data: {
+  symbol: string;
+  side: 'buy' | 'sell';
+  quantity: number;
+  strategyId?: string;
+  forwardRunId?: string;
+  source?: string;
+}) {
+  return rpc<{ order: unknown; portfolio: PortfolioSnapshot }>('POST', 'submit-order', data);
+}
+
+export function listOrders() {
+  return rpc<{ orders: OrderEntry[] }>('GET', 'list-orders');
+}
+
+// --- Ledger ---
+
+export interface LedgerEntry {
+  id: string;
+  type: string;
+  strategyId: string | null;
+  orderId: string | null;
+  symbol: string | null;
+  side: string | null;
+  quantity: number | null;
+  price: number | null;
+  amount: number;
+  description: string;
+  timestamp: number;
+}
+
+export function listLedger(filters?: { type?: string; strategyId?: string }) {
+  return rpc<{ ledgerEntries: LedgerEntry[] }>('GET', 'list-ledger', filters);
+}
+
+// --- Evidence ---
+
+export interface EvidenceEntry {
+  id: string;
+  type: string;
+  category: string;
+  strategyId: string | null;
+  summary: string;
+  timestamp: number;
+}
+
+export function listEvidence(type?: string) {
+  return rpc<{ evidence: EvidenceEntry[] }>('GET', 'list-evidence', type ? { type } : undefined);
+}
