@@ -311,22 +311,30 @@ export function createDomainGateway(
       mergedHeaders.delete('X-Cache-Tier');
     }
 
+    // Vary header — ensures CDN partitions cache by encoding and origin
+    mergedHeaders.set('Vary', 'Accept-Encoding, Origin');
+
     // ETag / 304 Not Modified — avoid resending unchanged data
+    // Skip ETag for large responses (>2MB) to avoid buffering overhead in edge runtime
+    const MAX_ETAG_BODY_SIZE = 2 * 1024 * 1024;
     if (response.status === 200 && request.method === 'GET' && response.body) {
       const bodyBytes = await response.arrayBuffer();
-      // FNV-1a inspired fast hash — good enough for cache validation
-      let hash = 2166136261;
-      const view = new Uint8Array(bodyBytes);
-      for (let i = 0; i < view.length; i++) {
-        hash ^= view[i]!;
-        hash = Math.imul(hash, 16777619);
-      }
-      const etag = `"${(hash >>> 0).toString(36)}-${view.length.toString(36)}"`;
-      mergedHeaders.set('ETag', etag);
 
-      const ifNoneMatch = request.headers.get('If-None-Match');
-      if (ifNoneMatch === etag) {
-        return new Response(null, { status: 304, headers: mergedHeaders });
+      if (bodyBytes.byteLength <= MAX_ETAG_BODY_SIZE) {
+        // FNV-1a inspired fast hash — good enough for cache validation
+        let hash = 2166136261;
+        const view = new Uint8Array(bodyBytes);
+        for (let i = 0; i < view.length; i++) {
+          hash ^= view[i]!;
+          hash = Math.imul(hash, 16777619);
+        }
+        const etag = `"${(hash >>> 0).toString(36)}-${view.length.toString(36)}"`;
+        mergedHeaders.set('ETag', etag);
+
+        const ifNoneMatch = request.headers.get('If-None-Match');
+        if (ifNoneMatch === etag) {
+          return new Response(null, { status: 304, headers: mergedHeaders });
+        }
       }
 
       return new Response(bodyBytes, {

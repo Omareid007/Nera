@@ -74,11 +74,17 @@ function estimateRecordCount(obj: unknown): number {
 /** Write seed-meta for a cache key (fire-and-forget, throttled to once per 5 min per key). */
 const seedMetaLastWrite = new Map<string, number>();
 const SEED_META_THROTTLE_MS = 300_000; // 5 minutes
+const SEED_META_MAX_ENTRIES = 256; // defensive cap for long-lived edge instances
 
 function writeSeedMeta(cacheKey: string, recordCount: number): void {
   const now = Date.now();
   const last = seedMetaLastWrite.get(cacheKey) ?? 0;
   if (now - last < SEED_META_THROTTLE_MS) return;
+  // Evict oldest entries if cap is reached to prevent unbounded growth
+  if (seedMetaLastWrite.size >= SEED_META_MAX_ENTRIES && !seedMetaLastWrite.has(cacheKey)) {
+    const first = seedMetaLastWrite.keys().next().value;
+    if (first !== undefined) seedMetaLastWrite.delete(first);
+  }
   seedMetaLastWrite.set(cacheKey, now);
 
   const metaKey = `seed-meta:${cacheKey.replace(/[-:]v\d+$/, '')}`;
