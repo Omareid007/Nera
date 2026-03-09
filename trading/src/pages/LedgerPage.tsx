@@ -19,13 +19,14 @@ export function LedgerPage() {
   const [typeFilter, setTypeFilter] = useState('');
   const [strategyFilter, setStrategyFilter] = useState('');
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     Promise.all([
       listLedger(typeFilter || strategyFilter ? { type: typeFilter || undefined, strategyId: strategyFilter || undefined } : undefined)
         .then((r) => setEntries(r.ledgerEntries)),
       listStrategies().then((r) => setStrategies(r.strategies)),
-    ]).catch(() => {}).finally(() => setLoading(false));
+    ]).catch((e) => setError(e instanceof Error ? e.message : 'Failed to load ledger')).finally(() => setLoading(false));
   }, [typeFilter, strategyFilter]);
 
   return (
@@ -48,6 +49,8 @@ export function LedgerPage() {
         </select>
         <span className="text-xs text-[var(--color-text-muted)]">{entries.length} entries</span>
       </div>
+
+      {error && <div className="mb-4 rounded-lg border border-[var(--color-loss)]/30 bg-[var(--color-loss)]/5 px-4 py-2 text-xs text-[var(--color-loss)]">{error}</div>}
 
       {loading ? (
         <div className="flex justify-center py-12"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={20} /></div>

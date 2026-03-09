@@ -16,12 +16,13 @@ export function EvidencePage() {
   const [entries, setEntries] = useState<EvidenceEntry[]>([]);
   const [typeFilter, setTypeFilter] = useState('');
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     setLoading(true);
     listEvidence(typeFilter || undefined)
       .then((r) => setEntries(r.evidence))
-      .catch(() => {})
+      .catch((e) => setError(e instanceof Error ? e.message : 'Failed to load evidence'))
       .finally(() => setLoading(false));
   }, [typeFilter]);
 
@@ -39,6 +40,8 @@ export function EvidencePage() {
         </select>
         <span className="text-xs text-[var(--color-text-muted)]">{entries.length} records</span>
       </div>
+
+      {error && <div className="mb-4 rounded-lg border border-[var(--color-loss)]/30 bg-[var(--color-loss)]/5 px-4 py-2 text-xs text-[var(--color-loss)]">{error}</div>}
 
       {loading ? (
         <div className="flex justify-center py-12"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={20} /></div>

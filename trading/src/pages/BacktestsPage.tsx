@@ -11,6 +11,7 @@ export function BacktestsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [runs, setRuns] = useState<BacktestIndexEntry[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [selectedRun, setSelectedRun] = useState<BacktestRun | null>(null);
   const [loadingDetail, setLoadingDetail] = useState(false);
   const [expandedTrades, setExpandedTrades] = useState(false);
@@ -21,7 +22,7 @@ export function BacktestsPage() {
   useEffect(() => {
     listBacktestRuns()
       .then((r) => setRuns(r.backtestRuns))
-      .catch(() => {})
+      .catch((e) => setError(e instanceof Error ? e.message : 'Failed to load backtests'))
       .finally(() => setLoading(false));
   }, []);
 
@@ -46,7 +47,11 @@ export function BacktestsPage() {
     <div>
       <PageHeader title="Backtests" description="View, compare, and analyze historical strategy backtests" />
 
-      {runs.length === 0 ? (
+      {error ? (
+        <div className="rounded-2xl border border-[var(--color-loss)]/30 bg-[var(--color-loss)]/5 p-6 text-center">
+          <p className="text-sm text-[var(--color-loss)]">{error}</p>
+        </div>
+      ) : runs.length === 0 ? (
         <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12">
           <div className="flex flex-col items-center justify-center text-center">
             <div className="mb-4 rounded-2xl bg-[var(--color-surface-2)] p-4">

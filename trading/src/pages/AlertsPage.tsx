@@ -24,6 +24,7 @@ export function AlertsPage() {
   const [showCreate, setShowCreate] = useState(false);
   const [filter, setFilter] = useState<'all' | 'active' | 'triggered' | 'dismissed'>('all');
   const [creating, setCreating] = useState(false);
+  const [actionError, setActionError] = useState('');
 
   // Create form
   const [name, setName] = useState('');
@@ -32,7 +33,7 @@ export function AlertsPage() {
   const [threshold, setThreshold] = useState('');
 
   const refresh = () => {
-    listAlerts().then((r) => setAlerts(r.alerts)).catch(() => {}).finally(() => setLoading(false));
+    listAlerts().then((r) => setAlerts(r.alerts)).catch((e) => setActionError(e instanceof Error ? e.message : 'Failed to load alerts')).finally(() => setLoading(false));
   };
 
   useEffect(() => { refresh(); }, []);
@@ -51,17 +52,17 @@ export function AlertsPage() {
       setName(''); setType('price_above'); setSymbol(''); setThreshold('');
       setShowCreate(false);
       refresh();
-    } catch { /* ignore */ }
+    } catch (err) { setActionError(err instanceof Error ? err.message : 'Failed to create alert'); }
     setCreating(false);
   };
 
   const handleDismiss = async (id: string) => {
-    await dismissAlert(id).catch(() => {});
+    await dismissAlert(id).catch((e) => setActionError(e instanceof Error ? e.message : 'Failed to dismiss'));
     refresh();
   };
 
   const handleDelete = async (id: string) => {
-    await deleteAlertApi(id).catch(() => {});
+    await deleteAlertApi(id).catch((e) => setActionError(e instanceof Error ? e.message : 'Failed to delete'));
     refresh();
   };
 
@@ -92,6 +93,8 @@ export function AlertsPage() {
           <AlertTriangle size={12} /> {triggeredCount} Triggered
         </div>
       </div>
+
+      {actionError && <div className="mb-4 rounded-lg border border-[var(--color-loss)]/30 bg-[var(--color-loss)]/5 px-4 py-2 text-xs text-[var(--color-loss)]">{actionError}</div>}
 
       {/* Create form */}
       {showCreate && (

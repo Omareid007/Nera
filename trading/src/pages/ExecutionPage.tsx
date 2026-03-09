@@ -16,7 +16,7 @@ export function ExecutionPage() {
   const [error, setError] = useState('');
 
   const load = async () => {
-    try { const res = await listOrders(); setOrders(res.orders); } catch {} finally { setLoading(false); }
+    try { const res = await listOrders(); setOrders(res.orders); } catch (e) { setError(e instanceof Error ? e.message : 'Failed to load orders'); } finally { setLoading(false); }
   };
 
   useEffect(() => { load(); }, []);

@@ -8,10 +8,14 @@ import { listStrategies, type StrategyIndexEntry } from '@/lib/api';
 export function StrategiesPage() {
   const [strategies, setStrategies] = useState<StrategyIndexEntry[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [filter, setFilter] = useState('All');
 
   useEffect(() => {
-    listStrategies().then((r) => { setStrategies(r.strategies); setLoading(false); }).catch(() => setLoading(false));
+    listStrategies()
+      .then((r) => setStrategies(r.strategies))
+      .catch((e) => setError(e instanceof Error ? e.message : 'Failed to load strategies'))
+      .finally(() => setLoading(false));
   }, []);
 
   const filtered = filter === 'All' ? strategies : strategies.filter((s) => s.status === filter.toLowerCase());
@@ -37,6 +41,10 @@ export function StrategiesPage() {
 
       {loading ? (
         <div className="flex justify-center py-20"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={24} /></div>
+      ) : error ? (
+        <div className="rounded-2xl border border-[var(--color-loss)]/30 bg-[var(--color-loss)]/5 p-6 text-center">
+          <p className="text-sm text-[var(--color-loss)]">{error}</p>
+        </div>
       ) : filtered.length === 0 ? (
         <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12">
           <div className="flex flex-col items-center justify-center text-center">

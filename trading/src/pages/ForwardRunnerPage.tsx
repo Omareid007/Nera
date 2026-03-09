@@ -61,6 +61,7 @@ export function ForwardRunnerPage() {
   const [evaluating, setEvaluating] = useState(false);
   const [stopping, setStopping] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const load = useCallback(async () => {
     try {
@@ -75,7 +76,7 @@ export function ForwardRunnerPage() {
         const detail = await getForwardRun(runningEntry.id);
         setActiveRun(detail.forwardRun);
       }
-    } catch {} finally { setLoading(false); }
+    } catch (e) { setError(e instanceof Error ? e.message : 'Failed to load data'); } finally { setLoading(false); }
   }, [selectedStrategyId]);
 
   useEffect(() => { load(); }, [load]);
@@ -87,19 +88,19 @@ export function ForwardRunnerPage() {
       const res = await startForwardRun(selectedStrategyId, selectedMode);
       setActiveRun(res.forwardRun);
       await load();
-    } catch {} finally { setStarting(false); }
+    } catch (e) { setError(e instanceof Error ? e.message : 'Failed to start runner'); } finally { setStarting(false); }
   };
 
   const handleStop = async () => {
     if (!activeRun) return;
     setStopping(true);
-    try { await stopForwardRun(activeRun.id); setActiveRun(null); await load(); } catch {} finally { setStopping(false); }
+    try { await stopForwardRun(activeRun.id); setActiveRun(null); await load(); } catch (e) { setError(e instanceof Error ? e.message : 'Failed to stop runner'); } finally { setStopping(false); }
   };
 
   const handleEvaluate = async () => {
     if (!activeRun) return;
     setEvaluating(true);
-    try { const res = await evaluateForwardRun(activeRun.id); setActiveRun(res.forwardRun); } catch {} finally { setEvaluating(false); }
+    try { const res = await evaluateForwardRun(activeRun.id); setActiveRun(res.forwardRun); } catch (e) { setError(e instanceof Error ? e.message : 'Failed to evaluate'); } finally { setEvaluating(false); }
   };
 
   if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={24} /></div>;
@@ -157,6 +158,8 @@ export function ForwardRunnerPage() {
           </div>
         )}
       </div>
+
+      {error && <div className="mb-4 rounded-lg border border-[var(--color-loss)]/30 bg-[var(--color-loss)]/5 px-4 py-2 text-xs text-[var(--color-loss)]">{error}</div>}
 
       {activeRun && (
         <>

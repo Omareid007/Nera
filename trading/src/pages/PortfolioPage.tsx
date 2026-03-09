@@ -71,19 +71,27 @@ function RiskDecomposition({ portfolio }: { portfolio: PortfolioSnapshot }) {
 export function PortfolioPage() {
   const [portfolio, setPortfolio] = useState<PortfolioSnapshot | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     getPortfolio()
       .then((r) => setPortfolio(r.portfolio))
-      .catch(() => setPortfolio({
-        totalEquity: 100_000, cash: 100_000, positionsValue: 0, unrealizedPnl: 0,
-        realizedPnl: 0, totalPnl: 0, totalPnlPct: 0, positions: [],
-        longExposure: 0, shortExposure: 0, netExposure: 0, positionCount: 0, timestamp: Date.now(),
-      }))
+      .catch((e) => setError(e instanceof Error ? e.message : 'Failed to load portfolio'))
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading || !portfolio) return <div className="flex justify-center py-20"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={24} /></div>;
+  if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={24} /></div>;
+
+  if (error) return (
+    <div>
+      <PageHeader title="Portfolio" description="Positions, exposure, risk decomposition, and P&L tracking" />
+      <div className="rounded-2xl border border-[var(--color-loss)]/30 bg-[var(--color-loss)]/5 p-6 text-center">
+        <p className="text-sm text-[var(--color-loss)]">{error}</p>
+      </div>
+    </div>
+  );
+
+  if (!portfolio) return <div className="flex justify-center py-20"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={24} /></div>;
 
   return (
     <div>
