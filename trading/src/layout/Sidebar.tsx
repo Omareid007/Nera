@@ -19,6 +19,9 @@ import {
   Activity,
   AlertTriangle,
   Bell,
+  Eye,
+  GitCompare,
+  Target,
 } from 'lucide-react';
 
 const NAV_SECTIONS = [
@@ -44,7 +47,10 @@ const NAV_SECTIONS = [
     label: 'Analytics',
     items: [
       { to: '/analytics', icon: Activity, label: 'Charts' },
+      { to: '/watchlist', icon: Eye, label: 'Watchlist' },
       { to: '/risk', icon: AlertTriangle, label: 'Risk Matrix' },
+      { to: '/compare', icon: GitCompare, label: 'Compare' },
+      { to: '/attribution', icon: Target, label: 'Attribution' },
       { to: '/alerts', icon: Bell, label: 'Alerts' },
     ],
   },

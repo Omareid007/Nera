@@ -17,6 +17,9 @@ import { SettingsPage } from './pages/SettingsPage';
 import { AnalyticsPage } from './pages/AnalyticsPage';
 import { RiskMatrixPage } from './pages/RiskMatrixPage';
 import { AlertsPage } from './pages/AlertsPage';
+import { ComparePage } from './pages/ComparePage';
+import { WatchlistPage } from './pages/WatchlistPage';
+import { AttributionPage } from './pages/AttributionPage';
 
 export function App() {
   return (
@@ -37,6 +40,9 @@ export function App() {
         <Route path="/analytics" element={<AnalyticsPage />} />
         <Route path="/risk" element={<RiskMatrixPage />} />
         <Route path="/alerts" element={<AlertsPage />} />
+        <Route path="/compare" element={<ComparePage />} />
+        <Route path="/watchlist" element={<WatchlistPage />} />
+        <Route path="/attribution" element={<AttributionPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
