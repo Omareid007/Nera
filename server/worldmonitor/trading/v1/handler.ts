@@ -5,6 +5,7 @@
  * because the trading service is new and doesn't have proto files yet.
  */
 
+import { timingSafeEqual } from 'node:crypto';
 import type { RouteDescriptor } from '../../../router';
 import { createStrategy } from './create-strategy';
 import { getStrategyHandler } from './get-strategy';
@@ -52,8 +53,8 @@ function withAuth(handler: (req: Request) => Promise<Response>, requireForGET = 
     // Skip auth for GET requests unless explicitly required
     if (req.method === 'GET' && !requireForGET) return handler(req);
 
-    const provided = req.headers.get('X-WorldMonitor-Key') ?? req.headers.get('Authorization')?.replace('Bearer ', '');
-    if (!provided || provided !== apiKey) {
+    const provided = req.headers.get('X-WorldMonitor-Key') ?? req.headers.get('Authorization')?.replace(/^Bearer\s+/, '');
+    if (!provided || provided.length !== apiKey.length || !timingSafeEqual(Buffer.from(provided), Buffer.from(apiKey))) {
       return errorResponse('Unauthorized — provide TRADING_API_KEY via X-WorldMonitor-Key header', 401);
     }
     return handler(req);

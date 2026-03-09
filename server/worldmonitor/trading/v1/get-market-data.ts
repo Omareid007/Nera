@@ -7,6 +7,7 @@
  */
 
 import { parseBody, jsonResponse, errorResponse } from './handler';
+import { isValidSymbol } from './_shared';
 import { CHROME_UA } from '../../../_shared/constants';
 
 interface Candle {
@@ -137,6 +138,7 @@ export async function getMarketData(req: Request): Promise<Response> {
   const range = (body.range as string) || '6mo';
 
   if (!symbol) return errorResponse('symbol is required');
+  if (!isValidSymbol(symbol)) return errorResponse('Invalid symbol format');
 
   // Validate interval and range to prevent URL injection
   const VALID_INTERVALS = ['1m', '2m', '5m', '15m', '30m', '60m', '90m', '1h', '1d', '5d', '1wk', '1mo', '3mo'];

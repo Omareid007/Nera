@@ -7,7 +7,7 @@
 
 import { parseBody, jsonResponse, errorResponse } from './handler';
 import { storeOrder, getPortfolioSnapshot, storePortfolioSnapshot, storeLedgerEntry } from './trading-store';
-import { generateId, DEFAULT_PAPER_CAPITAL } from './_shared';
+import { generateId, DEFAULT_PAPER_CAPITAL, isValidSymbol } from './_shared';
 import { CHROME_UA } from '../../../_shared/constants';
 import type { Order, Position, PortfolioSnapshot, LedgerEntry } from './types';
 
@@ -38,6 +38,7 @@ export async function submitOrder(req: Request): Promise<Response> {
   const source = (body.source as string) || 'manual';
 
   if (!symbol) return errorResponse('symbol is required');
+  if (!isValidSymbol(symbol)) return errorResponse('Invalid symbol format');
   if (!side || !['buy', 'sell'].includes(side)) return errorResponse('side must be buy or sell');
   if (!quantity || quantity <= 0) return errorResponse('quantity must be positive');
   if (quantity > 1_000_000) return errorResponse('quantity exceeds maximum of 1,000,000 shares');

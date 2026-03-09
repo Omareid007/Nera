@@ -4,6 +4,7 @@
  */
 
 import { parseBody, jsonResponse, errorResponse } from './handler';
+import { isValidSymbol } from './_shared';
 import { CHROME_UA } from '../../../_shared/constants';
 
 interface WatchlistQuote {
@@ -27,6 +28,9 @@ export async function getWatchlistQuotes(req: Request): Promise<Response> {
 
   if (symbols.length === 0) return errorResponse('at least one symbol is required');
   if (symbols.length > 30) return errorResponse('maximum 30 symbols');
+
+  const invalidSymbol = symbols.find((s) => !isValidSymbol(s));
+  if (invalidSymbol) return errorResponse(`Invalid symbol format: ${invalidSymbol}`);
 
   const quotes: WatchlistQuote[] = [];
 

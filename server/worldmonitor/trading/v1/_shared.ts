@@ -43,3 +43,9 @@ export function jsonResponse(data: unknown, status = 200): Response {
 export function errorResponse(message: string, status = 400): Response {
   return jsonResponse({ error: message }, status);
 }
+
+/** Validate a ticker symbol format. Allows alphanumeric, dots, hyphens, carets, equals (1-20 chars). */
+const SYMBOL_RE = /^[A-Z0-9.\-^=]{1,20}$/;
+export function isValidSymbol(symbol: string): boolean {
+  return SYMBOL_RE.test(symbol.toUpperCase());
+}
