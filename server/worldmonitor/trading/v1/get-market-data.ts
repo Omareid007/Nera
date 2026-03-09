@@ -41,18 +41,23 @@ interface QuoteData {
 interface MarketDataResponse {
   quote: QuoteData;
   candles: Candle[];
-  sma20: number[];
-  sma50: number[];
-  ema12: number[];
-  ema26: number[];
-  rsi14: number[];
-  bollingerUpper: number[];
-  bollingerLower: number[];
-  bollingerMid: number[];
-  macd: number[];
-  macdSignal: number[];
-  macdHistogram: number[];
-  volumeSma20: number[];
+  sma20: (number | null)[];
+  sma50: (number | null)[];
+  ema12: (number | null)[];
+  ema26: (number | null)[];
+  rsi14: (number | null)[];
+  bollingerUpper: (number | null)[];
+  bollingerLower: (number | null)[];
+  bollingerMid: (number | null)[];
+  macd: (number | null)[];
+  macdSignal: (number | null)[];
+  macdHistogram: (number | null)[];
+  volumeSma20: (number | null)[];
+}
+
+/** Replace NaN values with null for JSON serialization. */
+function sanitizeArray(arr: number[]): (number | null)[] {
+  return arr.map((v) => (isNaN(v) ? null : v));
 }
 
 function computeSMA(data: number[], period: number): number[] {
@@ -255,18 +260,18 @@ export async function getMarketData(req: Request): Promise<Response> {
     const data: MarketDataResponse = {
       quote,
       candles,
-      sma20,
-      sma50,
-      ema12,
-      ema26,
-      rsi14,
-      bollingerUpper: bollinger.upper,
-      bollingerLower: bollinger.lower,
-      bollingerMid: bollinger.mid,
-      macd,
-      macdSignal: paddedSignal,
-      macdHistogram,
-      volumeSma20,
+      sma20: sanitizeArray(sma20),
+      sma50: sanitizeArray(sma50),
+      ema12: sanitizeArray(ema12),
+      ema26: sanitizeArray(ema26),
+      rsi14: sanitizeArray(rsi14),
+      bollingerUpper: sanitizeArray(bollinger.upper),
+      bollingerLower: sanitizeArray(bollinger.lower),
+      bollingerMid: sanitizeArray(bollinger.mid),
+      macd: sanitizeArray(macd),
+      macdSignal: sanitizeArray(paddedSignal),
+      macdHistogram: sanitizeArray(macdHistogram),
+      volumeSma20: sanitizeArray(volumeSma20),
     };
 
     return jsonResponse(data);

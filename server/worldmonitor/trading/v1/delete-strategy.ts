@@ -1,10 +1,14 @@
 import { parseBody, jsonResponse, errorResponse } from './handler';
-import { deleteStrategy, getForwardIndex, getForwardRun, storeForwardRun } from './trading-store';
+import { deleteStrategy, getStrategy, getForwardIndex, getForwardRun, storeForwardRun } from './trading-store';
 
 export async function deleteStrategyHandler(req: Request): Promise<Response> {
   const body = await parseBody(req);
   const id = body.id as string | undefined;
   if (!id) return errorResponse('id is required');
+
+  // Verify strategy exists before attempting deletion
+  const strategy = await getStrategy(id);
+  if (!strategy) return errorResponse('Strategy not found', 404);
 
   // Stop any running forward runs for this strategy before deleting
   try {

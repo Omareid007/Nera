@@ -493,18 +493,18 @@ export interface QuoteData {
 export interface MarketDataResponse {
   quote: QuoteData;
   candles: Candle[];
-  sma20: number[];
-  sma50: number[];
-  ema12: number[];
-  ema26: number[];
-  rsi14: number[];
-  bollingerUpper: number[];
-  bollingerLower: number[];
-  bollingerMid: number[];
-  macd: number[];
-  macdSignal: number[];
-  macdHistogram: number[];
-  volumeSma20: number[];
+  sma20: (number | null)[];
+  sma50: (number | null)[];
+  ema12: (number | null)[];
+  ema26: (number | null)[];
+  rsi14: (number | null)[];
+  bollingerUpper: (number | null)[];
+  bollingerLower: (number | null)[];
+  bollingerMid: (number | null)[];
+  macd: (number | null)[];
+  macdSignal: (number | null)[];
+  macdHistogram: (number | null)[];
+  volumeSma20: (number | null)[];
 }
 
 export function getMarketData(symbol: string, interval = '1d', range = '6mo') {

@@ -1,7 +1,5 @@
 import { randomUUID } from 'node:crypto';
 
-export const UPSTREAM_TIMEOUT_MS = 25_000;
-
 /** Default starting capital for paper trading accounts. */
 export const DEFAULT_PAPER_CAPITAL = 100_000;
 
@@ -9,7 +7,7 @@ export function generateId(): string {
   return randomUUID();
 }
 
-/** Parse JSON body from POST request, return empty object for GET. */
+/** Parse JSON body from POST request, return query params for GET. */
 export async function parseBody(req: Request): Promise<Record<string, unknown>> {
   if (req.method === 'GET') {
     const url = new URL(req.url);
