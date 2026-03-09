@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import { Search, Globe, TrendingUp, Shield, Zap, Newspaper, Building2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Search, Globe, TrendingUp, Shield, Zap, Newspaper, Building2, Loader2 } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
+import { getIntelStatus, type IntelSource } from '@/lib/api';
 
 /** Predefined research universes with World Monitor intelligence linkage. */
 const UNIVERSES = [
@@ -14,6 +15,15 @@ const UNIVERSES = [
 
 export function ResearchPage() {
   const [search, setSearch] = useState('');
+  const [intelSources, setIntelSources] = useState<IntelSource[]>([]);
+  const [loadingIntel, setLoadingIntel] = useState(true);
+
+  useEffect(() => {
+    getIntelStatus()
+      .then((r) => setIntelSources(r.sources))
+      .catch(() => {})
+      .finally(() => setLoadingIntel(false));
+  }, []);
 
   const filtered = search
     ? UNIVERSES.filter((u) =>
@@ -56,27 +66,30 @@ export function ResearchPage() {
       </div>
 
       <div>
-        <h2 className="mb-3 text-sm font-semibold text-[var(--color-text-tertiary)]">World Monitor Data Sources</h2>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            { name: 'ACLED', description: 'Armed conflict events → Defense stocks', status: 'live' },
-            { name: 'GDELT', description: 'Global news sentiment → Market impact', status: 'live' },
-            { name: 'CII Scores', description: 'Country instability → EM exposure', status: 'live' },
-            { name: 'EIA Energy', description: 'Oil/gas supply data → Energy sector', status: 'live' },
-            { name: 'FRED', description: 'Economic indicators → Macro trades', status: 'live' },
-            { name: 'Sanctions', description: 'OFAC/EU sanctions → Affected companies', status: 'live' },
-            { name: 'Prediction Markets', description: 'Geopolitical probabilities → Risk adjust', status: 'live' },
-            { name: 'Cyber Threats', description: 'CVE/breach events → Tech sector', status: 'live' },
-          ].map((src) => (
-            <div key={src.name} className="rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-medium text-[var(--color-text-primary)]">{src.name}</span>
-                <span className="rounded-full bg-emerald-500/20 px-1.5 py-0.5 text-[9px] font-semibold uppercase text-emerald-400">{src.status}</span>
+        <h2 className="mb-3 text-sm font-semibold text-[var(--color-text-tertiary)]">World Monitor Data Sources (Live)</h2>
+        {loadingIntel ? (
+          <div className="flex justify-center py-8"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={20} /></div>
+        ) : (
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {intelSources.map((src) => (
+              <div key={src.name} className="rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-medium text-[var(--color-text-primary)]">{src.name}</span>
+                  <span className={`rounded-full px-1.5 py-0.5 text-[9px] font-semibold uppercase ${
+                    src.status === 'live' ? 'bg-emerald-500/20 text-emerald-400' :
+                    src.status === 'stale' ? 'bg-amber-500/20 text-amber-400' :
+                    src.status === 'down' ? 'bg-red-500/20 text-red-400' :
+                    'bg-gray-500/20 text-gray-400'
+                  }`}>{src.status}</span>
+                </div>
+                <p className="mt-1 text-[10px] text-[var(--color-text-muted)]">{src.description}</p>
+                {src.latencyMs !== null && (
+                  <p className="mt-0.5 text-[9px] text-[var(--color-text-muted)]">{src.latencyMs}ms</p>
+                )}
               </div>
-              <p className="mt-1 text-[10px] text-[var(--color-text-muted)]">{src.description}</p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

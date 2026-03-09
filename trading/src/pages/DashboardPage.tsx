@@ -7,10 +7,12 @@ import { StatusBadge } from '@/components/StatusBadge';
 import { timeAgo } from '@/lib/utils';
 import {
   listStrategies, listBacktestRuns, getPortfolio, listAiEvents, listForwardRuns, listEvidence, getWatchlistQuotes, listAlerts,
+  getSettings, getIntelStatus,
   type StrategyIndexEntry, type BacktestIndexEntry, type PortfolioSnapshot, type AiEventIndexEntry, type ForwardRunIndexEntry, type EvidenceEntry, type WatchlistQuote, type Alert,
+  type IntelSource,
 } from '@/lib/api';
 
-const TICKER_SYMBOLS = ['SPY', 'QQQ', 'DIA', 'AAPL', 'MSFT', 'NVDA', 'BTC-USD', 'ETH-USD', 'GLD', 'TLT'];
+const DEFAULT_TICKER_SYMBOLS = ['SPY', 'QQQ', 'DIA', 'AAPL', 'MSFT', 'NVDA', 'BTC-USD', 'ETH-USD', 'GLD', 'TLT'];
 
 export function DashboardPage() {
   const [strategies, setStrategies] = useState<StrategyIndexEntry[]>([]);
@@ -21,6 +23,7 @@ export function DashboardPage() {
   const [evidence, setEvidence] = useState<EvidenceEntry[]>([]);
   const [ticker, setTicker] = useState<WatchlistQuote[]>([]);
   const [alerts, setAlerts] = useState<Alert[]>([]);
+  const [intelSources, setIntelSources] = useState<IntelSource[]>([]);
   const [loading, setLoading] = useState(true);
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [lastRefresh, setLastRefresh] = useState(Date.now());
@@ -33,8 +36,12 @@ export function DashboardPage() {
       listAiEvents().then((r) => setAiEvents(r.aiEvents)).catch(() => {}),
       listForwardRuns().then((r) => setForwardRuns(r.forwardRuns)).catch(() => {}),
       listEvidence().then((r) => setEvidence(r.evidence)).catch(() => {}),
-      getWatchlistQuotes(TICKER_SYMBOLS).then((r) => setTicker(r.quotes)).catch(() => {}),
+      getSettings()
+        .then((r) => getWatchlistQuotes(r.settings.defaultWatchlistSymbols.length > 0 ? r.settings.defaultWatchlistSymbols : DEFAULT_TICKER_SYMBOLS))
+        .then((r) => setTicker(r.quotes))
+        .catch(() => getWatchlistQuotes(DEFAULT_TICKER_SYMBOLS).then((r) => setTicker(r.quotes)).catch(() => {})),
       listAlerts().then((r) => setAlerts(r.alerts)).catch(() => {}),
+      getIntelStatus().then((r) => setIntelSources(r.sources)).catch(() => {}),
     ]).finally(() => { setLoading(false); setLastRefresh(Date.now()); });
   }, []);
 
@@ -217,26 +224,26 @@ export function DashboardPage() {
             </div>
           </div>
 
-          {/* World Monitor Intel */}
+          {/* World Monitor Intel — live status */}
           <div>
             <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[var(--color-text-tertiary)]"><Globe size={14} /> Intel Sources</h2>
             <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
               <div className="space-y-2">
-                {[
-                  { name: 'ACLED Conflicts', status: 'live', impact: 'Defense sector' },
-                  { name: 'GDELT News', status: 'live', impact: 'Sentiment signals' },
-                  { name: 'CII Risk Scores', status: 'live', impact: 'EM exposure' },
-                  { name: 'EIA Energy', status: 'live', impact: 'Energy sector' },
-                  { name: 'Sanctions Intel', status: 'live', impact: 'Compliance' },
-                ].map((src) => (
+                {intelSources.length > 0 ? intelSources.map((src) => (
                   <div key={src.name} className="flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2">
-                      <div className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                      <div className={`h-1.5 w-1.5 rounded-full ${
+                        src.status === 'live' ? 'bg-emerald-400' :
+                        src.status === 'stale' ? 'bg-amber-400' :
+                        src.status === 'down' ? 'bg-red-400' : 'bg-gray-400'
+                      }`} />
                       <span className="text-[var(--color-text-secondary)]">{src.name}</span>
                     </div>
                     <span className="text-[10px] text-[var(--color-text-muted)]">{src.impact}</span>
                   </div>
-                ))}
+                )) : (
+                  <p className="text-xs text-[var(--color-text-muted)]">Loading intel sources...</p>
+                )}
               </div>
               <a href="/" className="mt-3 block text-center text-xs text-[var(--color-accent)] hover:underline">Open World Monitor</a>
             </div>

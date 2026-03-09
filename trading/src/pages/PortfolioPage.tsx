@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Loader2, TrendingUp, TrendingDown, ShieldAlert, BarChart3 } from 'lucide-react';
+import { Loader2, TrendingUp, TrendingDown, ShieldAlert, BarChart3, RefreshCw, Plus, Minus } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
 import { MetricCard } from '@/components/MetricCard';
 import { StatusBadge } from '@/components/StatusBadge';
-import { getPortfolio, type PortfolioSnapshot, type Position } from '@/lib/api';
+import { getPortfolio, refreshPortfolio, depositFunds, withdrawFunds, type PortfolioSnapshot, type Position } from '@/lib/api';
 
 function fmt(n: number): string {
   return `$${n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -71,14 +71,46 @@ function RiskDecomposition({ portfolio }: { portfolio: PortfolioSnapshot }) {
 export function PortfolioPage() {
   const [portfolio, setPortfolio] = useState<PortfolioSnapshot | null>(null);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState('');
+  const [fundAmount, setFundAmount] = useState('');
+  const [fundAction, setFundAction] = useState<'deposit' | 'withdraw'>('deposit');
+  const [fundLoading, setFundLoading] = useState(false);
+  const [fundMsg, setFundMsg] = useState('');
 
-  useEffect(() => {
+  const load = () => {
     getPortfolio()
       .then((r) => setPortfolio(r.portfolio))
       .catch((e) => setError(e instanceof Error ? e.message : 'Failed to load portfolio'))
       .finally(() => setLoading(false));
-  }, []);
+  };
+
+  useEffect(() => { load(); }, []);
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    try {
+      const r = await refreshPortfolio();
+      setPortfolio(r.portfolio);
+      setFundMsg(r.pricesUpdated ? `${r.pricesUpdated} position prices updated` : 'Portfolio up to date');
+      setTimeout(() => setFundMsg(''), 3000);
+    } catch (e) { setError(e instanceof Error ? e.message : 'Failed to refresh'); }
+    finally { setRefreshing(false); }
+  };
+
+  const handleFund = async () => {
+    const amt = Number(fundAmount);
+    if (!amt || amt <= 0) return;
+    setFundLoading(true); setFundMsg('');
+    try {
+      const r = fundAction === 'deposit' ? await depositFunds(amt) : await withdrawFunds(amt);
+      setPortfolio(r.portfolio);
+      setFundAmount('');
+      setFundMsg(`${fundAction === 'deposit' ? 'Deposited' : 'Withdrawn'} $${amt.toLocaleString()}`);
+      setTimeout(() => setFundMsg(''), 3000);
+    } catch (e) { setFundMsg(e instanceof Error ? e.message : 'Failed'); }
+    finally { setFundLoading(false); }
+  };
 
   if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={24} /></div>;
 
@@ -96,7 +128,15 @@ export function PortfolioPage() {
   return (
     <div>
       <PageHeader title="Portfolio" description="Positions, exposure, risk decomposition, and P&L tracking"
-        actions={<StatusBadge status="paper" label="PAPER ACCOUNT" />} />
+        actions={
+          <div className="flex items-center gap-2">
+            <button onClick={handleRefresh} disabled={refreshing}
+              className="flex items-center gap-1.5 rounded-lg bg-[var(--color-surface-2)] px-3 py-1.5 text-xs text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-3)] disabled:opacity-50">
+              {refreshing ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />} Refresh Prices
+            </button>
+            <StatusBadge status="paper" label="PAPER ACCOUNT" />
+          </div>
+        } />
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
         <MetricCard label="Total Equity" value={fmt(portfolio.totalEquity)} />
@@ -104,6 +144,30 @@ export function PortfolioPage() {
         <MetricCard label="Positions" value={String(portfolio.positionCount)} />
         <MetricCard label="Unrealized P&L" value={fmt(portfolio.unrealizedPnl)} changeType={portfolio.unrealizedPnl >= 0 ? 'profit' : 'loss'} />
         <MetricCard label="Realized P&L" value={fmt(portfolio.realizedPnl)} changeType={portfolio.realizedPnl >= 0 ? 'profit' : 'loss'} />
+      </div>
+
+      {/* Fund management */}
+      <div className="mt-4 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+        <div className="flex flex-wrap items-end gap-3">
+          <div>
+            <label className="mb-1 block text-xs text-[var(--color-text-secondary)]">Action</label>
+            <select value={fundAction} onChange={(e) => setFundAction(e.target.value as 'deposit' | 'withdraw')}
+              className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-2)] px-3 py-2 text-sm text-[var(--color-text-primary)]">
+              <option value="deposit">Deposit</option><option value="withdraw">Withdraw</option>
+            </select>
+          </div>
+          <div>
+            <label className="mb-1 block text-xs text-[var(--color-text-secondary)]">Amount ($)</label>
+            <input type="number" value={fundAmount} onChange={(e) => setFundAmount(e.target.value)} min="1" step="1000" placeholder="10000"
+              className="w-32 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-2)] px-3 py-2 text-sm text-[var(--color-text-primary)]" />
+          </div>
+          <button onClick={handleFund} disabled={fundLoading || !fundAmount}
+            className="flex items-center gap-1.5 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-[var(--color-surface-0)] disabled:opacity-50">
+            {fundLoading ? <Loader2 size={14} className="animate-spin" /> : fundAction === 'deposit' ? <Plus size={14} /> : <Minus size={14} />}
+            {fundAction === 'deposit' ? 'Deposit' : 'Withdraw'}
+          </button>
+          {fundMsg && <span className="text-xs text-[var(--color-text-secondary)]">{fundMsg}</span>}
+        </div>
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-3">

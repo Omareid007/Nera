@@ -41,6 +41,14 @@ import { getMarketData } from './get-market-data';
 import { getWatchlistQuotes } from './get-watchlist-quotes';
 import { getRiskAnalytics } from './get-risk-analytics';
 import { createAlert, listAlerts, dismissAlert, deleteAlert } from './alerts';
+import { getSettings, updateSettings } from './settings';
+import { evaluateAlerts } from './evaluate-alerts';
+import { refreshPortfolio } from './refresh-portfolio';
+import { getProviderHealth } from './provider-health';
+import { getIntelStatus } from './intel-status';
+import { createWatchlist, listWatchlists, getWatchlistById, updateWatchlist, deleteWatchlistHandler } from './watchlists';
+import { deposit, withdraw } from './deposit-withdraw';
+import { getAttribution } from './get-attribution';
 
 // Re-export shared helpers so existing imports from './handler' still work
 export { parseBody, jsonResponse, errorResponse } from './_shared';
@@ -126,5 +134,29 @@ export function createTradingRoutes(): RouteDescriptor[] {
     { method: 'GET',  path: `${BASE}/list-alerts`,            handler: listAlerts },
     { method: 'POST', path: `${BASE}/dismiss-alert`,          handler: withAuth(dismissAlert) },
     { method: 'POST', path: `${BASE}/delete-alert`,           handler: withAuth(deleteAlert) },
+    { method: 'POST', path: `${BASE}/evaluate-alerts`,        handler: withAuth(evaluateAlerts) },
+
+    // Settings
+    { method: 'GET',  path: `${BASE}/get-settings`,           handler: getSettings },
+    { method: 'POST', path: `${BASE}/update-settings`,        handler: withAuth(updateSettings) },
+
+    // Portfolio management
+    { method: 'POST', path: `${BASE}/refresh-portfolio`,      handler: withAuth(refreshPortfolio) },
+    { method: 'POST', path: `${BASE}/deposit`,                handler: withAuth(deposit) },
+    { method: 'POST', path: `${BASE}/withdraw`,               handler: withAuth(withdraw) },
+
+    // Watchlists
+    { method: 'POST', path: `${BASE}/create-watchlist`,       handler: withAuth(createWatchlist) },
+    { method: 'GET',  path: `${BASE}/list-watchlists`,        handler: listWatchlists },
+    { method: 'GET',  path: `${BASE}/get-watchlist`,          handler: getWatchlistById },
+    { method: 'POST', path: `${BASE}/update-watchlist`,       handler: withAuth(updateWatchlist) },
+    { method: 'POST', path: `${BASE}/delete-watchlist`,       handler: withAuth(deleteWatchlistHandler) },
+
+    // Attribution
+    { method: 'GET',  path: `${BASE}/get-attribution`,        handler: getAttribution },
+
+    // System / Admin
+    { method: 'GET',  path: `${BASE}/provider-health`,        handler: getProviderHealth },
+    { method: 'GET',  path: `${BASE}/intel-status`,           handler: getIntelStatus },
   ];
 }

@@ -413,11 +413,13 @@ export function submitOrder(data: {
   symbol: string;
   side: 'buy' | 'sell';
   quantity: number;
+  type?: 'market' | 'limit';
+  limitPrice?: number;
   strategyId?: string;
   forwardRunId?: string;
   source?: string;
 }) {
-  return rpc<{ order: Order; portfolio: PortfolioSnapshot }>('POST', 'submit-order', data);
+  return rpc<{ order: Order; portfolio: PortfolioSnapshot; message?: string }>('POST', 'submit-order', data);
 }
 
 export function listOrders() {
@@ -602,4 +604,134 @@ export function dismissAlert(id: string) {
 
 export function deleteAlertApi(id: string) {
   return rpc<{ deleted: boolean }>('POST', 'delete-alert', { id });
+}
+
+export function evaluateAlerts() {
+  return rpc<{ evaluated: number; triggered: Alert[] }>('POST', 'evaluate-alerts');
+}
+
+// --- Settings ---
+
+export interface UserSettings {
+  theme: 'dark' | 'light';
+  defaultMode: 'paper' | 'live';
+  defaultCapital: number;
+  globalMaxPositionPct: number;
+  globalMaxDrawdownPct: number;
+  aiInterpretationsEnabled: boolean;
+  reviewChecklistsEnabled: boolean;
+  defaultWatchlistSymbols: string[];
+  alertNotificationsEnabled: boolean;
+  updatedAt: number;
+}
+
+export function getSettings() {
+  return rpc<{ settings: UserSettings }>('GET', 'get-settings');
+}
+
+export function updateSettings(data: Partial<UserSettings>) {
+  return rpc<{ settings: UserSettings }>('POST', 'update-settings', data);
+}
+
+// --- Portfolio Management ---
+
+export function refreshPortfolio() {
+  return rpc<{ portfolio: PortfolioSnapshot; refreshed: boolean; pricesUpdated?: number }>('POST', 'refresh-portfolio');
+}
+
+export function depositFunds(amount: number, description?: string) {
+  return rpc<{ portfolio: PortfolioSnapshot; ledgerEntry: LedgerEntry }>('POST', 'deposit', { amount, description });
+}
+
+export function withdrawFunds(amount: number, description?: string) {
+  return rpc<{ portfolio: PortfolioSnapshot; ledgerEntry: LedgerEntry }>('POST', 'withdraw', { amount, description });
+}
+
+// --- Watchlists ---
+
+export interface WatchlistItem {
+  id: string;
+  name: string;
+  symbols: string[];
+  description: string;
+  createdAt: number;
+  updatedAt: number;
+}
+
+export interface WatchlistIndexEntry {
+  id: string;
+  name: string;
+  symbolCount: number;
+  updatedAt: number;
+}
+
+export function createWatchlist(data: { name: string; symbols: string[]; description?: string }) {
+  return rpc<{ watchlist: WatchlistItem }>('POST', 'create-watchlist', data);
+}
+
+export function listWatchlists() {
+  return rpc<{ watchlists: WatchlistIndexEntry[] }>('GET', 'list-watchlists');
+}
+
+export function getWatchlistById(id: string) {
+  return rpc<{ watchlist: WatchlistItem }>('GET', 'get-watchlist', { id });
+}
+
+export function updateWatchlist(data: { id: string; name?: string; symbols?: string[]; description?: string }) {
+  return rpc<{ watchlist: WatchlistItem }>('POST', 'update-watchlist', data);
+}
+
+export function deleteWatchlist(id: string) {
+  return rpc<{ deleted: boolean }>('POST', 'delete-watchlist', { id });
+}
+
+// --- Provider Health ---
+
+export interface ProviderStatus {
+  name: string;
+  category: 'market_data' | 'llm' | 'infrastructure' | 'intelligence';
+  status: 'operational' | 'degraded' | 'down' | 'unknown';
+  latencyMs: number | null;
+  lastChecked: number;
+  description: string;
+}
+
+export function getProviderHealth() {
+  return rpc<{ providers: ProviderStatus[]; summary: { total: number; operational: number; degraded: number; down: number; unknown: number }; timestamp: number }>('GET', 'provider-health');
+}
+
+// --- Intel Status ---
+
+export interface IntelSource {
+  name: string;
+  description: string;
+  status: 'live' | 'stale' | 'down' | 'unknown';
+  lastDataTimestamp: number | null;
+  latencyMs: number | null;
+  recordCount: number | null;
+  impact: string;
+}
+
+export function getIntelStatus() {
+  return rpc<{ sources: IntelSource[]; summary: { total: number; live: number; stale: number; down: number; unknown: number }; timestamp: number }>('GET', 'intel-status');
+}
+
+// --- Attribution ---
+
+export interface Attribution {
+  marketReturn: number;
+  sectorReturn: number;
+  styleReturn: number;
+  idiosyncraticReturn: number;
+  totalReturn: number;
+  benchmarkReturn: number;
+  beta: number;
+  alpha: number;
+  rSquared: number;
+  trackingError: number;
+  informationRatio: number;
+}
+
+export function getAttribution(backtestId: string) {
+  return rpc<{ attribution: Attribution; backtestId: string; strategyName: string; templateId: TemplateId }>('GET', 'get-attribution', { backtestId });
 }

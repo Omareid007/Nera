@@ -11,7 +11,7 @@ import {
 } from 'recharts';
 import { PageHeader } from '@/components/PageHeader';
 import { MetricCard } from '@/components/MetricCard';
-import { listBacktestRuns, getBacktestRun, type BacktestIndexEntry, type BacktestRun, type BacktestMetrics } from '@/lib/api';
+import { listBacktestRuns, getBacktestRun, getAttribution, type BacktestIndexEntry, type BacktestRun, type Attribution } from '@/lib/api';
 
 const FACTOR_COLORS = {
   market: '#3b82f6',
@@ -20,35 +20,12 @@ const FACTOR_COLORS = {
   idiosyncratic: '#8b5cf6',
 };
 
-interface Attribution {
-  marketReturn: number;
-  sectorReturn: number;
-  styleReturn: number;
-  idiosyncraticReturn: number;
-  totalReturn: number;
-}
-
-function decomposeReturn(metrics: BacktestMetrics, templateId: string): Attribution {
-  const total = metrics.totalReturn;
-  // Simplified factor model — in production would use regression on factor returns
-  // Market factor: beta-weighted S&P return (~12% annualized assumed)
-  const marketWeight = templateId === 'trend_following' ? 0.35 : templateId === 'mean_reversion' ? 0.2 : 0.3;
-  const sectorWeight = templateId === 'sector_rotation' || templateId === 'etf_rotation' ? 0.3 : 0.15;
-  const styleWeight = templateId === 'momentum' ? 0.25 : templateId === 'breakout' ? 0.2 : 0.15;
-
-  const market = total * marketWeight;
-  const sector = total * sectorWeight;
-  const style = total * styleWeight;
-  const idiosyncratic = total - market - sector - style;
-
-  return { marketReturn: market, sectorReturn: sector, styleReturn: style, idiosyncraticReturn: idiosyncratic, totalReturn: total };
-}
-
 export function AttributionPage() {
   const [allRuns, setAllRuns] = useState<BacktestIndexEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [selectedRun, setSelectedRun] = useState<BacktestRun | null>(null);
+  const [attribution, setAttribution] = useState<Attribution | null>(null);
   const [loadingDetail, setLoadingDetail] = useState(false);
 
   useEffect(() => {
@@ -65,16 +42,12 @@ export function AttributionPage() {
   useEffect(() => {
     if (!selectedId) return;
     setLoadingDetail(true);
-    getBacktestRun(selectedId)
-      .then((r) => setSelectedRun(r.backtestRun))
-      .catch(() => {})
-      .finally(() => setLoadingDetail(false));
+    setAttribution(null);
+    Promise.all([
+      getBacktestRun(selectedId).then((r) => setSelectedRun(r.backtestRun)),
+      getAttribution(selectedId).then((r) => setAttribution(r.attribution)).catch(() => {}),
+    ]).finally(() => setLoadingDetail(false));
   }, [selectedId]);
-
-  const attribution = useMemo(() => {
-    if (!selectedRun?.metrics) return null;
-    return decomposeReturn(selectedRun.metrics, selectedRun.templateId);
-  }, [selectedRun]);
 
   // Win/loss distribution
   const tradeDistribution = useMemo(() => {
@@ -166,14 +139,23 @@ export function AttributionPage() {
                 <MetricCard label="Total Return" value={`${attribution.totalReturn >= 0 ? '+' : ''}${attribution.totalReturn.toFixed(2)}%`}
                   change={attribution.totalReturn} />
                 <MetricCard label="Market Factor" value={`${attribution.marketReturn >= 0 ? '+' : ''}${attribution.marketReturn.toFixed(2)}%`}
-                  subtitle="Beta exposure" />
+                  subtitle={`Beta: ${attribution.beta.toFixed(2)}`} />
                 <MetricCard label="Sector Factor" value={`${attribution.sectorReturn >= 0 ? '+' : ''}${attribution.sectorReturn.toFixed(2)}%`}
                   subtitle="Sector allocation" />
                 <MetricCard label="Style Factor" value={`${attribution.styleReturn >= 0 ? '+' : ''}${attribution.styleReturn.toFixed(2)}%`}
                   subtitle="Momentum/Value/Size" />
-                <MetricCard label="Alpha (Idiosyncratic)" value={`${attribution.idiosyncraticReturn >= 0 ? '+' : ''}${attribution.idiosyncraticReturn.toFixed(2)}%`}
-                  subtitle="Stock selection" />
+                <MetricCard label="Alpha" value={`${attribution.alpha >= 0 ? '+' : ''}${attribution.alpha.toFixed(2)}%`}
+                  subtitle={`R²: ${(attribution.rSquared * 100).toFixed(1)}%`} />
               </div>
+              {/* Benchmark comparison */}
+              {attribution.benchmarkReturn !== 0 && (
+                <div className="mt-3 grid grid-cols-2 gap-3 lg:grid-cols-4">
+                  <MetricCard label="S&P 500 Benchmark" value={`${attribution.benchmarkReturn >= 0 ? '+' : ''}${attribution.benchmarkReturn.toFixed(2)}%`} subtitle="Same period" />
+                  <MetricCard label="Tracking Error" value={`${attribution.trackingError.toFixed(2)}%`} subtitle="Annualized" />
+                  <MetricCard label="Information Ratio" value={attribution.informationRatio.toFixed(2)} subtitle="Risk-adjusted alpha" />
+                  <MetricCard label="R-Squared" value={`${(attribution.rSquared * 100).toFixed(1)}%`} subtitle="Market dependency" />
+                </div>
+              )}
 
               <div className="mt-6 grid gap-6 lg:grid-cols-2">
                 {/* Factor waterfall chart */}

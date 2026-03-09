@@ -6,7 +6,7 @@
  */
 
 import { parseBody, jsonResponse, errorResponse } from './handler';
-import { storeOrder, getPortfolioSnapshot, storePortfolioSnapshot, storeLedgerEntry } from './trading-store';
+import { storeOrderWithIndex, getPortfolioSnapshot, storePortfolioSnapshot, storeLedgerEntry } from './trading-store';
 import { generateId, DEFAULT_PAPER_CAPITAL, isValidSymbol } from './_shared';
 import { CHROME_UA } from '../../../_shared/constants';
 import type { Order, PortfolioSnapshot, LedgerEntry } from './types';
@@ -39,9 +39,16 @@ export async function submitOrder(req: Request): Promise<Response> {
 
   if (!symbol) return errorResponse('symbol is required');
   if (!isValidSymbol(symbol)) return errorResponse('Invalid symbol format');
+  const orderType = (body.type as string) || 'market';
+  const limitPrice = body.limitPrice !== undefined ? Number(body.limitPrice) : null;
+
   if (!side || !['buy', 'sell'].includes(side)) return errorResponse('side must be buy or sell');
   if (!quantity || quantity <= 0) return errorResponse('quantity must be positive');
   if (quantity > 1_000_000) return errorResponse('quantity exceeds maximum of 1,000,000 shares');
+  if (!['market', 'limit'].includes(orderType)) return errorResponse('type must be market or limit');
+  if (orderType === 'limit' && (limitPrice === null || isNaN(limitPrice) || limitPrice <= 0)) {
+    return errorResponse('limitPrice is required and must be positive for limit orders');
+  }
 
   const validSources: Order['source'][] = ['manual', 'forward_runner', 'rebalance'];
   if (!validSources.includes(source as Order['source'])) {
@@ -63,41 +70,54 @@ export async function submitOrder(req: Request): Promise<Response> {
     }
   }
 
-  // Fetch current price for paper fill
+  // Fetch current price
   const price = await fetchCurrentPrice(normalizedSymbol);
   if (!price) return errorResponse('Could not fetch current price for ' + normalizedSymbol, 502);
+
+  // For limit orders, check if the limit price is met
+  const isLimitOrder = orderType === 'limit' && limitPrice !== null;
+  const canFillLimit = isLimitOrder
+    ? (side === 'buy' ? price <= limitPrice : price >= limitPrice)
+    : true;
+
+  const fillPrice = isLimitOrder ? limitPrice : price;
 
   // Validate sufficient cash for buy orders
   if (side === 'buy') {
     const currentPortfolio = await getPortfolioSnapshot() ?? createDefaultPortfolio();
-    const cost = price * quantity;
+    const cost = fillPrice * quantity;
     if (cost > currentPortfolio.cash) {
       return errorResponse(`Insufficient cash: need $${cost.toFixed(2)} but only $${currentPortfolio.cash.toFixed(2)} available`);
     }
   }
 
-  // Create order (immediately filled for paper)
+  // Create order
   const order: Order = {
     id: generateId(),
     strategyId,
     forwardRunId,
     symbol: normalizedSymbol,
     side: side as 'buy' | 'sell',
-    type: 'market',
+    type: orderType as 'market' | 'limit',
     quantity,
-    limitPrice: null,
-    fillPrice: price,
-    fillQuantity: quantity,
-    status: 'filled',
+    limitPrice: isLimitOrder ? limitPrice : null,
+    fillPrice: canFillLimit ? fillPrice : null,
+    fillQuantity: canFillLimit ? quantity : 0,
+    status: canFillLimit ? 'filled' : 'submitted',
     source: source as Order['source'],
     createdAt: Date.now(),
     updatedAt: Date.now(),
   };
 
   try {
-    await storeOrder(order);
+    await storeOrderWithIndex(order);
   } catch {
     return errorResponse('Failed to store order', 500);
+  }
+
+  // If limit order not filled, return pending order without portfolio update
+  if (!canFillLimit) {
+    return jsonResponse({ order, portfolio: await getPortfolioSnapshot() ?? createDefaultPortfolio(), message: `Limit order placed: ${side.toUpperCase()} ${quantity} ${normalizedSymbol} @ $${limitPrice!.toFixed(2)} — current price $${price.toFixed(2)}, waiting for fill.` });
   }
 
   // Update portfolio

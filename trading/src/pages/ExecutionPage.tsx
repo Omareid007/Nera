@@ -12,8 +12,11 @@ export function ExecutionPage() {
   const [symbol, setSymbol] = useState('');
   const [side, setSide] = useState<'buy' | 'sell'>('buy');
   const [quantity, setQuantity] = useState('10');
+  const [orderType, setOrderType] = useState<'market' | 'limit'>('market');
+  const [limitPrice, setLimitPrice] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
 
   const load = async () => {
     try { const res = await listOrders(); setOrders(res.orders); } catch (e) { setError(e instanceof Error ? e.message : 'Failed to load orders'); } finally { setLoading(false); }
@@ -23,10 +26,13 @@ export function ExecutionPage() {
 
   const handleSubmit = async () => {
     if (!symbol.trim()) return;
-    setSubmitting(true); setError('');
+    setSubmitting(true); setError(''); setMessage('');
     try {
-      await submitOrder({ symbol: symbol.toUpperCase(), side, quantity: Number(quantity) });
-      setSymbol(''); await load();
+      const data: Parameters<typeof submitOrder>[0] = { symbol: symbol.toUpperCase(), side, quantity: Number(quantity), type: orderType };
+      if (orderType === 'limit' && limitPrice) data.limitPrice = Number(limitPrice);
+      const res = await submitOrder(data);
+      if (res.message) setMessage(res.message);
+      setSymbol(''); setLimitPrice(''); await load();
     } catch (err) { setError(err instanceof Error ? err.message : 'Order failed'); } finally { setSubmitting(false); }
   };
 
@@ -58,6 +64,21 @@ export function ExecutionPage() {
             <input value={quantity} onChange={(e) => setQuantity(e.target.value)} type="number" min="1"
               className="w-24 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-2)] px-3 py-2 text-sm text-[var(--color-text-primary)]" />
           </div>
+          <div>
+            <label className="mb-1 block text-xs text-[var(--color-text-secondary)]">Type</label>
+            <select value={orderType} onChange={(e) => setOrderType(e.target.value as 'market' | 'limit')}
+              className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-2)] px-3 py-2 text-sm text-[var(--color-text-primary)]">
+              <option value="market">Market</option><option value="limit">Limit</option>
+            </select>
+          </div>
+          {orderType === 'limit' && (
+            <div>
+              <label className="mb-1 block text-xs text-[var(--color-text-secondary)]">Limit Price</label>
+              <input value={limitPrice} onChange={(e) => setLimitPrice(e.target.value)} type="number" min="0.01" step="0.01"
+                placeholder="$0.00"
+                className="w-28 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-2)] px-3 py-2 text-sm text-[var(--color-text-primary)]" />
+            </div>
+          )}
           <button onClick={handleSubmit} disabled={submitting || !symbol.trim()}
             className="flex items-center gap-1.5 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-[var(--color-surface-0)] disabled:opacity-50">
             {submitting ? <Loader2 size={14} className="animate-spin" /> : <ArrowRightLeft size={14} />}
@@ -65,6 +86,7 @@ export function ExecutionPage() {
           </button>
         </div>
         {error && <p className="mt-2 text-xs text-[var(--color-loss)]">{error}</p>}
+        {message && <p className="mt-2 text-xs text-[var(--color-info)]">{message}</p>}
       </div>
 
       <div className="mb-4 flex gap-1 rounded-lg bg-[var(--color-surface-1)] p-1">

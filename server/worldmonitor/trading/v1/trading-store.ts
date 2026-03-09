@@ -13,6 +13,8 @@ import type {
   LedgerEntry,
   AiEvent,
   EvidenceRecord,
+  UserSettings,
+  Watchlist,
 } from './types';
 
 // --- Key helpers ---
@@ -30,7 +32,12 @@ const LEDGER_INDEX = 'trading:ledger:v1:index';
 const AI_EVENT_PREFIX = 'trading:ai-event:v1:';
 const AI_EVENT_INDEX = 'trading:ai-events:v1:index';
 const EVIDENCE_PREFIX = 'trading:evidence:v1:';
+const EVIDENCE_INDEX = 'trading:evidence:v1:index';
 const HISTORY_PREFIX = 'trading:history:v1:';
+const SETTINGS_KEY = 'trading:settings:v1:user';
+const WATCHLIST_PREFIX = 'trading:watchlist:v1:';
+const WATCHLIST_INDEX = 'trading:watchlists:v1:index';
+const ORDER_INDEX = 'trading:orders:v1:index';
 
 const TTL_90D = 90 * 24 * 3600;
 const TTL_30D = 30 * 24 * 3600;
@@ -193,7 +200,23 @@ export async function getAiEvent(id: string): Promise<AiEvent | null> {
 // --- Evidence ---
 
 export async function storeEvidence(record: EvidenceRecord): Promise<void> {
-  await setCachedJson(`${EVIDENCE_PREFIX}${record.id}`, record, TTL_90D);
+  const index = await getEvidenceIndex();
+  index.push({ id: record.id, type: record.type, entityType: record.entityType, entityId: record.entityId, timestamp: record.timestamp });
+  if (index.length > 500) index.splice(0, index.length - 500);
+  await runRedisPipeline([
+    ['SET', `${EVIDENCE_PREFIX}${record.id}`, JSON.stringify(record), 'EX', TTL_90D],
+    ['SET', EVIDENCE_INDEX, JSON.stringify(index), 'EX', TTL_90D],
+  ]);
+}
+
+type EvidenceIndexEntry = { id: string; type: string; entityType: string; entityId: string; timestamp: number };
+
+export async function getEvidenceIndex(): Promise<EvidenceIndexEntry[]> {
+  return ((await getCachedJson(EVIDENCE_INDEX)) ?? []) as EvidenceIndexEntry[];
+}
+
+export async function getEvidence(id: string): Promise<EvidenceRecord | null> {
+  return getCachedJson(`${EVIDENCE_PREFIX}${id}`) as Promise<EvidenceRecord | null>;
 }
 
 // --- Historical Data Cache ---
@@ -204,4 +227,65 @@ export async function getCachedHistory(symbol: string, range: string): Promise<u
 
 export async function setCachedHistory(symbol: string, range: string, data: unknown[], ttl: number): Promise<void> {
   await setCachedJson(`${HISTORY_PREFIX}${symbol}:${range}`, data, ttl);
+}
+
+// --- User Settings ---
+
+export async function getUserSettings(): Promise<UserSettings | null> {
+  return getCachedJson(SETTINGS_KEY) as Promise<UserSettings | null>;
+}
+
+export async function storeUserSettings(settings: UserSettings): Promise<void> {
+  await setCachedJson(SETTINGS_KEY, settings, TTL_90D);
+}
+
+// --- Watchlists ---
+
+type WatchlistIndexEntry = { id: string; name: string; symbolCount: number; updatedAt: number };
+
+export async function storeWatchlist(wl: Watchlist): Promise<void> {
+  const index = await getWatchlistIndex();
+  const entry: WatchlistIndexEntry = { id: wl.id, name: wl.name, symbolCount: wl.symbols.length, updatedAt: wl.updatedAt };
+  const existing = index.findIndex((e) => e.id === wl.id);
+  if (existing >= 0) index[existing] = entry;
+  else index.push(entry);
+  await runRedisPipeline([
+    ['SET', `${WATCHLIST_PREFIX}${wl.id}`, JSON.stringify(wl), 'EX', TTL_90D],
+    ['SET', WATCHLIST_INDEX, JSON.stringify(index), 'EX', TTL_90D],
+  ]);
+}
+
+export async function getWatchlist(id: string): Promise<Watchlist | null> {
+  return getCachedJson(`${WATCHLIST_PREFIX}${id}`) as Promise<Watchlist | null>;
+}
+
+export async function getWatchlistIndex(): Promise<WatchlistIndexEntry[]> {
+  return ((await getCachedJson(WATCHLIST_INDEX)) ?? []) as WatchlistIndexEntry[];
+}
+
+export async function deleteWatchlist(id: string): Promise<void> {
+  const index = await getWatchlistIndex();
+  const filtered = index.filter((e) => e.id !== id);
+  await runRedisPipeline([
+    ['SET', `${WATCHLIST_PREFIX}${id}`, JSON.stringify(null), 'EX', 1],
+    ['SET', WATCHLIST_INDEX, JSON.stringify(filtered), 'EX', TTL_90D],
+  ]);
+}
+
+// --- Order Index ---
+
+type OrderIndexEntry = { id: string; symbol: string; side: string; status: string; createdAt: number };
+
+export async function getOrderIndex(): Promise<OrderIndexEntry[]> {
+  return ((await getCachedJson(ORDER_INDEX)) ?? []) as OrderIndexEntry[];
+}
+
+export async function storeOrderWithIndex(order: Order): Promise<void> {
+  const index = await getOrderIndex();
+  index.push({ id: order.id, symbol: order.symbol, side: order.side, status: order.status, createdAt: order.createdAt });
+  if (index.length > 500) index.splice(0, index.length - 500);
+  await runRedisPipeline([
+    ['SET', `${ORDER_PREFIX}${order.id}`, JSON.stringify(order), 'EX', TTL_90D],
+    ['SET', ORDER_INDEX, JSON.stringify(index), 'EX', TTL_90D],
+  ]);
 }

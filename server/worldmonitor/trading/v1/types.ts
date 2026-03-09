@@ -1,3 +1,41 @@
+/* ─── User Settings ─── */
+
+export interface UserSettings {
+  // Appearance
+  theme: 'dark' | 'light';
+
+  // Trading
+  defaultMode: 'paper' | 'live';
+  defaultCapital: number;
+
+  // Risk guardrails (global defaults applied to new strategies)
+  globalMaxPositionPct: number;
+  globalMaxDrawdownPct: number;
+
+  // AI preferences
+  aiInterpretationsEnabled: boolean;
+  reviewChecklistsEnabled: boolean;
+
+  // Watchlist
+  defaultWatchlistSymbols: string[];
+
+  // Notifications
+  alertNotificationsEnabled: boolean;
+
+  updatedAt: number;
+}
+
+/* ─── Watchlist ─── */
+
+export interface Watchlist {
+  id: string;
+  name: string;
+  symbols: string[];
+  description: string;
+  createdAt: number;
+  updatedAt: number;
+}
+
 /* ─── Algorithm Templates ─── */
 
 export type TemplateId =

@@ -5,9 +5,9 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Loader2, Plus, X, RefreshCw, TrendingUp, TrendingDown, Eye, Star, BarChart3, Activity } from 'lucide-react';
+import { Loader2, Plus, X, RefreshCw, TrendingUp, TrendingDown, Eye, Star, BarChart3, Activity, Save, Trash2 } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
-import { getWatchlistQuotes, type WatchlistQuote } from '@/lib/api';
+import { getWatchlistQuotes, listWatchlists, createWatchlist, getWatchlistById, deleteWatchlist, type WatchlistQuote, type WatchlistIndexEntry } from '@/lib/api';
 
 const PRESET_WATCHLISTS: Record<string, string[]> = {
   'Mega Cap Tech': ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA'],
@@ -33,6 +33,43 @@ export function WatchlistPage() {
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [lastRefresh, setLastRefresh] = useState(Date.now());
   const [isCustom, setIsCustom] = useState(false);
+  const [savedLists, setSavedLists] = useState<WatchlistIndexEntry[]>([]);
+  const [activeCustomId, setActiveCustomId] = useState<string | null>(null);
+  const [saveName, setSaveName] = useState('');
+
+  // Load saved watchlists
+  useEffect(() => {
+    listWatchlists().then((r) => setSavedLists(r.watchlists)).catch(() => {});
+  }, []);
+
+  const loadSavedWatchlist = async (id: string) => {
+    try {
+      const r = await getWatchlistById(id);
+      setCustomSymbols(r.watchlist.symbols);
+      setIsCustom(true);
+      setActiveCustomId(id);
+      setSaveName(r.watchlist.name);
+    } catch {}
+  };
+
+  const handleSaveWatchlist = async () => {
+    if (customSymbols.length === 0) return;
+    const name = saveName.trim() || `Custom ${new Date().toLocaleDateString()}`;
+    try {
+      await createWatchlist({ name, symbols: customSymbols });
+      const r = await listWatchlists();
+      setSavedLists(r.watchlists);
+      setSaveName('');
+    } catch {}
+  };
+
+  const handleDeleteWatchlist = async (id: string) => {
+    try {
+      await deleteWatchlist(id);
+      setSavedLists((prev) => prev.filter((w) => w.id !== id));
+      if (activeCustomId === id) { setActiveCustomId(null); setCustomSymbols([]); }
+    } catch {}
+  };
 
   const currentSymbols = isCustom ? customSymbols : (PRESET_WATCHLISTS[activeList] ?? []);
 
@@ -125,10 +162,23 @@ export function WatchlistPage() {
         ))}
         <button onClick={() => setIsCustom(true)}
           className={`flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-medium ${
-            isCustom ? 'bg-[var(--color-accent)] text-[var(--color-surface-0)]' : 'bg-[var(--color-surface-2)] text-[var(--color-text-tertiary)]'
+            isCustom && !activeCustomId ? 'bg-[var(--color-accent)] text-[var(--color-surface-0)]' : 'bg-[var(--color-surface-2)] text-[var(--color-text-tertiary)]'
           }`}>
           <Star size={12} /> Custom
         </button>
+        {savedLists.map((wl) => (
+          <div key={wl.id} className="flex items-center gap-0.5">
+            <button onClick={() => loadSavedWatchlist(wl.id)}
+              className={`rounded-lg px-3 py-1.5 text-xs font-medium ${
+                activeCustomId === wl.id ? 'bg-[var(--color-accent)] text-[var(--color-surface-0)]' : 'bg-[var(--color-surface-2)] text-[var(--color-text-tertiary)]'
+              }`}>
+              {wl.name} ({wl.symbolCount})
+            </button>
+            <button onClick={() => handleDeleteWatchlist(wl.id)} className="rounded p-1 text-[var(--color-text-muted)] hover:text-[var(--color-loss)]">
+              <Trash2 size={10} />
+            </button>
+          </div>
+        ))}
       </div>
 
       {/* Add symbol form (custom mode) */}
@@ -140,6 +190,16 @@ export function WatchlistPage() {
           <button type="submit" className="rounded-lg bg-[var(--color-accent)] px-3 py-1.5 text-sm font-medium text-[var(--color-surface-0)]">
             <Plus size={14} />
           </button>
+          {customSymbols.length > 0 && (
+            <>
+              <input value={saveName} onChange={(e) => setSaveName(e.target.value)} placeholder="Watchlist name..."
+                className="w-36 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] px-3 py-1.5 text-sm text-[var(--color-text-primary)]" />
+              <button type="button" onClick={handleSaveWatchlist}
+                className="flex items-center gap-1 rounded-lg bg-emerald-500/20 px-3 py-1.5 text-xs font-medium text-emerald-400 hover:bg-emerald-500/30">
+                <Save size={12} /> Save
+              </button>
+            </>
+          )}
           {customSymbols.length > 0 && (
             <div className="flex flex-wrap gap-1 ml-2">
               {customSymbols.map((s) => (

@@ -5,7 +5,7 @@
 import { useState, useEffect } from 'react';
 import { Loader2, Bell, BellOff, Plus, Trash2, AlertTriangle, TrendingUp, TrendingDown, Activity, Shield, BarChart3 } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
-import { listAlerts, createAlertApi, dismissAlert, deleteAlertApi, type Alert } from '@/lib/api';
+import { listAlerts, createAlertApi, dismissAlert, deleteAlertApi, evaluateAlerts, type Alert } from '@/lib/api';
 import { timeAgo } from '@/lib/utils';
 
 const ALERT_TYPES = [
@@ -25,6 +25,21 @@ export function AlertsPage() {
   const [filter, setFilter] = useState<'all' | 'active' | 'triggered' | 'dismissed'>('all');
   const [creating, setCreating] = useState(false);
   const [actionError, setActionError] = useState('');
+  const [evaluating, setEvaluating] = useState(false);
+  const [evalResult, setEvalResult] = useState('');
+
+  const handleEvaluate = async () => {
+    setEvaluating(true); setEvalResult('');
+    try {
+      const r = await evaluateAlerts();
+      setEvalResult(`Evaluated ${r.evaluated} alerts. ${r.triggered.length} triggered.`);
+      // Reload alerts
+      const res = await listAlerts();
+      setAlerts(res.alerts);
+      setTimeout(() => setEvalResult(''), 5000);
+    } catch (e) { setActionError(e instanceof Error ? e.message : 'Failed to evaluate'); }
+    finally { setEvaluating(false); }
+  };
 
   // Create form
   const [name, setName] = useState('');
@@ -77,12 +92,19 @@ export function AlertsPage() {
       <PageHeader title="Alerts"
         description="Price, risk, and technical indicator threshold alerts"
         actions={
-          <button onClick={() => setShowCreate(!showCreate)}
-            className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-[var(--color-surface-0)]">
-            <Plus size={16} /> New Alert
-          </button>
+          <div className="flex items-center gap-2">
+            <button onClick={handleEvaluate} disabled={evaluating}
+              className="flex items-center gap-1.5 rounded-lg bg-[var(--color-surface-2)] px-3 py-2 text-xs font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-3)] disabled:opacity-50">
+              {evaluating ? <Loader2 size={14} className="animate-spin" /> : <Shield size={14} />} Evaluate Now
+            </button>
+            <button onClick={() => setShowCreate(!showCreate)}
+              className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-[var(--color-surface-0)]">
+              <Plus size={16} /> New Alert
+            </button>
+          </div>
         }
       />
+      {evalResult && <div className="mb-3 rounded-lg bg-emerald-500/10 px-3 py-2 text-xs text-emerald-400">{evalResult}</div>}
 
       {/* Stats */}
       <div className="mb-4 flex gap-3">
