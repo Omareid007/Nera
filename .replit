@@ -1,0 +1,35 @@
+entrypoint = "replit-server.ts"
+modules = ["nodejs-20"]
+
+hidden = [".config", "node_modules", ".git", "src-tauri", "e2e", "pro-test", ".claude", ".agent", ".agents", ".factory", ".windsurf"]
+
+[run]
+args = ["npx", "tsx", "replit-server.ts"]
+
+[run.env]
+NODE_ENV = "development"
+PORT = "5000"
+
+[nix]
+channel = "stable-24_05"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[deployment]
+run = ["npx", "tsx", "replit-server.ts"]
+build = "cd trading && npm install && npm run build"
+deploymentTarget = "cloudrun"
+ignorePorts = false
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix", "replit-server.ts"]
+
+[packager]
+language = "nodejs"
+
+[packager.features]
+guessImports = true
+packageSearch = true
+enabledForHosting = true
