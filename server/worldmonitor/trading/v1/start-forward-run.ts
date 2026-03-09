@@ -38,8 +38,13 @@ export async function startForwardRun(req: Request): Promise<Response> {
   // Update strategy status to paper
   strategy.status = 'paper';
   strategy.updatedAt = Date.now();
-  await storeStrategy(strategy);
-  await storeForwardRun(run);
+
+  try {
+    await storeStrategy(strategy);
+    await storeForwardRun(run);
+  } catch {
+    return errorResponse('Failed to start forward run', 500);
+  }
 
   return jsonResponse({ forwardRun: run });
 }

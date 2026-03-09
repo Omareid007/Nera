@@ -61,7 +61,11 @@ export async function createStrategy(req: Request): Promise<Response> {
     updatedAt: Date.now(),
   };
 
-  await storeStrategy(strategy);
+  try {
+    await storeStrategy(strategy);
+  } catch {
+    return errorResponse('Failed to store strategy', 500);
+  }
 
   return jsonResponse({ strategy });
 }

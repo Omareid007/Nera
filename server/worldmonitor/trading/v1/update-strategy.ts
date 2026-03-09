@@ -21,7 +21,12 @@ export async function updateStrategy(req: Request): Promise<Response> {
   if (body.frequency !== undefined) existing.frequency = String(body.frequency);
 
   existing.updatedAt = Date.now();
-  await storeStrategy(existing);
+
+  try {
+    await storeStrategy(existing);
+  } catch {
+    return errorResponse('Failed to update strategy', 500);
+  }
 
   return jsonResponse({ strategy: existing });
 }

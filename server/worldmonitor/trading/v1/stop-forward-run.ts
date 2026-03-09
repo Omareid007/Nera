@@ -10,14 +10,19 @@ export async function stopForwardRun(req: Request): Promise<Response> {
   if (!run) return errorResponse('Forward run not found', 404);
 
   run.status = 'stopped';
-  await storeForwardRun(run);
 
-  // Revert strategy to validated
-  const strategy = await getStrategy(run.strategyId);
-  if (strategy && strategy.status === 'paper') {
-    strategy.status = 'validated';
-    strategy.updatedAt = Date.now();
-    await storeStrategy(strategy);
+  try {
+    await storeForwardRun(run);
+
+    // Revert strategy to validated
+    const strategy = await getStrategy(run.strategyId);
+    if (strategy && strategy.status === 'paper') {
+      strategy.status = 'validated';
+      strategy.updatedAt = Date.now();
+      await storeStrategy(strategy);
+    }
+  } catch {
+    return errorResponse('Failed to stop forward run', 500);
   }
 
   return jsonResponse({ forwardRun: run });

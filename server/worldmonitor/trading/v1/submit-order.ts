@@ -41,6 +41,18 @@ export async function submitOrder(req: Request): Promise<Response> {
   if (!side || !['buy', 'sell'].includes(side)) return errorResponse('side must be buy or sell');
   if (!quantity || quantity <= 0) return errorResponse('quantity must be positive');
 
+  // Paper mode: reject short sells (selling without an existing long position)
+  if (side === 'sell') {
+    const existingPortfolio = await getPortfolioSnapshot();
+    const longPosition = existingPortfolio?.positions.find((p) => p.symbol === symbol.toUpperCase() && p.side === 'long');
+    if (!longPosition || longPosition.quantity <= 0) {
+      return errorResponse('Cannot sell — no long position in ' + symbol + '. Short selling is disabled in paper mode.');
+    }
+    if (quantity > longPosition.quantity) {
+      return errorResponse(`Cannot sell ${quantity} shares — only ${longPosition.quantity} held. Short selling is disabled in paper mode.`);
+    }
+  }
+
   // Fetch current price for paper fill
   const price = await fetchCurrentPrice(symbol);
   if (!price) return errorResponse('Could not fetch current price for ' + symbol, 502);
@@ -63,12 +75,21 @@ export async function submitOrder(req: Request): Promise<Response> {
     updatedAt: Date.now(),
   };
 
-  await storeOrder(order);
+  try {
+    await storeOrder(order);
+  } catch {
+    return errorResponse('Failed to store order', 500);
+  }
 
   // Update portfolio
   const portfolio = await getPortfolioSnapshot() ?? createDefaultPortfolio();
   updatePortfolioWithFill(portfolio, order);
-  await storePortfolioSnapshot(portfolio);
+
+  try {
+    await storePortfolioSnapshot(portfolio);
+  } catch {
+    return errorResponse('Order created but failed to update portfolio', 500);
+  }
 
   // Write ledger entries
   const orderEntry: LedgerEntry = {
@@ -99,8 +120,12 @@ export async function submitOrder(req: Request): Promise<Response> {
     timestamp: Date.now(),
   };
 
-  await storeLedgerEntry(orderEntry);
-  await storeLedgerEntry(fillEntry);
+  try {
+    await storeLedgerEntry(orderEntry);
+    await storeLedgerEntry(fillEntry);
+  } catch {
+    // Non-critical — order and portfolio already saved, ledger is best-effort
+  }
 
   return jsonResponse({ order, portfolio });
 }
@@ -175,21 +200,9 @@ function updatePortfolioWithFill(portfolio: PortfolioSnapshot, order: Order): vo
         existing.unrealizedPnlPct = (existing.currentPrice / existing.avgEntryPrice - 1) * 100;
       }
     } else {
-      // Short sale
-      portfolio.cash += price * qty;
-      portfolio.positions.push({
-        symbol: order.symbol,
-        quantity: qty,
-        avgEntryPrice: price,
-        currentPrice: price,
-        marketValue: price * qty,
-        unrealizedPnl: 0,
-        unrealizedPnlPct: 0,
-        realizedPnl: 0,
-        side: 'short',
-        strategyId: order.strategyId,
-        openedAt: Date.now(),
-      });
+      // No long position to sell — reject in paper mode (short selling disabled)
+      // In paper mode, we don't allow opening short positions to avoid
+      // margin complexity and position management edge cases
     }
   }
 
