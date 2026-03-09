@@ -28,7 +28,7 @@ export function AlertsPage() {
 
   // Create form
   const [name, setName] = useState('');
-  const [type, setType] = useState('price_above');
+  const [type, setType] = useState<Alert['type']>('price_above');
   const [symbol, setSymbol] = useState('');
   const [threshold, setThreshold] = useState('');
 
@@ -109,7 +109,7 @@ export function AlertsPage() {
             </div>
             <div>
               <label className="mb-1 block text-xs text-[var(--color-text-tertiary)]">Type</label>
-              <select value={type} onChange={(e) => setType(e.target.value)}
+              <select value={type} onChange={(e) => setType(e.target.value as Alert['type'])}
                 className="w-full rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] px-3 py-2 text-sm text-[var(--color-text-primary)] focus:border-[var(--color-accent)] focus:outline-none">
                 {ALERT_TYPES.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}
               </select>

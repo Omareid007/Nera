@@ -160,7 +160,7 @@ export interface BacktestTrade {
   quantity: number;
   pnl: number;
   pnlPct: number;
-  exitReason: string;
+  exitReason: 'signal' | 'stop_loss' | 'take_profit' | 'expiry';
 }
 
 export interface EquityCurvePoint {
@@ -324,7 +324,7 @@ export interface ProposedAction {
   quantity: number;
   price: number;
   reason: string;
-  status: 'pending' | 'approved' | 'rejected' | 'executed';
+  status: 'proposed' | 'approved' | 'rejected' | 'executed';
   timestamp: number;
 }
 
@@ -375,6 +375,26 @@ export function getForwardRun(id: string) {
 
 // --- Execution ---
 
+export type OrderStatus = 'proposed' | 'approved' | 'submitted' | 'filled' | 'partially_filled' | 'cancelled' | 'rejected';
+export type OrderType = 'market' | 'limit';
+
+export interface Order {
+  id: string;
+  strategyId: string;
+  forwardRunId: string | null;
+  symbol: string;
+  side: OrderSide;
+  type: OrderType;
+  quantity: number;
+  limitPrice: number | null;
+  fillPrice: number | null;
+  fillQuantity: number;
+  status: OrderStatus;
+  source: 'manual' | 'forward_runner' | 'rebalance';
+  createdAt: number;
+  updatedAt: number;
+}
+
 export interface OrderEntry {
   id: string;
   type: string;
@@ -397,7 +417,7 @@ export function submitOrder(data: {
   forwardRunId?: string;
   source?: string;
 }) {
-  return rpc<{ order: unknown; portfolio: PortfolioSnapshot }>('POST', 'submit-order', data);
+  return rpc<{ order: Order; portfolio: PortfolioSnapshot }>('POST', 'submit-order', data);
 }
 
 export function listOrders() {
@@ -559,7 +579,7 @@ export function getRiskAnalytics() {
 export interface Alert {
   id: string;
   name: string;
-  type: string;
+  type: 'price_above' | 'price_below' | 'pnl_threshold' | 'drawdown_threshold' | 'volume_spike' | 'rsi_overbought' | 'rsi_oversold';
   symbol: string | null;
   threshold: number;
   status: 'active' | 'triggered' | 'dismissed';
@@ -568,7 +588,7 @@ export interface Alert {
   createdAt: number;
 }
 
-export function createAlertApi(data: { name: string; type: string; symbol?: string; threshold: number }) {
+export function createAlertApi(data: { name: string; type: Alert['type']; symbol?: string; threshold: number }) {
   return rpc<{ alert: Alert }>('POST', 'create-alert', data);
 }
 
