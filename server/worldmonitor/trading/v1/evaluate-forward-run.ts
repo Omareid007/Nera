@@ -208,6 +208,23 @@ export async function evaluateForwardRun(req: Request): Promise<Response> {
   run.signals = [...run.signals, ...newSignals].slice(-50);
   run.proposedActions = [...run.proposedActions, ...newActions].slice(-50);
   run.lastEvaluatedAt = Date.now();
+
+  // Update paper P&L: compare each prior proposed action's entry price to current price
+  const latestPrices: Record<string, number> = {};
+  for (const sig of newSignals) {
+    const matchingAction = newActions.find((a) => a.symbol === sig.symbol);
+    if (matchingAction) latestPrices[sig.symbol] = matchingAction.price;
+  }
+  let paperPnl = 0;
+  for (const action of run.proposedActions) {
+    const currentPrice = latestPrices[action.symbol];
+    if (currentPrice !== undefined) {
+      const multiplier = action.side === 'buy' ? 1 : -1;
+      paperPnl += multiplier * (currentPrice - action.price) * action.quantity;
+    }
+  }
+  run.paperPnl = paperPnl;
+
   await storeForwardRun(run);
 
   return jsonResponse({ forwardRun: run, newSignals, newActions });

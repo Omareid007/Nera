@@ -264,6 +264,13 @@ export async function runBacktest(req: Request): Promise<Response> {
       }
     }
 
+    // Compute current equity for position sizing (before new entries)
+    let currentEquity = cash;
+    for (const sym of Object.keys(positions)) {
+      const sIdx = dateToIdx[sym]?.[ts];
+      if (sIdx !== undefined) currentEquity += closeArrays[sym][sIdx] * positions[sym].qty;
+    }
+
     // Check for new entries
     const openCount = Object.keys(positions).length;
     if (openCount < maxPositions) {
@@ -278,7 +285,7 @@ export async function runBacktest(req: Request): Promise<Response> {
 
         if (signal >= 65) {
           const price = closeArrays[symbol][idx];
-          const allocation = cash * positionSize;
+          const allocation = Math.min(currentEquity * positionSize, cash);
           if (allocation < price) continue;
 
           const qty = Math.floor(allocation / price);
@@ -356,7 +363,7 @@ export async function runBacktest(req: Request): Promise<Response> {
     ? Math.sqrt(dailyReturns.reduce((s, r) => s + (r - avgReturn) ** 2, 0) / (dailyReturns.length - 1))
     : 1;
   const downDev = dailyReturns.length > 1
-    ? Math.sqrt(dailyReturns.filter((r) => r < 0).reduce((s, r) => s + r ** 2, 0) / Math.max(1, dailyReturns.filter((r) => r < 0).length))
+    ? Math.sqrt(dailyReturns.reduce((s, r) => s + Math.min(r, 0) ** 2, 0) / dailyReturns.length)
     : 1;
   const sharpeRatio = stdDev > 0 ? (avgReturn * 252) / (stdDev * Math.sqrt(252)) : 0;
   const sortinoRatio = downDev > 0 ? (avgReturn * 252) / (downDev * Math.sqrt(252)) : 0;

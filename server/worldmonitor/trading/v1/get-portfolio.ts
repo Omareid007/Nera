@@ -1,11 +1,12 @@
 import { jsonResponse } from './handler';
+import { DEFAULT_PAPER_CAPITAL } from './_shared';
 import { getPortfolioSnapshot } from './trading-store';
 import type { PortfolioSnapshot } from './types';
 
 function createDefaultPortfolio(): PortfolioSnapshot {
   return {
-    totalEquity: 100_000,
-    cash: 100_000,
+    totalEquity: DEFAULT_PAPER_CAPITAL,
+    cash: DEFAULT_PAPER_CAPITAL,
     positionsValue: 0,
     unrealizedPnl: 0,
     realizedPnl: 0,
