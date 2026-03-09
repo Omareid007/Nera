@@ -77,7 +77,7 @@ function parseInterpretation(content: string): Interpretation | null {
     // Try to extract JSON from potential markdown fences
     let json = content;
     const fenceMatch = content.match(/```(?:json)?\s*([\s\S]*?)```/);
-    if (fenceMatch) json = fenceMatch[1].trim();
+    if (fenceMatch) json = fenceMatch[1]!.trim();
 
     const parsed = JSON.parse(json) as Partial<Interpretation>;
     if (

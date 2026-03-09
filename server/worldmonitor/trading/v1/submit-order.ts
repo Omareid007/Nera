@@ -9,7 +9,7 @@ import { parseBody, jsonResponse, errorResponse } from './handler';
 import { storeOrder, getPortfolioSnapshot, storePortfolioSnapshot, storeLedgerEntry } from './trading-store';
 import { generateId, DEFAULT_PAPER_CAPITAL, isValidSymbol } from './_shared';
 import { CHROME_UA } from '../../../_shared/constants';
-import type { Order, Position, PortfolioSnapshot, LedgerEntry } from './types';
+import type { Order, PortfolioSnapshot, LedgerEntry } from './types';
 
 async function fetchCurrentPrice(symbol: string): Promise<number | null> {
   try {

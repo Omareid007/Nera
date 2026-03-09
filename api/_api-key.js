@@ -1,10 +1,16 @@
-import { timingSafeEqual } from 'node:crypto';
+/** Constant-time string comparison (edge-runtime compatible, no node:crypto). */
+function timingSafeStringEqual(a, b) {
+  if (a.length !== b.length) return false;
+  let mismatch = 0;
+  for (let i = 0; i < a.length; i++) {
+    mismatch |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return mismatch === 0;
+}
 
 function safeKeyMatch(candidate, validKeys) {
-  const candidateBuf = Buffer.from(candidate);
   for (const k of validKeys) {
-    const keyBuf = Buffer.from(k);
-    if (candidateBuf.length === keyBuf.length && timingSafeEqual(candidateBuf, keyBuf)) {
+    if (timingSafeStringEqual(candidate, k)) {
       return true;
     }
   }

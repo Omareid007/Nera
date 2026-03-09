@@ -18,10 +18,11 @@ function extractGetRoutes() {
         walk(full);
       } else if (entry === 'service_server.ts') {
         const src = readFileSync(full, 'utf-8');
-        const re = /method:\s*"GET",[\s\S]*?path:\s*"([^"]+)"/g;
+        // Match both inline route objects and makeHandler factory calls
+        const re = /(?:method:\s*"GET",[\s\S]*?path:\s*"([^"]+)"|makeHandler\(\s*"[^"]+",\s*"(\/api\/[^"]+)")/g;
         let m;
         while ((m = re.exec(src)) !== null) {
-          routes.push(m[1]);
+          routes.push(m[1] || m[2]);
         }
       }
     }

@@ -31,10 +31,10 @@ async function fetchQuote(symbol: string): Promise<{ price: number; change: numb
     const closes = quotes?.close?.filter((c): c is number => c != null) ?? [];
     const volumes = quotes?.volume?.filter((v): v is number => v != null) ?? [];
 
-    const price = meta?.regularMarketPrice ?? (closes.length > 0 ? closes[closes.length - 1] : 0);
-    const prevClose = meta?.previousClose ?? (closes.length > 1 ? closes[closes.length - 2] : price);
+    const price = meta?.regularMarketPrice ?? (closes.length > 0 ? closes[closes.length - 1]! : 0);
+    const prevClose = meta?.previousClose ?? (closes.length > 1 ? closes[closes.length - 2]! : price);
     const change = prevClose > 0 ? ((price - prevClose) / prevClose) * 100 : 0;
-    const volume = volumes.length > 0 ? volumes[volumes.length - 1] : 0;
+    const volume = volumes.length > 0 ? volumes[volumes.length - 1]! : 0;
 
     return { price, change, volume };
   } catch {
@@ -49,7 +49,7 @@ function computeSignal(closes: number[], templateId: string, params: Record<stri
   const lookback = Math.min(closes.length, Number(params.lookbackPeriod) || 20);
   const recent = closes.slice(-lookback);
   const sma = recent.reduce((s, v) => s + v, 0) / recent.length;
-  const current = closes[closes.length - 1];
+  const current = closes[closes.length - 1]!;
   const pctAboveSma = ((current - sma) / sma) * 100;
 
   let direction: 'long' | 'short' | 'flat' = 'flat';

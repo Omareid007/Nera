@@ -5,7 +5,7 @@
  * factor exposures, concentration risk, and stress scenarios.
  */
 
-import { parseBody, jsonResponse, errorResponse } from './handler';
+import { parseBody, jsonResponse } from './handler';
 import { getPortfolioSnapshot } from './trading-store';
 import { CHROME_UA } from '../../../_shared/constants';
 

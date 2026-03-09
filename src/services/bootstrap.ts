@@ -31,7 +31,7 @@ export async function fetchBootstrapData(): Promise<void> {
   // critical for instant panel rendering.
   const fastCtrl = new AbortController();
   const slowCtrl = new AbortController();
-  const fastTimeout = setTimeout(() => fastCtrl.abort(), 3_000);
+  const fastTimeout = setTimeout(() => fastCtrl.abort(), 2000);
   const slowTimeout = setTimeout(() => slowCtrl.abort(), 5_000);
   try {
     await Promise.all([

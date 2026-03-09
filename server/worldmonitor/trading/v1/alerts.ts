@@ -22,7 +22,7 @@ export interface Alert {
 }
 
 async function getAlerts(): Promise<Alert[]> {
-  return (await getCachedJson(ALERTS_KEY)) ?? [];
+  return ((await getCachedJson(ALERTS_KEY)) ?? []) as Alert[];
 }
 
 async function saveAlerts(alerts: Alert[]): Promise<void> {

@@ -55,7 +55,7 @@ async function fetchHistory(symbol: string, months: number): Promise<Candle[]> {
     for (let i = 0; i < result.timestamp.length; i++) {
       const o = q.open?.[i], h = q.high?.[i], l = q.low?.[i], c = q.close?.[i], v = q.volume?.[i];
       if (o != null && h != null && l != null && c != null && v != null) {
-        candles.push({ timestamp: result.timestamp[i] * 1000, open: o, high: h, low: l, close: c, volume: v });
+        candles.push({ timestamp: result.timestamp[i]! * 1000, open: o, high: h, low: l, close: c, volume: v });
       }
     }
 
@@ -74,7 +74,7 @@ async function fetchHistory(symbol: string, months: number): Promise<Candle[]> {
 function sma(closes: number[], i: number, w: number): number | null {
   if (i < w - 1) return null;
   let sum = 0;
-  for (let j = i - w + 1; j <= i; j++) sum += closes[j];
+  for (let j = i - w + 1; j <= i; j++) sum += closes[j]!;
   return sum / w;
 }
 
@@ -82,7 +82,7 @@ function sma(closes: number[], i: number, w: number): number | null {
 function momentumSignal(closes: number[], i: number, lookback: number): number {
   const ma = sma(closes, i, lookback);
   if (!ma) return 0;
-  const pct = (closes[i] - ma) / ma * 100;
+  const pct = (closes[i]! - ma) / ma * 100;
   return Math.max(0, Math.min(100, 50 + pct * 10));
 }
 
@@ -91,12 +91,12 @@ function meanReversionSignal(closes: number[], i: number, lookback: number): num
   if (i < lookback) return 0;
   let sum = 0, sq = 0;
   for (let j = i - lookback; j < i; j++) {
-    sum += closes[j];
-    sq += closes[j] * closes[j];
+    sum += closes[j]!;
+    sq += closes[j]! * closes[j]!;
   }
   const mean = sum / lookback;
   const std = Math.sqrt(sq / lookback - mean * mean) || 1;
-  const z = (closes[i] - mean) / std;
+  const z = (closes[i]! - mean) / std;
   // Negative z-score = oversold = buy signal
   return Math.max(0, Math.min(100, 50 - z * 25));
 }
@@ -205,10 +205,10 @@ export async function runBacktest(req: Request): Promise<Response> {
   const closeArrays: Record<string, number[]> = {};
   const dateToIdx: Record<string, Record<number, number>> = {};
   for (const symbol of strategy.universe) {
-    const candles = symbolData[symbol];
+    const candles = symbolData[symbol]!;
     closeArrays[symbol] = candles.map((c) => c.close);
     dateToIdx[symbol] = {};
-    candles.forEach((c, i) => { dateToIdx[symbol][c.timestamp] = i; });
+    candles.forEach((c, i) => { dateToIdx[symbol]![c.timestamp] = i; });
   }
 
   // Simulate
@@ -230,8 +230,8 @@ export async function runBacktest(req: Request): Promise<Response> {
       const idx = dateToIdx[symbol]?.[ts];
       if (idx === undefined) continue;
 
-      const pos = positions[symbol];
-      const currentPrice = closeArrays[symbol][idx];
+      const pos = positions[symbol]!;
+      const currentPrice = closeArrays[symbol]![idx]!;
       const pnlPct = (currentPrice - pos.entryPrice) / pos.entryPrice;
 
       let exitReason: BacktestTrade['exitReason'] | null = null;
@@ -240,7 +240,7 @@ export async function runBacktest(req: Request): Promise<Response> {
       else if (pnlPct >= takeProfit) exitReason = 'take_profit';
       else {
         // Check signal for exit
-        const signal = generateSignal(closeArrays[symbol], idx, strategy.templateId, strategy.parameters);
+        const signal = generateSignal(closeArrays[symbol]!, idx, strategy.templateId, strategy.parameters);
         if (signal < 30) exitReason = 'signal';
       }
 
@@ -268,7 +268,7 @@ export async function runBacktest(req: Request): Promise<Response> {
     let currentEquity = cash;
     for (const sym of Object.keys(positions)) {
       const sIdx = dateToIdx[sym]?.[ts];
-      if (sIdx !== undefined) currentEquity += closeArrays[sym][sIdx] * positions[sym].qty;
+      if (sIdx !== undefined) currentEquity += closeArrays[sym]![sIdx]! * positions[sym]!.qty;
     }
 
     // Check for new entries
@@ -281,10 +281,10 @@ export async function runBacktest(req: Request): Promise<Response> {
         const idx = dateToIdx[symbol]?.[ts];
         if (idx === undefined || idx < 5) continue;
 
-        const signal = generateSignal(closeArrays[symbol], idx, strategy.templateId, strategy.parameters);
+        const signal = generateSignal(closeArrays[symbol]!, idx, strategy.templateId, strategy.parameters);
 
         if (signal >= 65) {
-          const price = closeArrays[symbol][idx];
+          const price = closeArrays[symbol]![idx]!;
           const allocation = Math.min(currentEquity * positionSize, cash);
           if (allocation < price) continue;
 
@@ -302,7 +302,7 @@ export async function runBacktest(req: Request): Promise<Response> {
     for (const symbol of Object.keys(positions)) {
       const idx = dateToIdx[symbol]?.[ts];
       if (idx !== undefined) {
-        positionValue += closeArrays[symbol][idx] * positions[symbol].qty;
+        positionValue += closeArrays[symbol]![idx]! * positions[symbol]!.qty;
       }
     }
     const equity = cash + positionValue;
@@ -314,10 +314,10 @@ export async function runBacktest(req: Request): Promise<Response> {
 
   // Close any remaining positions at last known price
   for (const symbol of Object.keys(positions)) {
-    const closes = closeArrays[symbol];
+    const closes = closeArrays[symbol]!;
     if (closes.length === 0) continue;
-    const lastPrice = closes[closes.length - 1];
-    const pos = positions[symbol];
+    const lastPrice = closes[closes.length - 1]!;
+    const pos = positions[symbol]!;
     const pnl = (lastPrice - pos.entryPrice) * pos.qty;
     const pnlPct = (lastPrice - pos.entryPrice) / pos.entryPrice;
     cash += lastPrice * pos.qty;
@@ -327,7 +327,7 @@ export async function runBacktest(req: Request): Promise<Response> {
       side: pos.side,
       entryDate: pos.entryDate,
       entryPrice: pos.entryPrice,
-      exitDate: dates.length > 0 ? new Date(dates[dates.length - 1]).toISOString().slice(0, 10) : '',
+      exitDate: dates.length > 0 ? new Date(dates[dates.length - 1]!).toISOString().slice(0, 10) : '',
       exitPrice: lastPrice,
       quantity: pos.qty,
       pnl,
@@ -338,7 +338,7 @@ export async function runBacktest(req: Request): Promise<Response> {
   }
 
   // Compute metrics
-  const finalEquity = equityCurve.length > 0 ? equityCurve[equityCurve.length - 1].equity : initialCapital;
+  const finalEquity = equityCurve.length > 0 ? equityCurve[equityCurve.length - 1]!.equity : initialCapital;
   const totalReturn = (finalEquity - initialCapital) / initialCapital * 100;
   const tradingDays = equityCurve.length;
   const yearsTraded = tradingDays / 252 || 1;
@@ -356,7 +356,7 @@ export async function runBacktest(req: Request): Promise<Response> {
   // Sharpe/Sortino from daily returns
   const dailyReturns: number[] = [];
   for (let i = 1; i < equityCurve.length; i++) {
-    dailyReturns.push((equityCurve[i].equity - equityCurve[i - 1].equity) / equityCurve[i - 1].equity);
+    dailyReturns.push((equityCurve[i]!.equity - equityCurve[i - 1]!.equity) / equityCurve[i - 1]!.equity);
   }
   const avgReturn = dailyReturns.length > 0 ? dailyReturns.reduce((s, r) => s + r, 0) / dailyReturns.length : 0;
   const stdDev = dailyReturns.length > 1

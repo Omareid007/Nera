@@ -244,7 +244,7 @@ export async function getMarketData(req: Request): Promise<Response> {
       price,
       change: price - prevClose,
       changePct: prevClose > 0 ? ((price - prevClose) / prevClose) * 100 : 0,
-      open: meta.regularMarketDayOpen ?? 0,
+      open: meta.regularMarketOpen ?? 0,
       high: meta.regularMarketDayHigh ?? 0,
       low: meta.regularMarketDayLow ?? 0,
       prevClose,

@@ -52,13 +52,13 @@ export async function storeStrategy(s: Strategy): Promise<void> {
 }
 
 export async function getStrategy(id: string): Promise<Strategy | null> {
-  return getCachedJson(`${STRATEGY_PREFIX}${id}`);
+  return getCachedJson(`${STRATEGY_PREFIX}${id}`) as Promise<Strategy | null>;
 }
 
 type StrategyIndexEntry = { id: string; name: string; templateId: string; status: string; updatedAt: number };
 
 export async function getStrategyIndex(): Promise<StrategyIndexEntry[]> {
-  return (await getCachedJson(STRATEGY_INDEX)) ?? [];
+  return ((await getCachedJson(STRATEGY_INDEX)) ?? []) as StrategyIndexEntry[];
 }
 
 export async function deleteStrategy(id: string): Promise<void> {
@@ -92,13 +92,13 @@ export async function storeBacktestRun(run: BacktestRun): Promise<void> {
 }
 
 export async function getBacktestRun(id: string): Promise<BacktestRun | null> {
-  return getCachedJson(`${BACKTEST_PREFIX}${id}`);
+  return getCachedJson(`${BACKTEST_PREFIX}${id}`) as Promise<BacktestRun | null>;
 }
 
 type BacktestIndexEntry = { id: string; strategyId: string; strategyName: string; status: string; createdAt: number; totalReturn: number | null };
 
 export async function getBacktestIndex(): Promise<BacktestIndexEntry[]> {
-  return (await getCachedJson(BACKTEST_INDEX)) ?? [];
+  return ((await getCachedJson(BACKTEST_INDEX)) ?? []) as BacktestIndexEntry[];
 }
 
 // --- Forward Runs ---
@@ -116,13 +116,13 @@ export async function storeForwardRun(run: ForwardRun): Promise<void> {
 }
 
 export async function getForwardRun(id: string): Promise<ForwardRun | null> {
-  return getCachedJson(`${FORWARD_PREFIX}${id}`);
+  return getCachedJson(`${FORWARD_PREFIX}${id}`) as Promise<ForwardRun | null>;
 }
 
 type ForwardIndexEntry = { id: string; strategyId: string; strategyName: string; status: string; startedAt: number };
 
 export async function getForwardIndex(): Promise<ForwardIndexEntry[]> {
-  return (await getCachedJson(FORWARD_INDEX)) ?? [];
+  return ((await getCachedJson(FORWARD_INDEX)) ?? []) as ForwardIndexEntry[];
 }
 
 // --- Orders ---
@@ -132,7 +132,7 @@ export async function storeOrder(order: Order): Promise<void> {
 }
 
 export async function getOrder(id: string): Promise<Order | null> {
-  return getCachedJson(`${ORDER_PREFIX}${id}`);
+  return getCachedJson(`${ORDER_PREFIX}${id}`) as Promise<Order | null>;
 }
 
 // --- Portfolio ---
@@ -142,7 +142,7 @@ export async function storePortfolioSnapshot(snapshot: PortfolioSnapshot): Promi
 }
 
 export async function getPortfolioSnapshot(): Promise<PortfolioSnapshot | null> {
-  return getCachedJson(PORTFOLIO_KEY);
+  return getCachedJson(PORTFOLIO_KEY) as Promise<PortfolioSnapshot | null>;
 }
 
 // --- Ledger ---
@@ -161,11 +161,11 @@ export async function storeLedgerEntry(entry: LedgerEntry): Promise<void> {
 type LedgerIndexEntry = { id: string; type: string; symbol: string | null; strategyId: string | null; timestamp: number };
 
 export async function getLedgerIndex(): Promise<LedgerIndexEntry[]> {
-  return (await getCachedJson(LEDGER_INDEX)) ?? [];
+  return ((await getCachedJson(LEDGER_INDEX)) ?? []) as LedgerIndexEntry[];
 }
 
 export async function getLedgerEntry(id: string): Promise<LedgerEntry | null> {
-  return getCachedJson(`${LEDGER_PREFIX}${id}`);
+  return getCachedJson(`${LEDGER_PREFIX}${id}`) as Promise<LedgerEntry | null>;
 }
 
 // --- AI Events ---
@@ -183,11 +183,11 @@ export async function storeAiEvent(event: AiEvent): Promise<void> {
 type AiEventIndexEntry = { id: string; type: string; strategyId: string | null; timestamp: number };
 
 export async function getAiEventIndex(): Promise<AiEventIndexEntry[]> {
-  return (await getCachedJson(AI_EVENT_INDEX)) ?? [];
+  return ((await getCachedJson(AI_EVENT_INDEX)) ?? []) as AiEventIndexEntry[];
 }
 
 export async function getAiEvent(id: string): Promise<AiEvent | null> {
-  return getCachedJson(`${AI_EVENT_PREFIX}${id}`);
+  return getCachedJson(`${AI_EVENT_PREFIX}${id}`) as Promise<AiEvent | null>;
 }
 
 // --- Evidence ---
@@ -199,7 +199,7 @@ export async function storeEvidence(record: EvidenceRecord): Promise<void> {
 // --- Historical Data Cache ---
 
 export async function getCachedHistory(symbol: string, range: string): Promise<unknown[] | null> {
-  return getCachedJson(`${HISTORY_PREFIX}${symbol}:${range}`);
+  return getCachedJson(`${HISTORY_PREFIX}${symbol}:${range}`) as Promise<unknown[] | null>;
 }
 
 export async function setCachedHistory(symbol: string, range: string, data: unknown[], ttl: number): Promise<void> {
