@@ -111,11 +111,17 @@ In the webview or browser, check:
 1. Click **Deploy** button in the top bar
 2. Choose **Autoscale** deployment
 3. Set machine power to minimum (0.25 vCPU, 256MB RAM is sufficient)
-4. The build command is pre-configured: `cd trading && npm install && npm run build`
+4. The build command is pre-configured: `npm install && cd trading && npm install && npm run build`
 5. The run command is pre-configured: `npx tsx replit-server.ts`
-6. Click **Deploy**
+6. **IMPORTANT**: Add your secrets again in the Deployment secrets panel.
+   Replit deployment secrets are **separate** from workspace secrets.
+   Add: `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`, and `TRADING_API_KEY`
+7. Click **Deploy**
 
 Your app gets a `*.replit.app` URL.
+
+**Note**: The app auto-detects Replit deployments via `REPLIT_DEPLOYMENT=1` env var
+and enforces `TRADING_API_KEY` in production (fail-closed security).
 
 ---
 

@@ -72,7 +72,7 @@ function withAuth(handler: (req: Request) => Promise<Response>, requireForGET = 
     const apiKey = process.env.TRADING_API_KEY;
     if (!apiKey) {
       // Fail-closed in production: block mutations when no key is configured
-      const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL === '1';
+      const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL === '1' || process.env.REPLIT_DEPLOYMENT === '1';
       if (isProduction) return errorResponse('Trading API key not configured', 503);
       return handler(req); // Dev mode only
     }

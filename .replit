@@ -3,6 +3,8 @@ modules = ["nodejs-20"]
 
 hidden = [".config", "node_modules", ".git", "src-tauri", "e2e", "pro-test", ".claude", ".agent", ".agents", ".factory", ".windsurf"]
 
+onBoot = "npm install && cd trading && npm install"
+
 [run]
 args = ["npx", "tsx", "replit-server.ts"]
 
@@ -19,7 +21,7 @@ externalPort = 80
 
 [deployment]
 run = ["npx", "tsx", "replit-server.ts"]
-build = "cd trading && npm install && npm run build"
+build = "npm install && cd trading && npm install && npm run build"
 deploymentTarget = "cloudrun"
 ignorePorts = false
 
