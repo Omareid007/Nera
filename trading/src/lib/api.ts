@@ -685,6 +685,141 @@ export function deleteWatchlist(id: string) {
   return rpc<{ deleted: boolean }>('POST', 'delete-watchlist', { id });
 }
 
+// --- Prediction Markets ---
+
+export interface PredictionMarket {
+  id: string;
+  title: string;
+  probability: number;
+  volume: number;
+  source: 'kalshi' | 'polymarket';
+  category: string;
+  lastUpdated: number;
+}
+
+export function listPredictionMarkets() {
+  return rpc<{ markets: PredictionMarket[]; timestamp: number }>('GET', 'list-prediction-markets');
+}
+
+// --- Earnings ---
+
+export interface EarningsEvent {
+  symbol: string;
+  company: string;
+  reportDate: string;
+  fiscalQuarter: string;
+  epsEstimate: number | null;
+  epsActual: number | null;
+  revenueEstimate: number | null;
+  revenueActual: number | null;
+  surprise: number | null;
+  timing: 'bmo' | 'amc' | 'unknown';
+}
+
+export function listEarnings() {
+  return rpc<{ earnings: EarningsEvent[]; upcoming: EarningsEvent[]; recent: EarningsEvent[]; timestamp: number }>('GET', 'list-earnings');
+}
+
+// --- Cyclones ---
+
+export interface TropicalCyclone {
+  id: string;
+  name: string;
+  basin: string;
+  category: string;
+  windKt: number | null;
+  pressureMb: number | null;
+  lat: number;
+  lon: number;
+  movementDir: string | null;
+  movementSpeedKt: number | null;
+  source: string;
+  lastUpdated: string;
+  commodityImpact: string[];
+}
+
+export function listCyclones() {
+  return rpc<{ cyclones: TropicalCyclone[]; timestamp: number }>('GET', 'list-cyclones');
+}
+
+// --- Cyber Threats ---
+
+export interface CyberThreat {
+  cveId: string;
+  vendorProject: string;
+  product: string;
+  vulnerabilityName: string;
+  dateAdded: string;
+  dueDate: string;
+  knownRansomwareCampaignUse: boolean;
+  shortDescription: string;
+  requiredAction: string;
+  severity: 'critical' | 'high' | 'medium';
+  affectedSectors: string[];
+}
+
+export function listCyberThreats() {
+  return rpc<{ threats: CyberThreat[]; summary: { total: number; critical: number; high: number; ransomwareLinked: number }; timestamp: number }>('GET', 'list-cyber-threats');
+}
+
+// --- Tension Index ---
+
+export interface TensionIndex {
+  score: number;
+  change: number;
+  level: 'LOW' | 'MODERATE' | 'ELEVATED' | 'HIGH' | 'CRITICAL';
+  components: { conflict: number; sentiment: number; cyber: number; natural: number; political: number; supplyChain: number };
+  triggers: TensionTrigger[];
+  timestamp: number;
+}
+
+export interface TensionTrigger {
+  title: string;
+  category: string;
+  severity: number;
+  region: string;
+  timestamp: string;
+  affectedAssets: string[];
+}
+
+export function getTensionIndex() {
+  return rpc<TensionIndex>('GET', 'get-tension-index');
+}
+
+// --- Geo Signals ---
+
+export type SignalDirection = 'BUY' | 'SELL' | 'HOLD';
+
+export interface GeoSignal {
+  id: string;
+  symbol: string;
+  name: string;
+  assetClass: string;
+  direction: SignalDirection;
+  confidence: number;
+  bullStrength: number;
+  bearStrength: number;
+  volatility: string;
+  timeHorizon: string;
+  riskReward: number;
+  triggeringEvent: { title: string; category: string; severity: number; region: string };
+  tradeSetup: {
+    entry: number | null;
+    stopLoss: number | null;
+    target: number | null;
+    riskRewardRatio: number;
+    atrDaily: number | null;
+    maxPositionPct: number;
+  };
+  reasoningChain: { step: number; title: string; description: string; contribution: number }[];
+  tags: string[];
+  timestamp: number;
+}
+
+export function listGeoSignals() {
+  return rpc<{ signals: GeoSignal[]; timestamp: number }>('GET', 'list-geo-signals');
+}
+
 // --- Provider Health ---
 
 export interface ProviderStatus {

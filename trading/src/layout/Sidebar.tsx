@@ -21,6 +21,7 @@ import {
   Eye,
   GitCompare,
   Target,
+  Globe,
 } from 'lucide-react';
 
 const NAV_SECTIONS = [
@@ -56,6 +57,7 @@ const NAV_SECTIONS = [
   {
     label: 'Intelligence',
     items: [
+      { to: '/geo-signals', icon: Globe, label: 'Geo Signals' },
       { to: '/ai', icon: Brain, label: 'AI Pulse' },
       { to: '/research', icon: Search, label: 'Research' },
       { to: '/evidence', icon: FileCheck, label: 'Evidence' },
@@ -78,20 +80,20 @@ interface SidebarProps {
 export function Sidebar({ collapsed, onToggle }: SidebarProps) {
   return (
     <aside
-      className={`flex flex-col border-r border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] transition-all duration-200 ${
-        collapsed ? 'w-16' : 'w-56'
+      className={`flex flex-col border-r border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        collapsed ? 'w-[60px]' : 'w-[220px]'
       } max-md:fixed max-md:inset-y-0 max-md:left-0 max-md:z-40 ${
         collapsed ? 'max-md:-translate-x-full' : 'max-md:translate-x-0'
       }`}
     >
       {/* Logo */}
-      <div className="flex h-14 items-center gap-2 border-b border-[var(--color-border-subtle)] px-4">
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--color-accent)] text-sm font-bold text-[var(--color-surface-0)]">
+      <div className="flex h-14 items-center gap-2.5 border-b border-[var(--color-border-subtle)] px-3">
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[var(--color-accent)] font-bold text-[#121417] text-sm shadow-[0_0_12px_rgba(90,197,58,0.25)]">
           N
         </div>
         {!collapsed && (
-          <span className="text-sm font-semibold tracking-wide text-[var(--color-text-primary)]">
-            Nera Trading
+          <span className="text-[15px] font-semibold tracking-tight text-[var(--color-text-primary)] animate-fade-in">
+            Nera
           </span>
         )}
       </div>
@@ -99,30 +101,32 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       {/* Nav sections */}
       <nav className="flex-1 overflow-y-auto px-2 py-3">
         {NAV_SECTIONS.map((section) => (
-          <div key={section.label} className="mb-4">
+          <div key={section.label} className="mb-3">
             {!collapsed && (
-              <p className="mb-1 px-2 text-[10px] font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+              <p className="mb-1.5 px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--color-text-muted)]">
                 {section.label}
               </p>
             )}
-            {section.items.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                end={item.end}
-                className={({ isActive }) =>
-                  `flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors ${
-                    isActive
-                      ? 'bg-[var(--color-accent-muted)] text-[var(--color-accent)]'
-                      : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text-primary)]'
-                  } ${collapsed ? 'justify-center' : ''}`
-                }
-                title={collapsed ? item.label : undefined}
-              >
-                <item.icon size={18} className="shrink-0" />
-                {!collapsed && <span>{item.label}</span>}
-              </NavLink>
-            ))}
+            <div className="space-y-0.5">
+              {section.items.map((item) => (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  end={item.end}
+                  className={({ isActive }) =>
+                    `group flex items-center gap-2.5 rounded-lg px-2.5 py-[7px] text-[13px] font-medium transition-all duration-150 ${
+                      isActive
+                        ? 'bg-[var(--color-accent-muted)] text-[var(--color-accent)]'
+                        : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text-primary)]'
+                    } ${collapsed ? 'justify-center px-0' : ''}`
+                  }
+                  title={collapsed ? item.label : undefined}
+                >
+                  <item.icon size={17} className="shrink-0 transition-transform duration-150 group-hover:scale-110" />
+                  {!collapsed && <span className="truncate">{item.label}</span>}
+                </NavLink>
+              ))}
+            </div>
           </div>
         ))}
       </nav>
@@ -131,9 +135,9 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       <div className="border-t border-[var(--color-border-subtle)] p-2">
         <button
           onClick={onToggle}
-          className="mt-1 flex w-full items-center justify-center rounded-lg py-1.5 text-[var(--color-text-tertiary)] transition-colors hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text-primary)] max-md:hidden"
+          className="flex w-full items-center justify-center rounded-lg py-1.5 text-[var(--color-text-tertiary)] transition-all duration-150 hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text-primary)] max-md:hidden"
         >
-          {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+          {collapsed ? <ChevronRight size={15} /> : <ChevronLeft size={15} />}
         </button>
       </div>
     </aside>

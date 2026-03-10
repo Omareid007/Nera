@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Search, Globe, TrendingUp, Shield, Zap, Newspaper, Building2, Loader2 } from 'lucide-react';
+import { Search, Globe, TrendingUp, Shield, Zap, Newspaper, Building2, Loader2, CloudLightning, ShieldAlert, BarChart3, Percent } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
-import { getIntelStatus, type IntelSource } from '@/lib/api';
+import {
+  getIntelStatus, listPredictionMarkets, listEarnings, listCyclones, listCyberThreats,
+  type IntelSource, type PredictionMarket, type EarningsEvent, type TropicalCyclone, type CyberThreat,
+} from '@/lib/api';
 
 /** Predefined research universes with intelligence feed linkage. */
 const UNIVERSES = [
@@ -16,13 +19,20 @@ const UNIVERSES = [
 export function ResearchPage() {
   const [search, setSearch] = useState('');
   const [intelSources, setIntelSources] = useState<IntelSource[]>([]);
+  const [predictions, setPredictions] = useState<PredictionMarket[]>([]);
+  const [earnings, setEarnings] = useState<{ upcoming: EarningsEvent[]; recent: EarningsEvent[] }>({ upcoming: [], recent: [] });
+  const [cyclones, setCyclones] = useState<TropicalCyclone[]>([]);
+  const [cyberThreats, setCyberThreats] = useState<CyberThreat[]>([]);
   const [loadingIntel, setLoadingIntel] = useState(true);
 
   useEffect(() => {
-    getIntelStatus()
-      .then((r) => setIntelSources(r.sources))
-      .catch(() => {})
-      .finally(() => setLoadingIntel(false));
+    Promise.all([
+      getIntelStatus().then((r) => setIntelSources(r.sources)).catch(() => {}),
+      listPredictionMarkets().then((r) => setPredictions(r.markets)).catch(() => {}),
+      listEarnings().then((r) => setEarnings({ upcoming: r.upcoming, recent: r.recent })).catch(() => {}),
+      listCyclones().then((r) => setCyclones(r.cyclones)).catch(() => {}),
+      listCyberThreats().then((r) => setCyberThreats(r.threats)).catch(() => {}),
+    ]).finally(() => setLoadingIntel(false));
   }, []);
 
   const filtered = search
@@ -62,6 +72,146 @@ export function ResearchPage() {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Market Intelligence Panels */}
+      <div className="mb-6 grid gap-4 lg:grid-cols-2">
+        {/* Prediction Markets */}
+        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+          <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[var(--color-text-tertiary)]">
+            <Percent size={14} className="text-purple-400" /> Prediction Markets
+          </h3>
+          {predictions.length === 0 ? (
+            <p className="text-xs text-[var(--color-text-muted)]">Loading prediction markets...</p>
+          ) : (
+            <div className="space-y-2 max-h-64 overflow-y-auto">
+              {predictions.slice(0, 10).map((m) => (
+                <div key={m.id} className="flex items-center justify-between rounded-lg bg-[var(--color-surface-2)] px-3 py-2 text-xs">
+                  <div className="flex-1 mr-3">
+                    <p className="font-medium text-[var(--color-text-primary)] truncate">{m.title}</p>
+                    <span className={`inline-block mt-0.5 rounded px-1 py-0.5 text-[9px] font-semibold uppercase ${
+                      m.source === 'kalshi' ? 'bg-blue-500/20 text-blue-400' : 'bg-purple-500/20 text-purple-400'
+                    }`}>{m.source}</span>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <span className={`text-sm font-bold ${m.probability >= 70 ? 'text-[var(--color-profit)]' : m.probability <= 30 ? 'text-[var(--color-loss)]' : 'text-[var(--color-text-primary)]'}`}>
+                      {m.probability}%
+                    </span>
+                    <p className="text-[9px] text-[var(--color-text-muted)]">${(m.volume / 1000).toFixed(0)}k vol</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Earnings Calendar */}
+        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+          <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[var(--color-text-tertiary)]">
+            <BarChart3 size={14} className="text-emerald-400" /> Earnings Calendar
+          </h3>
+          {earnings.upcoming.length === 0 && earnings.recent.length === 0 ? (
+            <p className="text-xs text-[var(--color-text-muted)]">No earnings data available</p>
+          ) : (
+            <div className="space-y-3 max-h-64 overflow-y-auto">
+              {earnings.upcoming.length > 0 && (
+                <div>
+                  <p className="mb-1.5 text-[10px] font-semibold uppercase text-[var(--color-text-muted)]">Upcoming</p>
+                  {earnings.upcoming.slice(0, 5).map((e) => (
+                    <div key={`${e.symbol}-${e.reportDate}`} className="flex items-center justify-between rounded-lg bg-[var(--color-surface-2)] px-3 py-2 mb-1 text-xs">
+                      <div>
+                        <span className="font-semibold text-[var(--color-text-primary)]">{e.symbol}</span>
+                        <span className="ml-2 text-[var(--color-text-muted)]">{e.reportDate}</span>
+                        {e.timing !== 'unknown' && <span className="ml-1 text-[9px] text-[var(--color-text-muted)] uppercase">{e.timing}</span>}
+                      </div>
+                      {e.epsEstimate !== null && (
+                        <span className="text-[var(--color-text-secondary)]">Est: ${e.epsEstimate.toFixed(2)}</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+              {earnings.recent.length > 0 && (
+                <div>
+                  <p className="mb-1.5 text-[10px] font-semibold uppercase text-[var(--color-text-muted)]">Recent</p>
+                  {earnings.recent.slice(0, 5).map((e) => (
+                    <div key={`${e.symbol}-${e.reportDate}`} className="flex items-center justify-between rounded-lg bg-[var(--color-surface-2)] px-3 py-2 mb-1 text-xs">
+                      <div>
+                        <span className="font-semibold text-[var(--color-text-primary)]">{e.symbol}</span>
+                        <span className="ml-2 text-[var(--color-text-muted)]">{e.reportDate}</span>
+                      </div>
+                      {e.surprise !== null && (
+                        <span className={`font-semibold ${e.surprise >= 0 ? 'text-[var(--color-profit)]' : 'text-[var(--color-loss)]'}`}>
+                          {e.surprise >= 0 ? '+' : ''}{e.surprise.toFixed(1)}% surprise
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Tropical Cyclones */}
+        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+          <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[var(--color-text-tertiary)]">
+            <CloudLightning size={14} className="text-amber-400" /> Tropical Cyclones
+          </h3>
+          {cyclones.length === 0 ? (
+            <div className="flex items-center gap-2 rounded-lg bg-emerald-500/10 px-3 py-2 text-xs text-emerald-400">
+              <Shield size={12} /> No active tropical cyclones — clear for commodity markets
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {cyclones.map((c) => (
+                <div key={c.id} className="rounded-lg bg-[var(--color-surface-2)] px-3 py-2 text-xs">
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold text-[var(--color-text-primary)]">{c.name}</span>
+                    <span className={`rounded px-1.5 py-0.5 text-[9px] font-bold uppercase ${
+                      c.category.includes('5') || c.category.includes('4') ? 'bg-red-500/20 text-red-400' :
+                      c.category.includes('3') ? 'bg-amber-500/20 text-amber-400' :
+                      'bg-blue-500/20 text-blue-400'
+                    }`}>{c.category}</span>
+                  </div>
+                  {c.windKt && <p className="text-[var(--color-text-muted)] mt-0.5">{c.windKt} kt • {c.basin.replace(/_/g, ' ')}</p>}
+                  <div className="mt-1 flex flex-wrap gap-1">
+                    {c.commodityImpact.map((impact, i) => (
+                      <span key={i} className="rounded bg-amber-500/10 px-1.5 py-0.5 text-[9px] text-amber-400">{impact}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* CISA Cyber Threats */}
+        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+          <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[var(--color-text-tertiary)]">
+            <ShieldAlert size={14} className="text-red-400" /> CISA Cyber Threats (KEV)
+          </h3>
+          {cyberThreats.length === 0 ? (
+            <p className="text-xs text-[var(--color-text-muted)]">Loading vulnerability data...</p>
+          ) : (
+            <div className="space-y-2 max-h-64 overflow-y-auto">
+              {cyberThreats.slice(0, 8).map((t) => (
+                <div key={t.cveId} className="rounded-lg bg-[var(--color-surface-2)] px-3 py-2 text-xs">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono font-semibold text-[var(--color-text-primary)]">{t.cveId}</span>
+                    <span className={`rounded px-1.5 py-0.5 text-[9px] font-bold uppercase ${
+                      t.severity === 'critical' ? 'bg-red-500/20 text-red-400' :
+                      t.severity === 'high' ? 'bg-amber-500/20 text-amber-400' :
+                      'bg-blue-500/20 text-blue-400'
+                    }`}>{t.severity}{t.knownRansomwareCampaignUse ? ' • RANSOMWARE' : ''}</span>
+                  </div>
+                  <p className="mt-0.5 text-[var(--color-text-muted)] truncate">{t.vendorProject} — {t.product}</p>
+                  <p className="mt-0.5 text-[10px] text-[var(--color-text-muted)]">Added: {t.dateAdded} • Due: {t.dueDate}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

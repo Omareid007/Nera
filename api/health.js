@@ -253,7 +253,7 @@ export default async function handler(req) {
       okCount++;
     }
 
-    const entry = { status, redisKey, records: size };
+    const entry = { status, records: size };
     if (seedAge !== null) entry.seedAgeMin = seedAge;
     if (seedCfg) entry.maxStaleMin = seedCfg.maxStaleMin;
     checks[name] = entry;
@@ -330,7 +330,7 @@ export default async function handler(req) {
       okCount++;
     }
 
-    const entry = { status, redisKey, records: size };
+    const entry = { status, records: size };
     if (seedAge !== null) entry.seedAgeMin = seedAge;
     if (seedCfg) entry.maxStaleMin = seedCfg.maxStaleMin;
     checks[name] = entry;
@@ -338,11 +338,13 @@ export default async function handler(req) {
 
   let overall;
   if (critCount === 0 && warnCount === 0) overall = 'HEALTHY';
-  else if (critCount === 0) overall = 'DEGRADED';
+  else if (critCount === 0) overall = 'WARNING';
   else if (critCount <= 3) overall = 'DEGRADED';
   else overall = 'UNHEALTHY';
 
-  const httpStatus = overall === 'HEALTHY' ? 200 : overall === 'DEGRADED' ? 200 : 503;
+  // WARNING and DEGRADED both return 200 for monitoring compatibility;
+  // only UNHEALTHY returns 503 (actionable alert).
+  const httpStatus = overall === 'UNHEALTHY' ? 503 : 200;
 
   const url = new URL(req.url);
   const compact = url.searchParams.get('compact') === '1';
@@ -363,7 +365,7 @@ export default async function handler(req) {
   } else {
     const problems = {};
     for (const [name, check] of Object.entries(checks)) {
-      if (check.status !== 'OK') problems[name] = check;
+      if (check.status !== 'OK' && check.status !== 'OK_CASCADE') problems[name] = check;
     }
     if (Object.keys(problems).length > 0) body.problems = problems;
   }

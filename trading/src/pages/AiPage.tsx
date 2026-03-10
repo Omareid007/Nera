@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Brain, ChevronDown, ChevronUp, AlertTriangle, Sparkles, ShieldCheck, Clock, Loader2, RefreshCw } from 'lucide-react';
+import { Brain, ChevronDown, ChevronUp, AlertTriangle, Sparkles, ShieldCheck, Clock, Loader2, RefreshCw, ArrowUpDown } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
 import {
   listAiEvents,
@@ -159,6 +159,7 @@ export function AiPage() {
   const [selectedStrategyId, setSelectedStrategyId] = useState('');
   const [interpreting, setInterpreting] = useState(false);
   const [loadingEvents, setLoadingEvents] = useState(true);
+  const [sortOrder, setSortOrder] = useState<'newest' | 'relevance'>('newest');
   const [error, setError] = useState('');
 
   const loadEvents = useCallback(async () => {
@@ -216,12 +217,21 @@ export function AiPage() {
         <div className="lg:col-span-2">
           <div className="mb-3 flex items-center justify-between">
             <h2 className="text-sm font-semibold text-[var(--color-text-tertiary)]">Activity Timeline</h2>
-            <button
-              onClick={loadEvents}
-              className="flex items-center gap-1 text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]"
-            >
-              <RefreshCw size={12} /> Refresh
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setSortOrder(sortOrder === 'newest' ? 'relevance' : 'newest')}
+                className="flex items-center gap-1 rounded-md border border-[var(--color-border-subtle)] bg-[var(--color-surface-2)] px-2 py-1 text-[10px] font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors"
+              >
+                <ArrowUpDown size={10} />
+                {sortOrder === 'newest' ? 'Newest' : 'Relevance'}
+              </button>
+              <button
+                onClick={loadEvents}
+                className="flex items-center gap-1 text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]"
+              >
+                <RefreshCw size={12} /> Refresh
+              </button>
+            </div>
           </div>
 
           {loadingEvents && (
@@ -243,9 +253,18 @@ export function AiPage() {
 
           {!loadingEvents && events.length > 0 && (
             <div className="space-y-2">
-              {events.map((ev) => (
-                <AiEventCard key={ev.id} entry={ev} onExpand={() => {}} />
-              ))}
+              {[...events]
+                .sort((a, b) => {
+                  if (sortOrder === 'newest') return b.timestamp - a.timestamp;
+                  // Relevance: strategy_interpretation > risk_summary > sentiment_shift > others, then by time
+                  const relevanceMap: Record<string, number> = { strategy_interpretation: 4, risk_summary: 3, sentiment_shift: 2, news_impact: 1 };
+                  const ra = relevanceMap[a.type] ?? 0;
+                  const rb = relevanceMap[b.type] ?? 0;
+                  return rb !== ra ? rb - ra : b.timestamp - a.timestamp;
+                })
+                .map((ev) => (
+                  <AiEventCard key={ev.id} entry={ev} onExpand={() => {}} />
+                ))}
             </div>
           )}
         </div>
@@ -278,7 +297,7 @@ export function AiPage() {
                 <button
                   onClick={handleInterpret}
                   disabled={interpreting || !selectedStrategyId}
-                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-[#121417] hover:brightness-110 disabled:opacity-50 transition-all duration-200"
                 >
                   {interpreting ? (
                     <>
