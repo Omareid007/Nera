@@ -1,235 +1,5315 @@
 {
   "symbols": [
-    { "symbol": "^GSPC", "name": "S&P 500", "display": "SPX", "market": "US", "type": "index" },
-    { "symbol": "^DJI", "name": "Dow Jones", "display": "DOW", "market": "US", "type": "index" },
-    { "symbol": "^IXIC", "name": "NASDAQ", "display": "NDX", "market": "US", "type": "index" },
-    { "symbol": "^RUT", "name": "Russell 2000", "display": "RUT", "market": "US", "type": "index" },
-
-    { "symbol": "AAPL", "name": "Apple", "display": "AAPL", "market": "US", "type": "stock" },
-    { "symbol": "MSFT", "name": "Microsoft", "display": "MSFT", "market": "US", "type": "stock" },
-    { "symbol": "NVDA", "name": "NVIDIA", "display": "NVDA", "market": "US", "type": "stock" },
-    { "symbol": "GOOGL", "name": "Alphabet", "display": "GOOGL", "market": "US", "type": "stock" },
-    { "symbol": "AMZN", "name": "Amazon", "display": "AMZN", "market": "US", "type": "stock" },
-    { "symbol": "META", "name": "Meta Platforms", "display": "META", "market": "US", "type": "stock" },
-    { "symbol": "BRK-B", "name": "Berkshire Hathaway", "display": "BRK.B", "market": "US", "type": "stock" },
-    { "symbol": "TSM", "name": "TSMC", "display": "TSM", "market": "US", "type": "stock" },
-    { "symbol": "LLY", "name": "Eli Lilly", "display": "LLY", "market": "US", "type": "stock" },
-    { "symbol": "TSLA", "name": "Tesla", "display": "TSLA", "market": "US", "type": "stock" },
-    { "symbol": "AVGO", "name": "Broadcom", "display": "AVGO", "market": "US", "type": "stock" },
-    { "symbol": "WMT", "name": "Walmart", "display": "WMT", "market": "US", "type": "stock" },
-    { "symbol": "JPM", "name": "JPMorgan Chase", "display": "JPM", "market": "US", "type": "stock" },
-    { "symbol": "V", "name": "Visa", "display": "V", "market": "US", "type": "stock" },
-    { "symbol": "UNH", "name": "UnitedHealth", "display": "UNH", "market": "US", "type": "stock" },
-    { "symbol": "NVO", "name": "Novo Nordisk", "display": "NVO", "market": "US", "type": "stock" },
-    { "symbol": "XOM", "name": "Exxon Mobil", "display": "XOM", "market": "US", "type": "stock" },
-    { "symbol": "MA", "name": "Mastercard", "display": "MA", "market": "US", "type": "stock" },
-    { "symbol": "ORCL", "name": "Oracle", "display": "ORCL", "market": "US", "type": "stock" },
-    { "symbol": "PG", "name": "Procter & Gamble", "display": "PG", "market": "US", "type": "stock" },
-    { "symbol": "COST", "name": "Costco", "display": "COST", "market": "US", "type": "stock" },
-    { "symbol": "JNJ", "name": "Johnson & Johnson", "display": "JNJ", "market": "US", "type": "stock" },
-    { "symbol": "HD", "name": "Home Depot", "display": "HD", "market": "US", "type": "stock" },
-    { "symbol": "NFLX", "name": "Netflix", "display": "NFLX", "market": "US", "type": "stock" },
-    { "symbol": "BAC", "name": "Bank of America", "display": "BAC", "market": "US", "type": "stock" },
-    { "symbol": "CRM", "name": "Salesforce", "display": "CRM", "market": "US", "type": "stock" },
-    { "symbol": "AMD", "name": "AMD", "display": "AMD", "market": "US", "type": "stock" },
-    { "symbol": "ADBE", "name": "Adobe", "display": "ADBE", "market": "US", "type": "stock" },
-    { "symbol": "DIS", "name": "Walt Disney", "display": "DIS", "market": "US", "type": "stock" },
-    { "symbol": "INTC", "name": "Intel", "display": "INTC", "market": "US", "type": "stock" },
-    { "symbol": "CSCO", "name": "Cisco", "display": "CSCO", "market": "US", "type": "stock" },
-    { "symbol": "PFE", "name": "Pfizer", "display": "PFE", "market": "US", "type": "stock" },
-    { "symbol": "T", "name": "AT&T", "display": "T", "market": "US", "type": "stock" },
-    { "symbol": "KO", "name": "Coca-Cola", "display": "KO", "market": "US", "type": "stock" },
-    { "symbol": "PEP", "name": "PepsiCo", "display": "PEP", "market": "US", "type": "stock" },
-    { "symbol": "MRK", "name": "Merck", "display": "MRK", "market": "US", "type": "stock" },
-    { "symbol": "ABT", "name": "Abbott Labs", "display": "ABT", "market": "US", "type": "stock" },
-    { "symbol": "GS", "name": "Goldman Sachs", "display": "GS", "market": "US", "type": "stock" },
-    { "symbol": "MS", "name": "Morgan Stanley", "display": "MS", "market": "US", "type": "stock" },
-    { "symbol": "QCOM", "name": "Qualcomm", "display": "QCOM", "market": "US", "type": "stock" },
-    { "symbol": "TXN", "name": "Texas Instruments", "display": "TXN", "market": "US", "type": "stock" },
-    { "symbol": "NEE", "name": "NextEra Energy", "display": "NEE", "market": "US", "type": "stock" },
-    { "symbol": "LMT", "name": "Lockheed Martin", "display": "LMT", "market": "US", "type": "stock" },
-    { "symbol": "RTX", "name": "RTX Corp", "display": "RTX", "market": "US", "type": "stock" },
-    { "symbol": "NOC", "name": "Northrop Grumman", "display": "NOC", "market": "US", "type": "stock" },
-    { "symbol": "BA", "name": "Boeing", "display": "BA", "market": "US", "type": "stock" },
-    { "symbol": "GD", "name": "General Dynamics", "display": "GD", "market": "US", "type": "stock" },
-    { "symbol": "CAT", "name": "Caterpillar", "display": "CAT", "market": "US", "type": "stock" },
-    { "symbol": "DE", "name": "Deere & Co", "display": "DE", "market": "US", "type": "stock" },
-    { "symbol": "UPS", "name": "United Parcel", "display": "UPS", "market": "US", "type": "stock" },
-    { "symbol": "UBER", "name": "Uber", "display": "UBER", "market": "US", "type": "stock" },
-    { "symbol": "ABNB", "name": "Airbnb", "display": "ABNB", "market": "US", "type": "stock" },
-    { "symbol": "COIN", "name": "Coinbase", "display": "COIN", "market": "US", "type": "stock" },
-    { "symbol": "PLTR", "name": "Palantir", "display": "PLTR", "market": "US", "type": "stock" },
-    { "symbol": "SNOW", "name": "Snowflake", "display": "SNOW", "market": "US", "type": "stock" },
-    { "symbol": "SQ", "name": "Block Inc", "display": "SQ", "market": "US", "type": "stock" },
-    { "symbol": "SHOP", "name": "Shopify", "display": "SHOP", "market": "US", "type": "stock" },
-
-    { "symbol": "^FTSE", "name": "FTSE 100", "display": "FTSE", "market": "UK", "type": "index" },
-    { "symbol": "SHEL.L", "name": "Shell", "display": "SHEL", "market": "UK", "type": "stock" },
-    { "symbol": "AZN.L", "name": "AstraZeneca", "display": "AZN", "market": "UK", "type": "stock" },
-    { "symbol": "HSBA.L", "name": "HSBC", "display": "HSBA", "market": "UK", "type": "stock" },
-    { "symbol": "ULVR.L", "name": "Unilever", "display": "ULVR", "market": "UK", "type": "stock" },
-    { "symbol": "BP.L", "name": "BP", "display": "BP", "market": "UK", "type": "stock" },
-    { "symbol": "GSK.L", "name": "GSK", "display": "GSK", "market": "UK", "type": "stock" },
-    { "symbol": "RIO.L", "name": "Rio Tinto", "display": "RIO", "market": "UK", "type": "stock" },
-    { "symbol": "BARC.L", "name": "Barclays", "display": "BARC", "market": "UK", "type": "stock" },
-    { "symbol": "LLOY.L", "name": "Lloyds Banking", "display": "LLOY", "market": "UK", "type": "stock" },
-    { "symbol": "VOD.L", "name": "Vodafone", "display": "VOD", "market": "UK", "type": "stock" },
-    { "symbol": "DGE.L", "name": "Diageo", "display": "DGE", "market": "UK", "type": "stock" },
-    { "symbol": "LSEG.L", "name": "London Stock Exchange", "display": "LSEG", "market": "UK", "type": "stock" },
-
-    { "symbol": "^GDAXI", "name": "DAX", "display": "DAX", "market": "DE", "type": "index" },
-    { "symbol": "SAP.DE", "name": "SAP", "display": "SAP", "market": "DE", "type": "stock" },
-    { "symbol": "SIE.DE", "name": "Siemens", "display": "SIE", "market": "DE", "type": "stock" },
-    { "symbol": "ALV.DE", "name": "Allianz", "display": "ALV", "market": "DE", "type": "stock" },
-    { "symbol": "DTE.DE", "name": "Deutsche Telekom", "display": "DTE", "market": "DE", "type": "stock" },
-    { "symbol": "MBG.DE", "name": "Mercedes-Benz", "display": "MBG", "market": "DE", "type": "stock" },
-    { "symbol": "BMW.DE", "name": "BMW", "display": "BMW", "market": "DE", "type": "stock" },
-    { "symbol": "BAS.DE", "name": "BASF", "display": "BAS", "market": "DE", "type": "stock" },
-    { "symbol": "DBK.DE", "name": "Deutsche Bank", "display": "DBK", "market": "DE", "type": "stock" },
-    { "symbol": "ADS.DE", "name": "Adidas", "display": "ADS", "market": "DE", "type": "stock" },
-    { "symbol": "IFX.DE", "name": "Infineon", "display": "IFX", "market": "DE", "type": "stock" },
-
-    { "symbol": "^N225", "name": "Nikkei 225", "display": "NKY", "market": "JP", "type": "index" },
-    { "symbol": "7203.T", "name": "Toyota", "display": "7203", "market": "JP", "type": "stock" },
-    { "symbol": "6758.T", "name": "Sony", "display": "6758", "market": "JP", "type": "stock" },
-    { "symbol": "6861.T", "name": "Keyence", "display": "6861", "market": "JP", "type": "stock" },
-    { "symbol": "9984.T", "name": "SoftBank Group", "display": "9984", "market": "JP", "type": "stock" },
-    { "symbol": "8306.T", "name": "Mitsubishi UFJ", "display": "8306", "market": "JP", "type": "stock" },
-    { "symbol": "6501.T", "name": "Hitachi", "display": "6501", "market": "JP", "type": "stock" },
-    { "symbol": "9432.T", "name": "NTT", "display": "9432", "market": "JP", "type": "stock" },
-    { "symbol": "7974.T", "name": "Nintendo", "display": "7974", "market": "JP", "type": "stock" },
-    { "symbol": "4063.T", "name": "Shin-Etsu Chemical", "display": "4063", "market": "JP", "type": "stock" },
-    { "symbol": "8035.T", "name": "Tokyo Electron", "display": "8035", "market": "JP", "type": "stock" },
-
-    { "symbol": "^BSESN", "name": "BSE Sensex", "display": "SENSEX", "market": "IN", "type": "index" },
-    { "symbol": "^NSEI", "name": "Nifty 50", "display": "NIFTY", "market": "IN", "type": "index" },
-    { "symbol": "RELIANCE.NS", "name": "Reliance Industries", "display": "RELIANCE", "market": "IN", "type": "stock" },
-    { "symbol": "TCS.NS", "name": "Tata Consultancy", "display": "TCS", "market": "IN", "type": "stock" },
-    { "symbol": "HDFCBANK.NS", "name": "HDFC Bank", "display": "HDFCBANK", "market": "IN", "type": "stock" },
-    { "symbol": "INFY.NS", "name": "Infosys", "display": "INFY", "market": "IN", "type": "stock" },
-    { "symbol": "ICICIBANK.NS", "name": "ICICI Bank", "display": "ICICIBANK", "market": "IN", "type": "stock" },
-    { "symbol": "HINDUNILVR.NS", "name": "Hindustan Unilever", "display": "HINDUNILVR", "market": "IN", "type": "stock" },
-    { "symbol": "ITC.NS", "name": "ITC Limited", "display": "ITC", "market": "IN", "type": "stock" },
-    { "symbol": "SBIN.NS", "name": "State Bank of India", "display": "SBIN", "market": "IN", "type": "stock" },
-    { "symbol": "BHARTIARTL.NS", "name": "Bharti Airtel", "display": "BHARTIARTL", "market": "IN", "type": "stock" },
-    { "symbol": "WIPRO.NS", "name": "Wipro", "display": "WIPRO", "market": "IN", "type": "stock" },
-
-    { "symbol": "^EGX30.CA", "name": "EGX 30", "display": "EGX30", "market": "EG", "type": "index" },
-    { "symbol": "COMI.CA", "name": "Commercial Intl Bank", "display": "COMI", "market": "EG", "type": "stock" },
-    { "symbol": "HRHO.CA", "name": "Hermes Holding", "display": "HRHO", "market": "EG", "type": "stock" },
-    { "symbol": "TMGH.CA", "name": "Talaat Moustafa", "display": "TMGH", "market": "EG", "type": "stock" },
-    { "symbol": "SWDY.CA", "name": "Elsewedy Electric", "display": "SWDY", "market": "EG", "type": "stock" },
-    { "symbol": "EAST.CA", "name": "Eastern Company", "display": "EAST", "market": "EG", "type": "stock" },
-    { "symbol": "ETEL.CA", "name": "Telecom Egypt", "display": "ETEL", "market": "EG", "type": "stock" },
-    { "symbol": "ORWE.CA", "name": "Oriental Weavers", "display": "ORWE", "market": "EG", "type": "stock" },
-    { "symbol": "EFIH.CA", "name": "EFG Hermes", "display": "EFIH", "market": "EG", "type": "stock" },
-    { "symbol": "ABUK.CA", "name": "Abu Qir Fertilizers", "display": "ABUK", "market": "EG", "type": "stock" },
-    { "symbol": "PHDC.CA", "name": "Palm Hills Development", "display": "PHDC", "market": "EG", "type": "stock" },
-
-    { "symbol": "^TASI.SR", "name": "Tadawul All Share", "display": "TASI", "market": "SA", "type": "index" },
-    { "symbol": "2222.SR", "name": "Saudi Aramco", "display": "ARAMCO", "market": "SA", "type": "stock" },
-    { "symbol": "1180.SR", "name": "Al Rajhi Bank", "display": "ALRAJHI", "market": "SA", "type": "stock" },
-    { "symbol": "2010.SR", "name": "SABIC", "display": "SABIC", "market": "SA", "type": "stock" },
-    { "symbol": "1010.SR", "name": "Riyad Bank", "display": "RIYAD", "market": "SA", "type": "stock" },
-    { "symbol": "1150.SR", "name": "SAMBA Financial", "display": "SAMBA", "market": "SA", "type": "stock" },
-    { "symbol": "2350.SR", "name": "Saudi Kayan", "display": "KAYAN", "market": "SA", "type": "stock" },
-    { "symbol": "1211.SR", "name": "Ma'aden", "display": "MAADEN", "market": "SA", "type": "stock" },
-    { "symbol": "7010.SR", "name": "STC", "display": "STC", "market": "SA", "type": "stock" },
-    { "symbol": "2020.SR", "name": "SAFCO", "display": "SAFCO", "market": "SA", "type": "stock" },
-    { "symbol": "4030.SR", "name": "Albaik", "display": "ALBAIK", "market": "SA", "type": "stock" },
-
-    { "symbol": "DFMGI.AE", "name": "DFM General Index", "display": "DFMGI", "market": "AE", "type": "index" },
-    { "symbol": "FAB.AE", "name": "First Abu Dhabi Bank", "display": "FAB", "market": "AE", "type": "stock" },
-    { "symbol": "ETISALAT.AE", "name": "e& (Etisalat)", "display": "ETISALAT", "market": "AE", "type": "stock" },
-    { "symbol": "EMAAR.AE", "name": "Emaar Properties", "display": "EMAAR", "market": "AE", "type": "stock" },
-    { "symbol": "DIB.AE", "name": "Dubai Islamic Bank", "display": "DIB", "market": "AE", "type": "stock" },
-    { "symbol": "DFM.AE", "name": "Dubai Financial Market", "display": "DFM", "market": "AE", "type": "stock" },
-    { "symbol": "ADNOCDIST.AE", "name": "ADNOC Distribution", "display": "ADNOCDIST", "market": "AE", "type": "stock" },
-    { "symbol": "DAMAC.AE", "name": "DAMAC Properties", "display": "DAMAC", "market": "AE", "type": "stock" },
-    { "symbol": "ALDAR.AE", "name": "Aldar Properties", "display": "ALDAR", "market": "AE", "type": "stock" },
-
-    { "symbol": "NBK.KW", "name": "National Bank of Kuwait", "display": "NBK", "market": "KW", "type": "stock" },
-    { "symbol": "ZAIN.KW", "name": "Zain Group", "display": "ZAIN", "market": "KW", "type": "stock" },
-    { "symbol": "KFH.KW", "name": "Kuwait Finance House", "display": "KFH", "market": "KW", "type": "stock" },
-    { "symbol": "AGLTY.KW", "name": "Agility", "display": "AGLTY", "market": "KW", "type": "stock" },
-
-    { "symbol": "BATELCO.BH", "name": "Batelco", "display": "BATELCO", "market": "BH", "type": "stock" },
-    { "symbol": "NBB.BH", "name": "National Bank of Bahrain", "display": "NBB", "market": "BH", "type": "stock" },
-    { "symbol": "AHLI.BH", "name": "Ahli United Bank", "display": "AHLI", "market": "BH", "type": "stock" },
-    { "symbol": "ALBA.BH", "name": "Aluminium Bahrain", "display": "ALBA", "market": "BH", "type": "stock" },
-
-    { "symbol": "OMAN.OM", "name": "Bank Muscat", "display": "BKMUSCAT", "market": "OM", "type": "stock" },
-    { "symbol": "OTEL.OM", "name": "Omantel", "display": "OTEL", "market": "OM", "type": "stock" },
-    { "symbol": "ORES.OM", "name": "OQ Gas Networks", "display": "ORES", "market": "OM", "type": "stock" },
-
-    { "symbol": "^HSI", "name": "Hang Seng", "display": "HSI", "market": "HK", "type": "index" },
-    { "symbol": "9988.HK", "name": "Alibaba", "display": "BABA.HK", "market": "HK", "type": "stock" },
-    { "symbol": "0700.HK", "name": "Tencent", "display": "700.HK", "market": "HK", "type": "stock" },
-    { "symbol": "9618.HK", "name": "JD.com", "display": "JD.HK", "market": "HK", "type": "stock" },
-    { "symbol": "3690.HK", "name": "Meituan", "display": "3690.HK", "market": "HK", "type": "stock" },
-
-    { "symbol": "^FCHI", "name": "CAC 40", "display": "CAC", "market": "FR", "type": "index" },
-    { "symbol": "MC.PA", "name": "LVMH", "display": "MC", "market": "FR", "type": "stock" },
-    { "symbol": "OR.PA", "name": "L'Oreal", "display": "OR", "market": "FR", "type": "stock" },
-    { "symbol": "TTE.PA", "name": "TotalEnergies", "display": "TTE", "market": "FR", "type": "stock" },
-    { "symbol": "SAN.PA", "name": "Sanofi", "display": "SAN", "market": "FR", "type": "stock" },
-    { "symbol": "AIR.PA", "name": "Airbus", "display": "AIR", "market": "FR", "type": "stock" },
-
-    { "symbol": "000001.SS", "name": "SSE Composite", "display": "SSEC", "market": "CN", "type": "index" },
-    { "symbol": "^KS11", "name": "KOSPI", "display": "KOSPI", "market": "KR", "type": "index" },
-    { "symbol": "005930.KS", "name": "Samsung Electronics", "display": "SAMSUNG", "market": "KR", "type": "stock" },
-    { "symbol": "000660.KS", "name": "SK Hynix", "display": "SKHYNIX", "market": "KR", "type": "stock" },
-
-    { "symbol": "^AXJO", "name": "ASX 200", "display": "ASX", "market": "AU", "type": "index" },
-    { "symbol": "BHP.AX", "name": "BHP Group", "display": "BHP", "market": "AU", "type": "stock" },
-    { "symbol": "CBA.AX", "name": "Commonwealth Bank", "display": "CBA", "market": "AU", "type": "stock" },
-    { "symbol": "CSL.AX", "name": "CSL Limited", "display": "CSL", "market": "AU", "type": "stock" },
-
-    { "symbol": "^BVSP", "name": "Bovespa", "display": "IBOV", "market": "BR", "type": "index" },
-    { "symbol": "PETR4.SA", "name": "Petrobras", "display": "PETR4", "market": "BR", "type": "stock" },
-    { "symbol": "VALE3.SA", "name": "Vale", "display": "VALE3", "market": "BR", "type": "stock" },
-    { "symbol": "ITUB4.SA", "name": "Itau Unibanco", "display": "ITUB4", "market": "BR", "type": "stock" },
-
-    { "symbol": "^GSPTSE", "name": "TSX Composite", "display": "TSX", "market": "CA", "type": "index" },
-    { "symbol": "RY.TO", "name": "Royal Bank Canada", "display": "RY", "market": "CA", "type": "stock" },
-    { "symbol": "TD.TO", "name": "Toronto-Dominion", "display": "TD", "market": "CA", "type": "stock" },
-    { "symbol": "ENB.TO", "name": "Enbridge", "display": "ENB", "market": "CA", "type": "stock" },
-
-    { "symbol": "^SSMI", "name": "SMI", "display": "SMI", "market": "CH", "type": "index" },
-    { "symbol": "NESN.SW", "name": "Nestle", "display": "NESN", "market": "CH", "type": "stock" },
-    { "symbol": "ROG.SW", "name": "Roche", "display": "ROG", "market": "CH", "type": "stock" },
-    { "symbol": "NOVN.SW", "name": "Novartis", "display": "NOVN", "market": "CH", "type": "stock" },
-
-    { "symbol": "^IBEX", "name": "IBEX 35", "display": "IBEX", "market": "ES", "type": "index" },
-    { "symbol": "SAN.MC", "name": "Banco Santander", "display": "SAN", "market": "ES", "type": "stock" },
-    { "symbol": "ITX.MC", "name": "Inditex", "display": "ITX", "market": "ES", "type": "stock" },
-
-    { "symbol": "FTSEMIB.MI", "name": "FTSE MIB", "display": "FTSEMIB", "market": "IT", "type": "index" },
-    { "symbol": "ISP.MI", "name": "Intesa Sanpaolo", "display": "ISP", "market": "IT", "type": "stock" },
-    { "symbol": "ENI.MI", "name": "ENI", "display": "ENI", "market": "IT", "type": "stock" }
+    {
+      "symbol": "^GSPC",
+      "name": "S&P 500",
+      "display": "SPX",
+      "market": "US",
+      "type": "index"
+    },
+    {
+      "symbol": "^DJI",
+      "name": "Dow Jones",
+      "display": "DOW",
+      "market": "US",
+      "type": "index"
+    },
+    {
+      "symbol": "^IXIC",
+      "name": "NASDAQ Composite",
+      "display": "NDX",
+      "market": "US",
+      "type": "index"
+    },
+    {
+      "symbol": "^RUT",
+      "name": "Russell 2000",
+      "display": "RUT",
+      "market": "US",
+      "type": "index"
+    },
+    {
+      "symbol": "^VIX",
+      "name": "VIX",
+      "display": "VIX",
+      "market": "US",
+      "type": "index"
+    },
+    {
+      "symbol": "^SOX",
+      "name": "PHLX Semiconductor",
+      "display": "SOX",
+      "market": "US",
+      "type": "index"
+    },
+    {
+      "symbol": "^GSPTSE",
+      "name": "S&P/TSX",
+      "display": "TSX",
+      "market": "US",
+      "type": "index"
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple",
+      "display": "AAPL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft",
+      "display": "MSFT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA",
+      "display": "NVDA",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet A",
+      "display": "GOOGL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "GOOG",
+      "name": "Alphabet C",
+      "display": "GOOG",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon",
+      "display": "AMZN",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "META",
+      "name": "Meta Platforms",
+      "display": "META",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AVGO",
+      "name": "Broadcom",
+      "display": "AVGO",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ORCL",
+      "name": "Oracle",
+      "display": "ORCL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CRM",
+      "name": "Salesforce",
+      "display": "CRM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AMD",
+      "name": "AMD",
+      "display": "AMD",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ADBE",
+      "name": "Adobe",
+      "display": "ADBE",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "INTC",
+      "name": "Intel",
+      "display": "INTC",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CSCO",
+      "name": "Cisco",
+      "display": "CSCO",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ACN",
+      "name": "Accenture",
+      "display": "ACN",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "IBM",
+      "name": "IBM",
+      "display": "IBM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "QCOM",
+      "name": "Qualcomm",
+      "display": "QCOM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "TXN",
+      "name": "Texas Instruments",
+      "display": "TXN",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "INTU",
+      "name": "Intuit",
+      "display": "INTU",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AMAT",
+      "name": "Applied Materials",
+      "display": "AMAT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "NOW",
+      "name": "ServiceNow",
+      "display": "NOW",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PANW",
+      "name": "Palo Alto Networks",
+      "display": "PANW",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ISRG",
+      "name": "Intuitive Surgical",
+      "display": "ISRG",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SNPS",
+      "name": "Synopsys",
+      "display": "SNPS",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CDNS",
+      "name": "Cadence Design",
+      "display": "CDNS",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "KLAC",
+      "name": "KLA Corp",
+      "display": "KLAC",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "LRCX",
+      "name": "Lam Research",
+      "display": "LRCX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MRVL",
+      "name": "Marvell Technology",
+      "display": "MRVL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ADSK",
+      "name": "Autodesk",
+      "display": "ADSK",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "FTNT",
+      "name": "Fortinet",
+      "display": "FTNT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "WDAY",
+      "name": "Workday",
+      "display": "WDAY",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "TEAM",
+      "name": "Atlassian",
+      "display": "TEAM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MU",
+      "name": "Micron",
+      "display": "MU",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ON",
+      "name": "ON Semiconductor",
+      "display": "ON",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "NXPI",
+      "name": "NXP Semi",
+      "display": "NXPI",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MPWR",
+      "name": "Monolithic Power",
+      "display": "MPWR",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ADI",
+      "name": "Analog Devices",
+      "display": "ADI",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MCHP",
+      "name": "Microchip Technology",
+      "display": "MCHP",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SMCI",
+      "name": "Super Micro Computer",
+      "display": "SMCI",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CRWD",
+      "name": "CrowdStrike",
+      "display": "CRWD",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DDOG",
+      "name": "Datadog",
+      "display": "DDOG",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ZS",
+      "name": "Zscaler",
+      "display": "ZS",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "OKTA",
+      "name": "Okta",
+      "display": "OKTA",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "NET",
+      "name": "Cloudflare",
+      "display": "NET",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "HUBS",
+      "name": "HubSpot",
+      "display": "HUBS",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "VEEV",
+      "name": "Veeva Systems",
+      "display": "VEEV",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ANSS",
+      "name": "ANSYS",
+      "display": "ANSS",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SPLK",
+      "name": "Splunk",
+      "display": "SPLK",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "FIVN",
+      "name": "Five9",
+      "display": "FIVN",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DOCU",
+      "name": "DocuSign",
+      "display": "DOCU",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "TWLO",
+      "name": "Twilio",
+      "display": "TWLO",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BILL",
+      "name": "BILL Holdings",
+      "display": "BILL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CFLT",
+      "name": "Confluent",
+      "display": "CFLT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MDB",
+      "name": "MongoDB",
+      "display": "MDB",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SNOW",
+      "name": "Snowflake",
+      "display": "SNOW",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PLTR",
+      "name": "Palantir",
+      "display": "PLTR",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PATH",
+      "name": "UiPath",
+      "display": "PATH",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "GTLB",
+      "name": "GitLab",
+      "display": "GTLB",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ESTC",
+      "name": "Elastic",
+      "display": "ESTC",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "COIN",
+      "name": "Coinbase",
+      "display": "COIN",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SQ",
+      "name": "Block Inc",
+      "display": "SQ",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SHOP",
+      "name": "Shopify",
+      "display": "SHOP",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "UBER",
+      "name": "Uber",
+      "display": "UBER",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ABNB",
+      "name": "Airbnb",
+      "display": "ABNB",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DASH",
+      "name": "DoorDash",
+      "display": "DASH",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "LYFT",
+      "name": "Lyft",
+      "display": "LYFT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "RBLX",
+      "name": "Roblox",
+      "display": "RBLX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "U",
+      "name": "Unity Software",
+      "display": "U",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "TTD",
+      "name": "Trade Desk",
+      "display": "TTD",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ROKU",
+      "name": "Roku",
+      "display": "ROKU",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PINS",
+      "name": "Pinterest",
+      "display": "PINS",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SNAP",
+      "name": "Snap Inc",
+      "display": "SNAP",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ZM",
+      "name": "Zoom Video",
+      "display": "ZM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SPOT",
+      "name": "Spotify",
+      "display": "SPOT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SE",
+      "name": "Sea Limited",
+      "display": "SE",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "GRAB",
+      "name": "Grab Holdings",
+      "display": "GRAB",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CPNG",
+      "name": "Coupang",
+      "display": "CPNG",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MELI",
+      "name": "MercadoLibre",
+      "display": "MELI",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "NU",
+      "name": "Nu Holdings",
+      "display": "NU",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "GLOB",
+      "name": "Globant",
+      "display": "GLOB",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DLOCAL",
+      "name": "DLocal",
+      "display": "DLOCAL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "JPM",
+      "name": "JPMorgan Chase",
+      "display": "JPM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "V",
+      "name": "Visa",
+      "display": "V",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MA",
+      "name": "Mastercard",
+      "display": "MA",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BAC",
+      "name": "Bank of America",
+      "display": "BAC",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "WFC",
+      "name": "Wells Fargo",
+      "display": "WFC",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "GS",
+      "name": "Goldman Sachs",
+      "display": "GS",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MS",
+      "name": "Morgan Stanley",
+      "display": "MS",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BLK",
+      "name": "BlackRock",
+      "display": "BLK",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SCHW",
+      "name": "Charles Schwab",
+      "display": "SCHW",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "C",
+      "name": "Citigroup",
+      "display": "C",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AXP",
+      "name": "American Express",
+      "display": "AXP",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "USB",
+      "name": "US Bancorp",
+      "display": "USB",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PNC",
+      "name": "PNC Financial",
+      "display": "PNC",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "TFC",
+      "name": "Truist Financial",
+      "display": "TFC",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "COF",
+      "name": "Capital One",
+      "display": "COF",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BK",
+      "name": "BNY Mellon",
+      "display": "BK",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "STT",
+      "name": "State Street",
+      "display": "STT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "FITB",
+      "name": "Fifth Third",
+      "display": "FITB",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "HBAN",
+      "name": "Huntington Bancshares",
+      "display": "HBAN",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CFG",
+      "name": "Citizens Financial",
+      "display": "CFG",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "KEY",
+      "name": "KeyCorp",
+      "display": "KEY",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "RF",
+      "name": "Regions Financial",
+      "display": "RF",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SIVB",
+      "name": "SVB Financial",
+      "display": "SIVB",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ALLY",
+      "name": "Ally Financial",
+      "display": "ALLY",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SOFI",
+      "name": "SoFi Technologies",
+      "display": "SOFI",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ICE",
+      "name": "Intercontinental Exchange",
+      "display": "ICE",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CME",
+      "name": "CME Group",
+      "display": "CME",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "NDAQ",
+      "name": "Nasdaq Inc",
+      "display": "NDAQ",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CBOE",
+      "name": "Cboe Global",
+      "display": "CBOE",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MSCI",
+      "name": "MSCI Inc",
+      "display": "MSCI",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SPGI",
+      "name": "S&P Global",
+      "display": "SPGI",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MCO",
+      "name": "Moody's",
+      "display": "MCO",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "FIS",
+      "name": "Fidelity Natl Info",
+      "display": "FIS",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "FISV",
+      "name": "Fiserv",
+      "display": "FISV",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "GPN",
+      "name": "Global Payments",
+      "display": "GPN",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AJG",
+      "name": "Arthur J Gallagher",
+      "display": "AJG",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MMC",
+      "name": "Marsh & McLennan",
+      "display": "MMC",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AON",
+      "name": "Aon",
+      "display": "AON",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MET",
+      "name": "MetLife",
+      "display": "MET",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PRU",
+      "name": "Prudential Financial",
+      "display": "PRU",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AIG",
+      "name": "AIG",
+      "display": "AIG",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AFL",
+      "name": "Aflac",
+      "display": "AFL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "TRV",
+      "name": "Travelers",
+      "display": "TRV",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ALL",
+      "name": "Allstate",
+      "display": "ALL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PGR",
+      "name": "Progressive",
+      "display": "PGR",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CB",
+      "name": "Chubb",
+      "display": "CB",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "UNH",
+      "name": "UnitedHealth",
+      "display": "UNH",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "JNJ",
+      "name": "Johnson & Johnson",
+      "display": "JNJ",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "LLY",
+      "name": "Eli Lilly",
+      "display": "LLY",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PFE",
+      "name": "Pfizer",
+      "display": "PFE",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MRK",
+      "name": "Merck",
+      "display": "MRK",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ABT",
+      "name": "Abbott Labs",
+      "display": "ABT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "TMO",
+      "name": "Thermo Fisher",
+      "display": "TMO",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DHR",
+      "name": "Danaher",
+      "display": "DHR",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ABBV",
+      "name": "AbbVie",
+      "display": "ABBV",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BMY",
+      "name": "Bristol-Myers Squibb",
+      "display": "BMY",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AMGN",
+      "name": "Amgen",
+      "display": "AMGN",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "GILD",
+      "name": "Gilead Sciences",
+      "display": "GILD",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "VRTX",
+      "name": "Vertex Pharma",
+      "display": "VRTX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "REGN",
+      "name": "Regeneron",
+      "display": "REGN",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MDT",
+      "name": "Medtronic",
+      "display": "MDT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ELV",
+      "name": "Elevance Health",
+      "display": "ELV",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SYK",
+      "name": "Stryker",
+      "display": "SYK",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BSX",
+      "name": "Boston Scientific",
+      "display": "BSX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ZBH",
+      "name": "Zimmer Biomet",
+      "display": "ZBH",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BDX",
+      "name": "Becton Dickinson",
+      "display": "BDX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "EW",
+      "name": "Edwards Lifesciences",
+      "display": "EW",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "IDXX",
+      "name": "IDEXX Labs",
+      "display": "IDXX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "A",
+      "name": "Agilent",
+      "display": "A",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "IQV",
+      "name": "IQVIA",
+      "display": "IQV",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DXCM",
+      "name": "DexCom",
+      "display": "DXCM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MRNA",
+      "name": "Moderna",
+      "display": "MRNA",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BNTX",
+      "name": "BioNTech",
+      "display": "BNTX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BIIB",
+      "name": "Biogen",
+      "display": "BIIB",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ILMN",
+      "name": "Illumina",
+      "display": "ILMN",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CI",
+      "name": "Cigna",
+      "display": "CI",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "HUM",
+      "name": "Humana",
+      "display": "HUM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CNC",
+      "name": "Centene",
+      "display": "CNC",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "HCA",
+      "name": "HCA Healthcare",
+      "display": "HCA",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CVS",
+      "name": "CVS Health",
+      "display": "CVS",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "WBA",
+      "name": "Walgreens",
+      "display": "WBA",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MCK",
+      "name": "McKesson",
+      "display": "MCK",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CAH",
+      "name": "Cardinal Health",
+      "display": "CAH",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "WMT",
+      "name": "Walmart",
+      "display": "WMT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "COST",
+      "name": "Costco",
+      "display": "COST",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "HD",
+      "name": "Home Depot",
+      "display": "HD",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "TGT",
+      "name": "Target",
+      "display": "TGT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "LOW",
+      "name": "Lowe's",
+      "display": "LOW",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "NKE",
+      "name": "Nike",
+      "display": "NKE",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SBUX",
+      "name": "Starbucks",
+      "display": "SBUX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MCD",
+      "name": "McDonald's",
+      "display": "MCD",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PG",
+      "name": "Procter & Gamble",
+      "display": "PG",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "KO",
+      "name": "Coca-Cola",
+      "display": "KO",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PEP",
+      "name": "PepsiCo",
+      "display": "PEP",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PM",
+      "name": "Philip Morris",
+      "display": "PM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MO",
+      "name": "Altria",
+      "display": "MO",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CL",
+      "name": "Colgate-Palmolive",
+      "display": "CL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "KHC",
+      "name": "Kraft Heinz",
+      "display": "KHC",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "GIS",
+      "name": "General Mills",
+      "display": "GIS",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "K",
+      "name": "Kellanova",
+      "display": "K",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MDLZ",
+      "name": "Mondelez",
+      "display": "MDLZ",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "HSY",
+      "name": "Hershey",
+      "display": "HSY",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CPB",
+      "name": "Campbell Soup",
+      "display": "CPB",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "STZ",
+      "name": "Constellation Brands",
+      "display": "STZ",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BF-B",
+      "name": "Brown-Forman",
+      "display": "BF-B",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MNST",
+      "name": "Monster Beverage",
+      "display": "MNST",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "YUM",
+      "name": "Yum! Brands",
+      "display": "YUM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DPZ",
+      "name": "Domino's Pizza",
+      "display": "DPZ",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CMG",
+      "name": "Chipotle",
+      "display": "CMG",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DARDEN",
+      "name": "Darden",
+      "display": "DARDEN",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DRI",
+      "name": "Darden Restaurants",
+      "display": "DRI",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "WYNN",
+      "name": "Wynn Resorts",
+      "display": "WYNN",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MGM",
+      "name": "MGM Resorts",
+      "display": "MGM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "LVS",
+      "name": "Las Vegas Sands",
+      "display": "LVS",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MAR",
+      "name": "Marriott",
+      "display": "MAR",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "HLT",
+      "name": "Hilton",
+      "display": "HLT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "EBAY",
+      "name": "eBay",
+      "display": "EBAY",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ETSY",
+      "name": "Etsy",
+      "display": "ETSY",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "W",
+      "name": "Wayfair",
+      "display": "W",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CHWY",
+      "name": "Chewy",
+      "display": "CHWY",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DG",
+      "name": "Dollar General",
+      "display": "DG",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DLTR",
+      "name": "Dollar Tree",
+      "display": "DLTR",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "TJX",
+      "name": "TJX Companies",
+      "display": "TJX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ROST",
+      "name": "Ross Stores",
+      "display": "ROST",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BBY",
+      "name": "Best Buy",
+      "display": "BBY",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AZO",
+      "name": "AutoZone",
+      "display": "AZO",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ORLY",
+      "name": "O'Reilly Auto",
+      "display": "ORLY",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AAP",
+      "name": "Advance Auto",
+      "display": "AAP",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CAT",
+      "name": "Caterpillar",
+      "display": "CAT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DE",
+      "name": "Deere & Co",
+      "display": "DE",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BA",
+      "name": "Boeing",
+      "display": "BA",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "GE",
+      "name": "GE Aerospace",
+      "display": "GE",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "HON",
+      "name": "Honeywell",
+      "display": "HON",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "UPS",
+      "name": "United Parcel",
+      "display": "UPS",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "FDX",
+      "name": "FedEx",
+      "display": "FDX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "UNP",
+      "name": "Union Pacific",
+      "display": "UNP",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CSX",
+      "name": "CSX Corp",
+      "display": "CSX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "NSC",
+      "name": "Norfolk Southern",
+      "display": "NSC",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "LMT",
+      "name": "Lockheed Martin",
+      "display": "LMT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "RTX",
+      "name": "RTX Corp",
+      "display": "RTX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "NOC",
+      "name": "Northrop Grumman",
+      "display": "NOC",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "GD",
+      "name": "General Dynamics",
+      "display": "GD",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "LHX",
+      "name": "L3Harris",
+      "display": "LHX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "TDG",
+      "name": "TransDigm",
+      "display": "TDG",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "HWM",
+      "name": "Howmet Aerospace",
+      "display": "HWM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "EMR",
+      "name": "Emerson Electric",
+      "display": "EMR",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ROK",
+      "name": "Rockwell Automation",
+      "display": "ROK",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ETN",
+      "name": "Eaton Corp",
+      "display": "ETN",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ITW",
+      "name": "Illinois Tool Works",
+      "display": "ITW",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PH",
+      "name": "Parker-Hannifin",
+      "display": "PH",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MMM",
+      "name": "3M",
+      "display": "MMM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "GWW",
+      "name": "Grainger",
+      "display": "GWW",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "FAST",
+      "name": "Fastenal",
+      "display": "FAST",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SWK",
+      "name": "Stanley Black & Decker",
+      "display": "SWK",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "WM",
+      "name": "Waste Management",
+      "display": "WM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "RSG",
+      "name": "Republic Services",
+      "display": "RSG",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DAL",
+      "name": "Delta Air Lines",
+      "display": "DAL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "UAL",
+      "name": "United Airlines",
+      "display": "UAL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AAL",
+      "name": "American Airlines",
+      "display": "AAL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "LUV",
+      "name": "Southwest Airlines",
+      "display": "LUV",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "JBLU",
+      "name": "JetBlue",
+      "display": "JBLU",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "XOM",
+      "name": "Exxon Mobil",
+      "display": "XOM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CVX",
+      "name": "Chevron",
+      "display": "CVX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "COP",
+      "name": "ConocoPhillips",
+      "display": "COP",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SLB",
+      "name": "Schlumberger",
+      "display": "SLB",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "EOG",
+      "name": "EOG Resources",
+      "display": "EOG",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PXD",
+      "name": "Pioneer Natural",
+      "display": "PXD",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MPC",
+      "name": "Marathon Petroleum",
+      "display": "MPC",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "VLO",
+      "name": "Valero Energy",
+      "display": "VLO",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PSX",
+      "name": "Phillips 66",
+      "display": "PSX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "OXY",
+      "name": "Occidental Petroleum",
+      "display": "OXY",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "HAL",
+      "name": "Halliburton",
+      "display": "HAL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DVN",
+      "name": "Devon Energy",
+      "display": "DVN",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "FANG",
+      "name": "Diamondback Energy",
+      "display": "FANG",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "HES",
+      "name": "Hess Corp",
+      "display": "HES",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "KMI",
+      "name": "Kinder Morgan",
+      "display": "KMI",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "WMB",
+      "name": "Williams Companies",
+      "display": "WMB",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "OKE",
+      "name": "ONEOK",
+      "display": "OKE",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ET",
+      "name": "Energy Transfer",
+      "display": "ET",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "EPD",
+      "name": "Enterprise Products",
+      "display": "EPD",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "LNG",
+      "name": "Cheniere Energy",
+      "display": "LNG",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "T",
+      "name": "AT&T",
+      "display": "T",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "VZ",
+      "name": "Verizon",
+      "display": "VZ",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "TMUS",
+      "name": "T-Mobile",
+      "display": "TMUS",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CHTR",
+      "name": "Charter",
+      "display": "CHTR",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CMCSA",
+      "name": "Comcast",
+      "display": "CMCSA",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DIS",
+      "name": "Walt Disney",
+      "display": "DIS",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "NFLX",
+      "name": "Netflix",
+      "display": "NFLX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "WBD",
+      "name": "Warner Bros Discovery",
+      "display": "WBD",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PARA",
+      "name": "Paramount",
+      "display": "PARA",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "FOX",
+      "name": "Fox Corp",
+      "display": "FOX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "FOXA",
+      "name": "Fox Corp A",
+      "display": "FOXA",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AMT",
+      "name": "American Tower",
+      "display": "AMT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PLD",
+      "name": "Prologis",
+      "display": "PLD",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CCI",
+      "name": "Crown Castle",
+      "display": "CCI",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "EQIX",
+      "name": "Equinix",
+      "display": "EQIX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SPG",
+      "name": "Simon Property",
+      "display": "SPG",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "O",
+      "name": "Realty Income",
+      "display": "O",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DLR",
+      "name": "Digital Realty",
+      "display": "DLR",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PSA",
+      "name": "Public Storage",
+      "display": "PSA",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "WELL",
+      "name": "Welltower",
+      "display": "WELL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AVB",
+      "name": "AvalonBay",
+      "display": "AVB",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "EQR",
+      "name": "Equity Residential",
+      "display": "EQR",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ARE",
+      "name": "Alexandria RE",
+      "display": "ARE",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "NEE",
+      "name": "NextEra Energy",
+      "display": "NEE",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DUK",
+      "name": "Duke Energy",
+      "display": "DUK",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SO",
+      "name": "Southern Co",
+      "display": "SO",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AEP",
+      "name": "American Electric",
+      "display": "AEP",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "D",
+      "name": "Dominion Energy",
+      "display": "D",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "EXC",
+      "name": "Exelon",
+      "display": "EXC",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SRE",
+      "name": "Sempra",
+      "display": "SRE",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "WEC",
+      "name": "WEC Energy",
+      "display": "WEC",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ED",
+      "name": "Consolidated Edison",
+      "display": "ED",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "XEL",
+      "name": "Xcel Energy",
+      "display": "XEL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AWK",
+      "name": "American Water Works",
+      "display": "AWK",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "LIN",
+      "name": "Linde",
+      "display": "LIN",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "APD",
+      "name": "Air Products",
+      "display": "APD",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SHW",
+      "name": "Sherwin-Williams",
+      "display": "SHW",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ECL",
+      "name": "Ecolab",
+      "display": "ECL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "FCX",
+      "name": "Freeport-McMoRan",
+      "display": "FCX",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "NUE",
+      "name": "Nucor",
+      "display": "NUE",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "NEM",
+      "name": "Newmont",
+      "display": "NEM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DOW",
+      "name": "Dow Inc",
+      "display": "DOW",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DD",
+      "name": "DuPont",
+      "display": "DD",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PPG",
+      "name": "PPG Industries",
+      "display": "PPG",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla",
+      "display": "TSLA",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "F",
+      "name": "Ford",
+      "display": "F",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "GM",
+      "name": "General Motors",
+      "display": "GM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "RIVN",
+      "name": "Rivian",
+      "display": "RIVN",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "LCID",
+      "name": "Lucid Group",
+      "display": "LCID",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "NIO",
+      "name": "NIO Inc",
+      "display": "NIO",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "LI",
+      "name": "Li Auto",
+      "display": "LI",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "XPEV",
+      "name": "XPeng",
+      "display": "XPEV",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CRSP",
+      "name": "CRISPR Therapeutics",
+      "display": "CRSP",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "EDIT",
+      "name": "Editas Medicine",
+      "display": "EDIT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "NTLA",
+      "name": "Intellia",
+      "display": "NTLA",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BEAM",
+      "name": "Beam Therapeutics",
+      "display": "BEAM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "EXAS",
+      "name": "Exact Sciences",
+      "display": "EXAS",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PACB",
+      "name": "PacBio",
+      "display": "PACB",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "IRTC",
+      "name": "iRhythm",
+      "display": "IRTC",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BRK-B",
+      "name": "Berkshire Hathaway",
+      "display": "BRK-B",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "TSM",
+      "name": "TSMC",
+      "display": "TSM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "NVO",
+      "name": "Novo Nordisk",
+      "display": "NVO",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ASML",
+      "name": "ASML",
+      "display": "ASML",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SAP",
+      "name": "SAP",
+      "display": "SAP",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "TM",
+      "name": "Toyota Motor",
+      "display": "TM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SONY",
+      "name": "Sony Group",
+      "display": "SONY",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BABA",
+      "name": "Alibaba",
+      "display": "BABA",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PDD",
+      "name": "PDD Holdings",
+      "display": "PDD",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "JD",
+      "name": "JD.com",
+      "display": "JD",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BIDU",
+      "name": "Baidu",
+      "display": "BIDU",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "NTES",
+      "name": "NetEase",
+      "display": "NTES",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "TME",
+      "name": "Tencent Music",
+      "display": "TME",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "TCEHY",
+      "name": "Tencent ADR",
+      "display": "TCEHY",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "VALE",
+      "name": "Vale SA",
+      "display": "VALE",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ITUB",
+      "name": "Itau Unibanco",
+      "display": "ITUB",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PBR",
+      "name": "Petrobras",
+      "display": "PBR",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SU",
+      "name": "Suncor Energy",
+      "display": "SU",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ENB",
+      "name": "Enbridge",
+      "display": "ENB",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CP",
+      "name": "Canadian Pacific",
+      "display": "CP",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CNI",
+      "name": "Canadian National Railway",
+      "display": "CNI",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "RY",
+      "name": "Royal Bank Canada",
+      "display": "RY",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "TD",
+      "name": "Toronto-Dominion",
+      "display": "TD",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DEO",
+      "name": "Diageo",
+      "display": "DEO",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "UL",
+      "name": "Unilever",
+      "display": "UL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "GSK",
+      "name": "GSK plc",
+      "display": "GSK",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AZN",
+      "name": "AstraZeneca",
+      "display": "AZN",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BP",
+      "name": "BP plc",
+      "display": "BP",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SHEL",
+      "name": "Shell plc",
+      "display": "SHEL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "HSBC",
+      "name": "HSBC Holdings",
+      "display": "HSBC",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BCS",
+      "name": "Barclays",
+      "display": "BCS",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "RIO",
+      "name": "Rio Tinto",
+      "display": "RIO",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BHP",
+      "name": "BHP Group",
+      "display": "BHP",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ARM",
+      "name": "Arm Holdings",
+      "display": "ARM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "VRT",
+      "name": "Vertiv Holdings",
+      "display": "VRT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "DELL",
+      "name": "Dell Technologies",
+      "display": "DELL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "HPE",
+      "name": "Hewlett Packard Enterprise",
+      "display": "HPE",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "HPQ",
+      "name": "HP Inc",
+      "display": "HPQ",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "PYPL",
+      "name": "PayPal",
+      "display": "PYPL",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AFRM",
+      "name": "Affirm",
+      "display": "AFRM",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "HOOD",
+      "name": "Robinhood",
+      "display": "HOOD",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MARA",
+      "name": "Marathon Digital",
+      "display": "MARA",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "RIOT",
+      "name": "Riot Platforms",
+      "display": "RIOT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CLSK",
+      "name": "CleanSpark",
+      "display": "CLSK",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "MSTR",
+      "name": "MicroStrategy",
+      "display": "MSTR",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "GME",
+      "name": "GameStop",
+      "display": "GME",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AMC",
+      "name": "AMC Entertainment",
+      "display": "AMC",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "RDDT",
+      "name": "Reddit",
+      "display": "RDDT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "IONQ",
+      "name": "IonQ",
+      "display": "IONQ",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "RGTI",
+      "name": "Rigetti Computing",
+      "display": "RGTI",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "QUBT",
+      "name": "Quantum Computing",
+      "display": "QUBT",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "AI",
+      "name": "C3.ai",
+      "display": "AI",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "BBAI",
+      "name": "BigBear.ai",
+      "display": "BBAI",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SOUN",
+      "name": "SoundHound AI",
+      "display": "SOUN",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "ASTS",
+      "name": "AST SpaceMobile",
+      "display": "ASTS",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "LUNR",
+      "name": "Intuitive Machines",
+      "display": "LUNR",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "RKLB",
+      "name": "Rocket Lab",
+      "display": "RKLB",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "SPCE",
+      "name": "Virgin Galactic",
+      "display": "SPCE",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "JOBY",
+      "name": "Joby Aviation",
+      "display": "JOBY",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CELH",
+      "name": "Celsius Holdings",
+      "display": "CELH",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "CAVA",
+      "name": "CAVA Group",
+      "display": "CAVA",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "TXRH",
+      "name": "Texas Roadhouse",
+      "display": "TXRH",
+      "market": "US",
+      "type": "stock"
+    },
+    {
+      "symbol": "^FTSE",
+      "name": "FTSE 100",
+      "display": "FTSE",
+      "market": "UK",
+      "type": "index"
+    },
+    {
+      "symbol": "SHEL.L",
+      "name": "Shell",
+      "display": "SHEL",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "AZN.L",
+      "name": "AstraZeneca",
+      "display": "AZN",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "HSBA.L",
+      "name": "HSBC",
+      "display": "HSBA",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "ULVR.L",
+      "name": "Unilever",
+      "display": "ULVR",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "BP.L",
+      "name": "BP",
+      "display": "BP",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "GSK.L",
+      "name": "GSK",
+      "display": "GSK",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "RIO.L",
+      "name": "Rio Tinto",
+      "display": "RIO",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "BARC.L",
+      "name": "Barclays",
+      "display": "BARC",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "LLOY.L",
+      "name": "Lloyds Banking",
+      "display": "LLOY",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "VOD.L",
+      "name": "Vodafone",
+      "display": "VOD",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "DGE.L",
+      "name": "Diageo",
+      "display": "DGE",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "LSEG.L",
+      "name": "London Stock Exchange",
+      "display": "LSEG",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "BA.L",
+      "name": "BAE Systems",
+      "display": "BA",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "BATS.L",
+      "name": "British American Tobacco",
+      "display": "BATS",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "CPG.L",
+      "name": "Compass Group",
+      "display": "CPG",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "EXPN.L",
+      "name": "Experian",
+      "display": "EXPN",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "AAL.L",
+      "name": "Anglo American",
+      "display": "AAL",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "BT-A.L",
+      "name": "BT Group",
+      "display": "BT",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "GLEN.L",
+      "name": "Glencore",
+      "display": "GLEN",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "PRU.L",
+      "name": "Prudential UK",
+      "display": "PRU",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "NG.L",
+      "name": "National Grid",
+      "display": "NG",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "SSE.L",
+      "name": "SSE plc",
+      "display": "SSE",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "REL.L",
+      "name": "RELX",
+      "display": "REL",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "IMB.L",
+      "name": "Imperial Brands",
+      "display": "IMB",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "AHT.L",
+      "name": "Ashtead Group",
+      "display": "AHT",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "RR.L",
+      "name": "Rolls-Royce",
+      "display": "RR",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "ABF.L",
+      "name": "Assoc British Foods",
+      "display": "ABF",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "WPP.L",
+      "name": "WPP",
+      "display": "WPP",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "ANTO.L",
+      "name": "Antofagasta",
+      "display": "ANTO",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "CRH.L",
+      "name": "CRH plc",
+      "display": "CRH",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "NWG.L",
+      "name": "NatWest Group",
+      "display": "NWG",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "STAN.L",
+      "name": "Standard Chartered",
+      "display": "STAN",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "SGRO.L",
+      "name": "Segro",
+      "display": "SGRO",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "LAND.L",
+      "name": "British Land",
+      "display": "LAND",
+      "market": "UK",
+      "type": "stock"
+    },
+    {
+      "symbol": "^GDAXI",
+      "name": "DAX",
+      "display": "DAX",
+      "market": "DE",
+      "type": "index"
+    },
+    {
+      "symbol": "SAP.DE",
+      "name": "SAP",
+      "display": "SAP",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "SIE.DE",
+      "name": "Siemens",
+      "display": "SIE",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "ALV.DE",
+      "name": "Allianz",
+      "display": "ALV",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "DTE.DE",
+      "name": "Deutsche Telekom",
+      "display": "DTE",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "MBG.DE",
+      "name": "Mercedes-Benz",
+      "display": "MBG",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "BMW.DE",
+      "name": "BMW",
+      "display": "BMW",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "BAS.DE",
+      "name": "BASF",
+      "display": "BAS",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "DBK.DE",
+      "name": "Deutsche Bank",
+      "display": "DBK",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "ADS.DE",
+      "name": "Adidas",
+      "display": "ADS",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "IFX.DE",
+      "name": "Infineon",
+      "display": "IFX",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "MUV2.DE",
+      "name": "Munich Re",
+      "display": "MUV2",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "VOW3.DE",
+      "name": "Volkswagen",
+      "display": "VW",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "HEN3.DE",
+      "name": "Henkel",
+      "display": "HEN",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "RWE.DE",
+      "name": "RWE",
+      "display": "RWE",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "EON.DE",
+      "name": "E.ON",
+      "display": "EON",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "FRE.DE",
+      "name": "Fresenius",
+      "display": "FRE",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "CON.DE",
+      "name": "Continental",
+      "display": "CON",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "DB1.DE",
+      "name": "Deutsche Boerse",
+      "display": "DB1",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "HEI.DE",
+      "name": "HeidelbergCement",
+      "display": "HEI",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "BEI.DE",
+      "name": "Beiersdorf",
+      "display": "BEI",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "MTX.DE",
+      "name": "MTU Aero",
+      "display": "MTX",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "AIR.DE",
+      "name": "Airbus (Xetra)",
+      "display": "AIR",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "SY1.DE",
+      "name": "Symrise",
+      "display": "SY1",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "PAH3.DE",
+      "name": "Porsche Auto",
+      "display": "PAH",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "ZAL.DE",
+      "name": "Zalando",
+      "display": "ZAL",
+      "market": "DE",
+      "type": "stock"
+    },
+    {
+      "symbol": "^N225",
+      "name": "Nikkei 225",
+      "display": "NKY",
+      "market": "JP",
+      "type": "index"
+    },
+    {
+      "symbol": "7203.T",
+      "name": "Toyota",
+      "display": "7203",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "6758.T",
+      "name": "Sony",
+      "display": "6758",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "6861.T",
+      "name": "Keyence",
+      "display": "6861",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "9984.T",
+      "name": "SoftBank Group",
+      "display": "9984",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "8306.T",
+      "name": "Mitsubishi UFJ",
+      "display": "8306",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "6501.T",
+      "name": "Hitachi",
+      "display": "6501",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "9432.T",
+      "name": "NTT",
+      "display": "9432",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "7974.T",
+      "name": "Nintendo",
+      "display": "7974",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "4063.T",
+      "name": "Shin-Etsu Chemical",
+      "display": "4063",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "8035.T",
+      "name": "Tokyo Electron",
+      "display": "8035",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "6902.T",
+      "name": "Denso",
+      "display": "6902",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "4502.T",
+      "name": "Takeda",
+      "display": "4502",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "6594.T",
+      "name": "Nidec",
+      "display": "6594",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "6981.T",
+      "name": "Murata Mfg",
+      "display": "6981",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "7751.T",
+      "name": "Canon",
+      "display": "7751",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "4519.T",
+      "name": "Chugai Pharma",
+      "display": "4519",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "8058.T",
+      "name": "Mitsubishi Corp",
+      "display": "8058",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "8031.T",
+      "name": "Mitsui & Co",
+      "display": "8031",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "9433.T",
+      "name": "KDDI",
+      "display": "9433",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "7267.T",
+      "name": "Honda",
+      "display": "7267",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "7741.T",
+      "name": "HOYA",
+      "display": "7741",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "6367.T",
+      "name": "Daikin",
+      "display": "6367",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "8766.T",
+      "name": "Tokio Marine",
+      "display": "8766",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "4568.T",
+      "name": "Daiichi Sankyo",
+      "display": "4568",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "6098.T",
+      "name": "Recruit",
+      "display": "6098",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "6273.T",
+      "name": "SMC Corp",
+      "display": "6273",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "6723.T",
+      "name": "Renesas",
+      "display": "6723",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "9983.T",
+      "name": "Fast Retailing",
+      "display": "9983",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "4901.T",
+      "name": "Fujifilm",
+      "display": "4901",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "6503.T",
+      "name": "Mitsubishi Electric",
+      "display": "6503",
+      "market": "JP",
+      "type": "stock"
+    },
+    {
+      "symbol": "^BSESN",
+      "name": "BSE Sensex",
+      "display": "SENSEX",
+      "market": "IN",
+      "type": "index"
+    },
+    {
+      "symbol": "^NSEI",
+      "name": "Nifty 50",
+      "display": "NIFTY",
+      "market": "IN",
+      "type": "index"
+    },
+    {
+      "symbol": "RELIANCE.NS",
+      "name": "Reliance Industries",
+      "display": "RELIANCE",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "TCS.NS",
+      "name": "Tata Consultancy",
+      "display": "TCS",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "HDFCBANK.NS",
+      "name": "HDFC Bank",
+      "display": "HDFCBANK",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "INFY.NS",
+      "name": "Infosys",
+      "display": "INFY",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "ICICIBANK.NS",
+      "name": "ICICI Bank",
+      "display": "ICICIBANK",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "HINDUNILVR.NS",
+      "name": "Hindustan Unilever",
+      "display": "HINDUNILVR",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "ITC.NS",
+      "name": "ITC Limited",
+      "display": "ITC",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "SBIN.NS",
+      "name": "State Bank of India",
+      "display": "SBIN",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "BHARTIARTL.NS",
+      "name": "Bharti Airtel",
+      "display": "BHARTIARTL",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "WIPRO.NS",
+      "name": "Wipro",
+      "display": "WIPRO",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "KOTAKBANK.NS",
+      "name": "Kotak Mahindra Bank",
+      "display": "KOTAKBANK",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "LT.NS",
+      "name": "Larsen & Toubro",
+      "display": "LT",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "HCLTECH.NS",
+      "name": "HCL Technologies",
+      "display": "HCLTECH",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "AXISBANK.NS",
+      "name": "Axis Bank",
+      "display": "AXISBANK",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "BAJFINANCE.NS",
+      "name": "Bajaj Finance",
+      "display": "BAJFINANCE",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "MARUTI.NS",
+      "name": "Maruti Suzuki",
+      "display": "MARUTI",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "SUNPHARMA.NS",
+      "name": "Sun Pharmaceutical",
+      "display": "SUNPHARMA",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "TITAN.NS",
+      "name": "Titan Company",
+      "display": "TITAN",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "ASIANPAINT.NS",
+      "name": "Asian Paints",
+      "display": "ASIANPAINT",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "NESTLEIND.NS",
+      "name": "Nestle India",
+      "display": "NESTLEIND",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "TATAMOTORS.NS",
+      "name": "Tata Motors",
+      "display": "TATAMOTORS",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "TATASTEEL.NS",
+      "name": "Tata Steel",
+      "display": "TATASTEEL",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "POWERGRID.NS",
+      "name": "Power Grid Corp",
+      "display": "POWERGRID",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "NTPC.NS",
+      "name": "NTPC",
+      "display": "NTPC",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "ONGC.NS",
+      "name": "ONGC",
+      "display": "ONGC",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "ADANIENT.NS",
+      "name": "Adani Enterprises",
+      "display": "ADANIENT",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "ADANIPORTS.NS",
+      "name": "Adani Ports",
+      "display": "ADANIPORTS",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "M&M.NS",
+      "name": "Mahindra & Mahindra",
+      "display": "M&M",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "JSWSTEEL.NS",
+      "name": "JSW Steel",
+      "display": "JSWSTEEL",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "INDUSINDBK.NS",
+      "name": "IndusInd Bank",
+      "display": "INDUSINDBK",
+      "market": "IN",
+      "type": "stock"
+    },
+    {
+      "symbol": "^EGX30.CA",
+      "name": "EGX 30",
+      "display": "EGX30",
+      "market": "EG",
+      "type": "index"
+    },
+    {
+      "symbol": "COMI.CA",
+      "name": "Commercial Intl Bank",
+      "display": "COMI",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "HRHO.CA",
+      "name": "Hermes Holding",
+      "display": "HRHO",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "TMGH.CA",
+      "name": "Talaat Moustafa",
+      "display": "TMGH",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "SWDY.CA",
+      "name": "Elsewedy Electric",
+      "display": "SWDY",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "EAST.CA",
+      "name": "Eastern Company",
+      "display": "EAST",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "ETEL.CA",
+      "name": "Telecom Egypt",
+      "display": "ETEL",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "ORWE.CA",
+      "name": "Oriental Weavers",
+      "display": "ORWE",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "EFIH.CA",
+      "name": "EFG Hermes",
+      "display": "EFIH",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "ABUK.CA",
+      "name": "Abu Qir Fertilizers",
+      "display": "ABUK",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "PHDC.CA",
+      "name": "Palm Hills Development",
+      "display": "PHDC",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "OCDI.CA",
+      "name": "Orascom Development",
+      "display": "OCDI",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "SKPC.CA",
+      "name": "Sidi Kerir Petrochem",
+      "display": "SKPC",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "ESRS.CA",
+      "name": "Ezz Steel",
+      "display": "ESRS",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "CLHO.CA",
+      "name": "Cleopatra Hospital",
+      "display": "CLHO",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "MNHD.CA",
+      "name": "Madinet Nasr Housing",
+      "display": "MNHD",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "AUTO.CA",
+      "name": "GB Auto",
+      "display": "AUTO",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "EGCH.CA",
+      "name": "Egyptian Chemical",
+      "display": "EGCH",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "EMFD.CA",
+      "name": "Emaar Misr",
+      "display": "EMFD",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "JUFO.CA",
+      "name": "Juhayna Food",
+      "display": "JUFO",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "FWRY.CA",
+      "name": "Fawry",
+      "display": "FWRY",
+      "market": "EG",
+      "type": "stock"
+    },
+    {
+      "symbol": "^TASI.SR",
+      "name": "Tadawul All Share",
+      "display": "TASI",
+      "market": "SA",
+      "type": "index"
+    },
+    {
+      "symbol": "2222.SR",
+      "name": "Saudi Aramco",
+      "display": "ARAMCO",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "1180.SR",
+      "name": "Al Rajhi Bank",
+      "display": "ALRAJHI",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "1020.SR",
+      "name": "Saudi National Bank",
+      "display": "SNB",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "2010.SR",
+      "name": "SABIC",
+      "display": "SABIC",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "1010.SR",
+      "name": "Riyad Bank",
+      "display": "RIYAD",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "1150.SR",
+      "name": "Alinma Bank",
+      "display": "ALINMA",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "2350.SR",
+      "name": "Saudi Kayan",
+      "display": "KAYAN",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "1211.SR",
+      "name": "Ma'aden",
+      "display": "MAADEN",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "7010.SR",
+      "name": "STC",
+      "display": "STC",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "2020.SR",
+      "name": "SAFCO",
+      "display": "SAFCO",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "2082.SR",
+      "name": "ACWA Power",
+      "display": "ACWA",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "5110.SR",
+      "name": "Saudi Electricity",
+      "display": "SEC",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "2280.SR",
+      "name": "Almarai",
+      "display": "ALMARAI",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "7020.SR",
+      "name": "Mobily",
+      "display": "MOBILY",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "8210.SR",
+      "name": "Bupa Arabia",
+      "display": "BUPA",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "4190.SR",
+      "name": "Jarir",
+      "display": "JARIR",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "2050.SR",
+      "name": "Savola",
+      "display": "SAVOLA",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "1050.SR",
+      "name": "Saudi Fransi",
+      "display": "FRANSI",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "1060.SR",
+      "name": "SABB",
+      "display": "SABB",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "1040.SR",
+      "name": "Bank AlBilad",
+      "display": "BILAD",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "1080.SR",
+      "name": "Arab National Bank",
+      "display": "ANB",
+      "market": "SA",
+      "type": "stock"
+    },
+    {
+      "symbol": "DFMGI.AE",
+      "name": "DFM General Index",
+      "display": "DFMGI",
+      "market": "AE",
+      "type": "index"
+    },
+    {
+      "symbol": "FAB.AE",
+      "name": "First Abu Dhabi Bank",
+      "display": "FAB",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "ETISALAT.AE",
+      "name": "e& (Etisalat)",
+      "display": "ETISALAT",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "EMAAR.AE",
+      "name": "Emaar Properties",
+      "display": "EMAAR",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "DIB.AE",
+      "name": "Dubai Islamic Bank",
+      "display": "DIB",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "DFM.AE",
+      "name": "Dubai Financial Market",
+      "display": "DFM",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "ADNOCDIST.AE",
+      "name": "ADNOC Distribution",
+      "display": "ADNOCDIST",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "DAMAC.AE",
+      "name": "DAMAC Properties",
+      "display": "DAMAC",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "ALDAR.AE",
+      "name": "Aldar Properties",
+      "display": "ALDAR",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "IHC.AE",
+      "name": "International Holding Co",
+      "display": "IHC",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "ADCB.AE",
+      "name": "Abu Dhabi Commercial Bank",
+      "display": "ADCB",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "DEWA.AE",
+      "name": "DEWA",
+      "display": "DEWA",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "ADNOCGAS.AE",
+      "name": "ADNOC Gas",
+      "display": "ADNOCGAS",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "TAQA.AE",
+      "name": "TAQA",
+      "display": "TAQA",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "ENBD.AE",
+      "name": "Emirates NBD",
+      "display": "ENBD",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "SALIK.AE",
+      "name": "Salik",
+      "display": "SALIK",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "PUREHEALTH.AE",
+      "name": "Pure Health",
+      "display": "PUREHEALTH",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "MULTIPLY.AE",
+      "name": "Multiply Group",
+      "display": "MULTIPLY",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "BURJEEL.AE",
+      "name": "Burjeel Holdings",
+      "display": "BURJEEL",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "PRESIGHT.AE",
+      "name": "Presight AI",
+      "display": "PRESIGHT",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "LULU.AE",
+      "name": "Lulu Retail",
+      "display": "LULU",
+      "market": "AE",
+      "type": "stock"
+    },
+    {
+      "symbol": "QNBK.QA",
+      "name": "QNB Group",
+      "display": "QNB",
+      "market": "QA",
+      "type": "stock"
+    },
+    {
+      "symbol": "MARK.QA",
+      "name": "Masraf Al Rayan",
+      "display": "MARK",
+      "market": "QA",
+      "type": "stock"
+    },
+    {
+      "symbol": "ORDS.QA",
+      "name": "Ooredoo Qatar",
+      "display": "ORDS",
+      "market": "QA",
+      "type": "stock"
+    },
+    {
+      "symbol": "IQCD.QA",
+      "name": "Industries Qatar",
+      "display": "IQCD",
+      "market": "QA",
+      "type": "stock"
+    },
+    {
+      "symbol": "QFLS.QA",
+      "name": "Qatar Fuel (WOQOD)",
+      "display": "WOQOD",
+      "market": "QA",
+      "type": "stock"
+    },
+    {
+      "symbol": "CBQK.QA",
+      "name": "Commercial Bank Qatar",
+      "display": "CBQ",
+      "market": "QA",
+      "type": "stock"
+    },
+    {
+      "symbol": "QIBK.QA",
+      "name": "Qatar Islamic Bank",
+      "display": "QIB",
+      "market": "QA",
+      "type": "stock"
+    },
+    {
+      "symbol": "BRES.QA",
+      "name": "Barwa Real Estate",
+      "display": "BARWA",
+      "market": "QA",
+      "type": "stock"
+    },
+    {
+      "symbol": "QEWS.QA",
+      "name": "Qatar Elec & Water",
+      "display": "QEWS",
+      "market": "QA",
+      "type": "stock"
+    },
+    {
+      "symbol": "GISS.QA",
+      "name": "Gulf Intl Services",
+      "display": "GISS",
+      "market": "QA",
+      "type": "stock"
+    },
+    {
+      "symbol": "NBK.KW",
+      "name": "National Bank of Kuwait",
+      "display": "NBK",
+      "market": "KW",
+      "type": "stock"
+    },
+    {
+      "symbol": "KFH.KW",
+      "name": "Kuwait Finance House",
+      "display": "KFH",
+      "market": "KW",
+      "type": "stock"
+    },
+    {
+      "symbol": "ZAIN.KW",
+      "name": "Zain Group",
+      "display": "ZAIN",
+      "market": "KW",
+      "type": "stock"
+    },
+    {
+      "symbol": "AGLTY.KW",
+      "name": "Agility",
+      "display": "AGLTY",
+      "market": "KW",
+      "type": "stock"
+    },
+    {
+      "symbol": "BOUBYAN.KW",
+      "name": "Boubyan Bank",
+      "display": "BOUBYAN",
+      "market": "KW",
+      "type": "stock"
+    },
+    {
+      "symbol": "GBK.KW",
+      "name": "Gulf Bank",
+      "display": "GBK",
+      "market": "KW",
+      "type": "stock"
+    },
+    {
+      "symbol": "BURG.KW",
+      "name": "Burgan Bank",
+      "display": "BURGAN",
+      "market": "KW",
+      "type": "stock"
+    },
+    {
+      "symbol": "MABANEE.KW",
+      "name": "Mabanee Co",
+      "display": "MABANEE",
+      "market": "KW",
+      "type": "stock"
+    },
+    {
+      "symbol": "BATELCO.BH",
+      "name": "Batelco",
+      "display": "BATELCO",
+      "market": "BH",
+      "type": "stock"
+    },
+    {
+      "symbol": "NBB.BH",
+      "name": "National Bank of Bahrain",
+      "display": "NBB",
+      "market": "BH",
+      "type": "stock"
+    },
+    {
+      "symbol": "AHLI.BH",
+      "name": "Ahli United Bank",
+      "display": "AHLI",
+      "market": "BH",
+      "type": "stock"
+    },
+    {
+      "symbol": "ALBA.BH",
+      "name": "Aluminium Bahrain",
+      "display": "ALBA",
+      "market": "BH",
+      "type": "stock"
+    },
+    {
+      "symbol": "BBK.BH",
+      "name": "BBK",
+      "display": "BBK",
+      "market": "BH",
+      "type": "stock"
+    },
+    {
+      "symbol": "BISB.BH",
+      "name": "Bahrain Islamic Bank",
+      "display": "BISB",
+      "market": "BH",
+      "type": "stock"
+    },
+    {
+      "symbol": "OMAN.OM",
+      "name": "Bank Muscat",
+      "display": "BKMUSCAT",
+      "market": "OM",
+      "type": "stock"
+    },
+    {
+      "symbol": "OTEL.OM",
+      "name": "Omantel",
+      "display": "OTEL",
+      "market": "OM",
+      "type": "stock"
+    },
+    {
+      "symbol": "ORES.OM",
+      "name": "OQ Gas Networks",
+      "display": "ORES",
+      "market": "OM",
+      "type": "stock"
+    },
+    {
+      "symbol": "BKDB.OM",
+      "name": "Bank Dhofar",
+      "display": "BKDB",
+      "market": "OM",
+      "type": "stock"
+    },
+    {
+      "symbol": "NBO.OM",
+      "name": "National Bank of Oman",
+      "display": "NBO",
+      "market": "OM",
+      "type": "stock"
+    },
+    {
+      "symbol": "SOHAR.OM",
+      "name": "Sohar International",
+      "display": "SOHAR",
+      "market": "OM",
+      "type": "stock"
+    },
+    {
+      "symbol": "^HSI",
+      "name": "Hang Seng",
+      "display": "HSI",
+      "market": "HK",
+      "type": "index"
+    },
+    {
+      "symbol": "9988.HK",
+      "name": "Alibaba",
+      "display": "BABA.HK",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "0700.HK",
+      "name": "Tencent",
+      "display": "700.HK",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "9618.HK",
+      "name": "JD.com",
+      "display": "JD.HK",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "3690.HK",
+      "name": "Meituan",
+      "display": "3690.HK",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "1299.HK",
+      "name": "AIA Group",
+      "display": "AIA",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "0005.HK",
+      "name": "HSBC Holdings HK",
+      "display": "HSBC.HK",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "0939.HK",
+      "name": "China Construction Bank",
+      "display": "CCB",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "1398.HK",
+      "name": "ICBC",
+      "display": "ICBC",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "2318.HK",
+      "name": "Ping An Insurance",
+      "display": "PINGAN",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "3988.HK",
+      "name": "Bank of China",
+      "display": "BOC",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "0941.HK",
+      "name": "China Mobile",
+      "display": "CMOB",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "1810.HK",
+      "name": "Xiaomi",
+      "display": "MI",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "2020.HK",
+      "name": "ANTA Sports",
+      "display": "ANTA",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "9999.HK",
+      "name": "NetEase",
+      "display": "NTES.HK",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "0388.HK",
+      "name": "Hong Kong Exchanges",
+      "display": "HKEX",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "1211.HK",
+      "name": "BYD",
+      "display": "BYD",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "9888.HK",
+      "name": "Baidu",
+      "display": "BIDU.HK",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "2269.HK",
+      "name": "WuXi Bio",
+      "display": "WUXI",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "0027.HK",
+      "name": "Galaxy Entertainment",
+      "display": "GALAXY",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "1928.HK",
+      "name": "Sands China",
+      "display": "SANDS",
+      "market": "HK",
+      "type": "stock"
+    },
+    {
+      "symbol": "^FCHI",
+      "name": "CAC 40",
+      "display": "CAC",
+      "market": "FR",
+      "type": "index"
+    },
+    {
+      "symbol": "MC.PA",
+      "name": "LVMH",
+      "display": "MC",
+      "market": "FR",
+      "type": "stock"
+    },
+    {
+      "symbol": "OR.PA",
+      "name": "L'Oreal",
+      "display": "OR",
+      "market": "FR",
+      "type": "stock"
+    },
+    {
+      "symbol": "TTE.PA",
+      "name": "TotalEnergies",
+      "display": "TTE",
+      "market": "FR",
+      "type": "stock"
+    },
+    {
+      "symbol": "SAN.PA",
+      "name": "Sanofi",
+      "display": "SAN",
+      "market": "FR",
+      "type": "stock"
+    },
+    {
+      "symbol": "AIR.PA",
+      "name": "Airbus",
+      "display": "AIR",
+      "market": "FR",
+      "type": "stock"
+    },
+    {
+      "symbol": "SU.PA",
+      "name": "Schneider Electric",
+      "display": "SU",
+      "market": "FR",
+      "type": "stock"
+    },
+    {
+      "symbol": "BN.PA",
+      "name": "Danone",
+      "display": "BN",
+      "market": "FR",
+      "type": "stock"
+    },
+    {
+      "symbol": "CS.PA",
+      "name": "AXA",
+      "display": "CS",
+      "market": "FR",
+      "type": "stock"
+    },
+    {
+      "symbol": "GLE.PA",
+      "name": "Societe Generale",
+      "display": "GLE",
+      "market": "FR",
+      "type": "stock"
+    },
+    {
+      "symbol": "BNP.PA",
+      "name": "BNP Paribas",
+      "display": "BNP",
+      "market": "FR",
+      "type": "stock"
+    },
+    {
+      "symbol": "CAP.PA",
+      "name": "Capgemini",
+      "display": "CAP",
+      "market": "FR",
+      "type": "stock"
+    },
+    {
+      "symbol": "DSY.PA",
+      "name": "Dassault Systemes",
+      "display": "DSY",
+      "market": "FR",
+      "type": "stock"
+    },
+    {
+      "symbol": "RI.PA",
+      "name": "Pernod Ricard",
+      "display": "RI",
+      "market": "FR",
+      "type": "stock"
+    },
+    {
+      "symbol": "KER.PA",
+      "name": "Kering",
+      "display": "KER",
+      "market": "FR",
+      "type": "stock"
+    },
+    {
+      "symbol": "HO.PA",
+      "name": "Thales",
+      "display": "HO",
+      "market": "FR",
+      "type": "stock"
+    },
+    {
+      "symbol": "000001.SS",
+      "name": "SSE Composite",
+      "display": "SSEC",
+      "market": "CN",
+      "type": "index"
+    },
+    {
+      "symbol": "^KS11",
+      "name": "KOSPI",
+      "display": "KOSPI",
+      "market": "KR",
+      "type": "index"
+    },
+    {
+      "symbol": "005930.KS",
+      "name": "Samsung Electronics",
+      "display": "SAMSUNG",
+      "market": "KR",
+      "type": "stock"
+    },
+    {
+      "symbol": "000660.KS",
+      "name": "SK Hynix",
+      "display": "SKHYNIX",
+      "market": "KR",
+      "type": "stock"
+    },
+    {
+      "symbol": "035420.KS",
+      "name": "NAVER",
+      "display": "NAVER",
+      "market": "KR",
+      "type": "stock"
+    },
+    {
+      "symbol": "035720.KS",
+      "name": "Kakao",
+      "display": "KAKAO",
+      "market": "KR",
+      "type": "stock"
+    },
+    {
+      "symbol": "006400.KS",
+      "name": "Samsung SDI",
+      "display": "SAMSUNGSDI",
+      "market": "KR",
+      "type": "stock"
+    },
+    {
+      "symbol": "051910.KS",
+      "name": "LG Chem",
+      "display": "LGCHEM",
+      "market": "KR",
+      "type": "stock"
+    },
+    {
+      "symbol": "068270.KS",
+      "name": "Celltrion",
+      "display": "CELLTRION",
+      "market": "KR",
+      "type": "stock"
+    },
+    {
+      "symbol": "207940.KS",
+      "name": "Samsung Biologics",
+      "display": "SAMSUNGBIO",
+      "market": "KR",
+      "type": "stock"
+    },
+    {
+      "symbol": "003670.KS",
+      "name": "Posco Holdings",
+      "display": "POSCO",
+      "market": "KR",
+      "type": "stock"
+    },
+    {
+      "symbol": "055550.KS",
+      "name": "Shinhan Financial",
+      "display": "SHINHAN",
+      "market": "KR",
+      "type": "stock"
+    },
+    {
+      "symbol": "^AXJO",
+      "name": "ASX 200",
+      "display": "ASX",
+      "market": "AU",
+      "type": "index"
+    },
+    {
+      "symbol": "BHP.AX",
+      "name": "BHP Group",
+      "display": "BHP",
+      "market": "AU",
+      "type": "stock"
+    },
+    {
+      "symbol": "CBA.AX",
+      "name": "Commonwealth Bank",
+      "display": "CBA",
+      "market": "AU",
+      "type": "stock"
+    },
+    {
+      "symbol": "CSL.AX",
+      "name": "CSL Limited",
+      "display": "CSL",
+      "market": "AU",
+      "type": "stock"
+    },
+    {
+      "symbol": "WBC.AX",
+      "name": "Westpac",
+      "display": "WBC",
+      "market": "AU",
+      "type": "stock"
+    },
+    {
+      "symbol": "NAB.AX",
+      "name": "Natl Australia Bank",
+      "display": "NAB",
+      "market": "AU",
+      "type": "stock"
+    },
+    {
+      "symbol": "ANZ.AX",
+      "name": "ANZ Group",
+      "display": "ANZ",
+      "market": "AU",
+      "type": "stock"
+    },
+    {
+      "symbol": "MQG.AX",
+      "name": "Macquarie Group",
+      "display": "MQG",
+      "market": "AU",
+      "type": "stock"
+    },
+    {
+      "symbol": "WDS.AX",
+      "name": "Woodside Energy",
+      "display": "WDS",
+      "market": "AU",
+      "type": "stock"
+    },
+    {
+      "symbol": "FMG.AX",
+      "name": "Fortescue",
+      "display": "FMG",
+      "market": "AU",
+      "type": "stock"
+    },
+    {
+      "symbol": "WES.AX",
+      "name": "Wesfarmers",
+      "display": "WES",
+      "market": "AU",
+      "type": "stock"
+    },
+    {
+      "symbol": "TLS.AX",
+      "name": "Telstra",
+      "display": "TLS",
+      "market": "AU",
+      "type": "stock"
+    },
+    {
+      "symbol": "RIO.AX",
+      "name": "Rio Tinto AU",
+      "display": "RIO.AU",
+      "market": "AU",
+      "type": "stock"
+    },
+    {
+      "symbol": "^BVSP",
+      "name": "Bovespa",
+      "display": "IBOV",
+      "market": "BR",
+      "type": "index"
+    },
+    {
+      "symbol": "PETR4.SA",
+      "name": "Petrobras",
+      "display": "PETR4",
+      "market": "BR",
+      "type": "stock"
+    },
+    {
+      "symbol": "VALE3.SA",
+      "name": "Vale",
+      "display": "VALE3",
+      "market": "BR",
+      "type": "stock"
+    },
+    {
+      "symbol": "ITUB4.SA",
+      "name": "Itau Unibanco",
+      "display": "ITUB4",
+      "market": "BR",
+      "type": "stock"
+    },
+    {
+      "symbol": "BBDC4.SA",
+      "name": "Bradesco",
+      "display": "BBDC4",
+      "market": "BR",
+      "type": "stock"
+    },
+    {
+      "symbol": "B3SA3.SA",
+      "name": "B3 SA",
+      "display": "B3",
+      "market": "BR",
+      "type": "stock"
+    },
+    {
+      "symbol": "WEGE3.SA",
+      "name": "WEG SA",
+      "display": "WEG",
+      "market": "BR",
+      "type": "stock"
+    },
+    {
+      "symbol": "RENT3.SA",
+      "name": "Localiza",
+      "display": "RENT3",
+      "market": "BR",
+      "type": "stock"
+    },
+    {
+      "symbol": "SUZB3.SA",
+      "name": "Suzano",
+      "display": "SUZB3",
+      "market": "BR",
+      "type": "stock"
+    },
+    {
+      "symbol": "ABEV3.SA",
+      "name": "Ambev",
+      "display": "ABEV3",
+      "market": "BR",
+      "type": "stock"
+    },
+    {
+      "symbol": "MGLU3.SA",
+      "name": "Magazine Luiza",
+      "display": "MGLU3",
+      "market": "BR",
+      "type": "stock"
+    },
+    {
+      "symbol": "RY.TO",
+      "name": "Royal Bank Canada",
+      "display": "RY",
+      "market": "CA",
+      "type": "stock"
+    },
+    {
+      "symbol": "TD.TO",
+      "name": "Toronto-Dominion",
+      "display": "TD",
+      "market": "CA",
+      "type": "stock"
+    },
+    {
+      "symbol": "ENB.TO",
+      "name": "Enbridge",
+      "display": "ENB",
+      "market": "CA",
+      "type": "stock"
+    },
+    {
+      "symbol": "BN.TO",
+      "name": "Brookfield Corp",
+      "display": "BN",
+      "market": "CA",
+      "type": "stock"
+    },
+    {
+      "symbol": "CNR.TO",
+      "name": "Canadian National Ry",
+      "display": "CNR",
+      "market": "CA",
+      "type": "stock"
+    },
+    {
+      "symbol": "CP.TO",
+      "name": "Canadian Pacific",
+      "display": "CP",
+      "market": "CA",
+      "type": "stock"
+    },
+    {
+      "symbol": "BMO.TO",
+      "name": "Bank of Montreal",
+      "display": "BMO",
+      "market": "CA",
+      "type": "stock"
+    },
+    {
+      "symbol": "BNS.TO",
+      "name": "Bank of Nova Scotia",
+      "display": "BNS",
+      "market": "CA",
+      "type": "stock"
+    },
+    {
+      "symbol": "SU.TO",
+      "name": "Suncor",
+      "display": "SU",
+      "market": "CA",
+      "type": "stock"
+    },
+    {
+      "symbol": "TRP.TO",
+      "name": "TC Energy",
+      "display": "TRP",
+      "market": "CA",
+      "type": "stock"
+    },
+    {
+      "symbol": "MFC.TO",
+      "name": "Manulife",
+      "display": "MFC",
+      "market": "CA",
+      "type": "stock"
+    },
+    {
+      "symbol": "SHOP.TO",
+      "name": "Shopify TO",
+      "display": "SHOP.TO",
+      "market": "CA",
+      "type": "stock"
+    },
+    {
+      "symbol": "BCE.TO",
+      "name": "BCE Inc",
+      "display": "BCE",
+      "market": "CA",
+      "type": "stock"
+    },
+    {
+      "symbol": "T.TO",
+      "name": "Telus",
+      "display": "T.TO",
+      "market": "CA",
+      "type": "stock"
+    },
+    {
+      "symbol": "^SSMI",
+      "name": "SMI",
+      "display": "SMI",
+      "market": "CH",
+      "type": "index"
+    },
+    {
+      "symbol": "NESN.SW",
+      "name": "Nestle",
+      "display": "NESN",
+      "market": "CH",
+      "type": "stock"
+    },
+    {
+      "symbol": "ROG.SW",
+      "name": "Roche",
+      "display": "ROG",
+      "market": "CH",
+      "type": "stock"
+    },
+    {
+      "symbol": "NOVN.SW",
+      "name": "Novartis",
+      "display": "NOVN",
+      "market": "CH",
+      "type": "stock"
+    },
+    {
+      "symbol": "UBSG.SW",
+      "name": "UBS Group",
+      "display": "UBSG",
+      "market": "CH",
+      "type": "stock"
+    },
+    {
+      "symbol": "ZURN.SW",
+      "name": "Zurich Insurance",
+      "display": "ZURN",
+      "market": "CH",
+      "type": "stock"
+    },
+    {
+      "symbol": "ABBN.SW",
+      "name": "ABB",
+      "display": "ABBN",
+      "market": "CH",
+      "type": "stock"
+    },
+    {
+      "symbol": "SREN.SW",
+      "name": "Swiss Re",
+      "display": "SREN",
+      "market": "CH",
+      "type": "stock"
+    },
+    {
+      "symbol": "SGSN.SW",
+      "name": "SGS",
+      "display": "SGSN",
+      "market": "CH",
+      "type": "stock"
+    },
+    {
+      "symbol": "GIVN.SW",
+      "name": "Givaudan",
+      "display": "GIVN",
+      "market": "CH",
+      "type": "stock"
+    },
+    {
+      "symbol": "LONN.SW",
+      "name": "Lonza",
+      "display": "LONN",
+      "market": "CH",
+      "type": "stock"
+    },
+    {
+      "symbol": "^IBEX",
+      "name": "IBEX 35",
+      "display": "IBEX",
+      "market": "ES",
+      "type": "index"
+    },
+    {
+      "symbol": "SAN.MC",
+      "name": "Banco Santander",
+      "display": "SAN",
+      "market": "ES",
+      "type": "stock"
+    },
+    {
+      "symbol": "ITX.MC",
+      "name": "Inditex",
+      "display": "ITX",
+      "market": "ES",
+      "type": "stock"
+    },
+    {
+      "symbol": "IBE.MC",
+      "name": "Iberdrola",
+      "display": "IBE",
+      "market": "ES",
+      "type": "stock"
+    },
+    {
+      "symbol": "BBVA.MC",
+      "name": "BBVA",
+      "display": "BBVA",
+      "market": "ES",
+      "type": "stock"
+    },
+    {
+      "symbol": "TEF.MC",
+      "name": "Telefonica",
+      "display": "TEF",
+      "market": "ES",
+      "type": "stock"
+    },
+    {
+      "symbol": "FER.MC",
+      "name": "Ferrovial",
+      "display": "FER",
+      "market": "ES",
+      "type": "stock"
+    },
+    {
+      "symbol": "REP.MC",
+      "name": "Repsol",
+      "display": "REP",
+      "market": "ES",
+      "type": "stock"
+    },
+    {
+      "symbol": "AMS.MC",
+      "name": "Amadeus IT",
+      "display": "AMS",
+      "market": "ES",
+      "type": "stock"
+    },
+    {
+      "symbol": "FTSEMIB.MI",
+      "name": "FTSE MIB",
+      "display": "FTSEMIB",
+      "market": "IT",
+      "type": "index"
+    },
+    {
+      "symbol": "ISP.MI",
+      "name": "Intesa Sanpaolo",
+      "display": "ISP",
+      "market": "IT",
+      "type": "stock"
+    },
+    {
+      "symbol": "ENI.MI",
+      "name": "ENI",
+      "display": "ENI",
+      "market": "IT",
+      "type": "stock"
+    },
+    {
+      "symbol": "UCG.MI",
+      "name": "UniCredit",
+      "display": "UCG",
+      "market": "IT",
+      "type": "stock"
+    },
+    {
+      "symbol": "ENEL.MI",
+      "name": "Enel",
+      "display": "ENEL",
+      "market": "IT",
+      "type": "stock"
+    },
+    {
+      "symbol": "STM.MI",
+      "name": "STMicroelectronics",
+      "display": "STM",
+      "market": "IT",
+      "type": "stock"
+    },
+    {
+      "symbol": "G.MI",
+      "name": "Generali",
+      "display": "G",
+      "market": "IT",
+      "type": "stock"
+    },
+    {
+      "symbol": "RACE.MI",
+      "name": "Ferrari",
+      "display": "RACE",
+      "market": "IT",
+      "type": "stock"
+    },
+    {
+      "symbol": "TIT.MI",
+      "name": "Telecom Italia",
+      "display": "TIT",
+      "market": "IT",
+      "type": "stock"
+    },
+    {
+      "symbol": "D05.SI",
+      "name": "DBS Group",
+      "display": "DBS",
+      "market": "SG",
+      "type": "stock"
+    },
+    {
+      "symbol": "O39.SI",
+      "name": "OCBC Bank",
+      "display": "OCBC",
+      "market": "SG",
+      "type": "stock"
+    },
+    {
+      "symbol": "U11.SI",
+      "name": "UOB",
+      "display": "UOB",
+      "market": "SG",
+      "type": "stock"
+    },
+    {
+      "symbol": "Z74.SI",
+      "name": "Singtel",
+      "display": "SINGTEL",
+      "market": "SG",
+      "type": "stock"
+    },
+    {
+      "symbol": "BN4.SI",
+      "name": "Keppel Corp",
+      "display": "KEPPEL",
+      "market": "SG",
+      "type": "stock"
+    },
+    {
+      "symbol": "2330.TW",
+      "name": "TSMC TW",
+      "display": "TSMC.TW",
+      "market": "TW",
+      "type": "stock"
+    },
+    {
+      "symbol": "2317.TW",
+      "name": "Hon Hai (Foxconn)",
+      "display": "FOXCONN",
+      "market": "TW",
+      "type": "stock"
+    },
+    {
+      "symbol": "2454.TW",
+      "name": "MediaTek",
+      "display": "MEDIATEK",
+      "market": "TW",
+      "type": "stock"
+    },
+    {
+      "symbol": "2412.TW",
+      "name": "Chunghwa Telecom",
+      "display": "CHT",
+      "market": "TW",
+      "type": "stock"
+    },
+    {
+      "symbol": "2308.TW",
+      "name": "Delta Electronics",
+      "display": "DELTA",
+      "market": "TW",
+      "type": "stock"
+    }
   ],
-  "yahooOnly": ["^GSPC", "^DJI", "^IXIC", "^RUT", "^FTSE", "^GDAXI", "^N225", "^BSESN", "^NSEI", "^EGX30.CA", "^TASI.SR", "^HSI", "^FCHI", "^KS11", "^AXJO", "^BVSP", "^GSPTSE", "^SSMI", "^IBEX"],
+  "yahooOnly": [
+    "^GSPC",
+    "^DJI",
+    "^IXIC",
+    "^RUT",
+    "^VIX",
+    "^SOX",
+    "^GSPTSE",
+    "^FTSE",
+    "^GDAXI",
+    "^N225",
+    "^BSESN",
+    "^NSEI",
+    "^EGX30.CA",
+    "^TASI.SR",
+    "DFMGI.AE",
+    "^HSI",
+    "^FCHI",
+    "000001.SS",
+    "^KS11",
+    "^AXJO",
+    "^BVSP",
+    "^GSPTSE",
+    "^SSMI",
+    "^IBEX",
+    "FTSEMIB.MI"
+  ],
   "markets": {
-    "US": { "name": "United States", "exchange": "NYSE/NASDAQ", "currency": "USD", "flag": "\ud83c\uddfa\ud83c\uddf8" },
-    "UK": { "name": "United Kingdom", "exchange": "LSE", "currency": "GBP", "flag": "\ud83c\uddec\ud83c\udde7" },
-    "DE": { "name": "Germany", "exchange": "XETRA", "currency": "EUR", "flag": "\ud83c\udde9\ud83c\uddea" },
-    "JP": { "name": "Japan", "exchange": "TSE", "currency": "JPY", "flag": "\ud83c\uddef\ud83c\uddf5" },
-    "IN": { "name": "India", "exchange": "BSE/NSE", "currency": "INR", "flag": "\ud83c\uddee\ud83c\uddf3" },
-    "EG": { "name": "Egypt", "exchange": "EGX", "currency": "EGP", "flag": "\ud83c\uddea\ud83c\uddec" },
-    "SA": { "name": "Saudi Arabia", "exchange": "Tadawul", "currency": "SAR", "flag": "\ud83c\uddf8\ud83c\udde6" },
-    "AE": { "name": "UAE", "exchange": "DFM/ADX", "currency": "AED", "flag": "\ud83c\udde6\ud83c\uddea" },
-    "KW": { "name": "Kuwait", "exchange": "Boursa Kuwait", "currency": "KWD", "flag": "\ud83c\uddf0\ud83c\uddfc" },
-    "BH": { "name": "Bahrain", "exchange": "Bahrain Bourse", "currency": "BHD", "flag": "\ud83c\udde7\ud83c\udded" },
-    "OM": { "name": "Oman", "exchange": "MSM", "currency": "OMR", "flag": "\ud83c\uddf4\ud83c\uddf2" },
-    "HK": { "name": "Hong Kong", "exchange": "HKEX", "currency": "HKD", "flag": "\ud83c\udded\ud83c\uddf0" },
-    "FR": { "name": "France", "exchange": "Euronext Paris", "currency": "EUR", "flag": "\ud83c\uddeb\ud83c\uddf7" },
-    "CN": { "name": "China", "exchange": "SSE/SZSE", "currency": "CNY", "flag": "\ud83c\udde8\ud83c\uddf3" },
-    "KR": { "name": "South Korea", "exchange": "KRX", "currency": "KRW", "flag": "\ud83c\uddf0\ud83c\uddf7" },
-    "AU": { "name": "Australia", "exchange": "ASX", "currency": "AUD", "flag": "\ud83c\udde6\ud83c\uddfa" },
-    "BR": { "name": "Brazil", "exchange": "B3", "currency": "BRL", "flag": "\ud83c\udde7\ud83c\uddf7" },
-    "CA": { "name": "Canada", "exchange": "TSX", "currency": "CAD", "flag": "\ud83c\udde8\ud83c\udde6" },
-    "CH": { "name": "Switzerland", "exchange": "SIX", "currency": "CHF", "flag": "\ud83c\udde8\ud83c\udded" },
-    "ES": { "name": "Spain", "exchange": "BME", "currency": "EUR", "flag": "\ud83c\uddea\ud83c\uddf8" },
-    "IT": { "name": "Italy", "exchange": "Borsa Italiana", "currency": "EUR", "flag": "\ud83c\uddee\ud83c\uddf9" }
+    "US": {
+      "name": "United States",
+      "exchange": "NYSE/NASDAQ",
+      "currency": "USD",
+      "flag": "🇺🇸"
+    },
+    "UK": {
+      "name": "United Kingdom",
+      "exchange": "LSE",
+      "currency": "GBP",
+      "flag": "🇬🇧"
+    },
+    "DE": {
+      "name": "Germany",
+      "exchange": "XETRA",
+      "currency": "EUR",
+      "flag": "🇩🇪"
+    },
+    "JP": {
+      "name": "Japan",
+      "exchange": "TSE",
+      "currency": "JPY",
+      "flag": "🇯🇵"
+    },
+    "IN": {
+      "name": "India",
+      "exchange": "BSE/NSE",
+      "currency": "INR",
+      "flag": "🇮🇳"
+    },
+    "EG": {
+      "name": "Egypt",
+      "exchange": "EGX",
+      "currency": "EGP",
+      "flag": "🇪🇬"
+    },
+    "SA": {
+      "name": "Saudi Arabia",
+      "exchange": "Tadawul",
+      "currency": "SAR",
+      "flag": "🇸🇦"
+    },
+    "AE": {
+      "name": "UAE",
+      "exchange": "DFM/ADX",
+      "currency": "AED",
+      "flag": "🇦🇪"
+    },
+    "QA": {
+      "name": "Qatar",
+      "exchange": "QSE",
+      "currency": "QAR",
+      "flag": "🇶🇦"
+    },
+    "KW": {
+      "name": "Kuwait",
+      "exchange": "Boursa Kuwait",
+      "currency": "KWD",
+      "flag": "🇰🇼"
+    },
+    "BH": {
+      "name": "Bahrain",
+      "exchange": "Bahrain Bourse",
+      "currency": "BHD",
+      "flag": "🇧🇭"
+    },
+    "OM": {
+      "name": "Oman",
+      "exchange": "MSX",
+      "currency": "OMR",
+      "flag": "🇴🇲"
+    },
+    "HK": {
+      "name": "Hong Kong",
+      "exchange": "HKEX",
+      "currency": "HKD",
+      "flag": "🇭🇰"
+    },
+    "FR": {
+      "name": "France",
+      "exchange": "Euronext Paris",
+      "currency": "EUR",
+      "flag": "🇫🇷"
+    },
+    "CN": {
+      "name": "China",
+      "exchange": "SSE/SZSE",
+      "currency": "CNY",
+      "flag": "🇨🇳"
+    },
+    "KR": {
+      "name": "South Korea",
+      "exchange": "KRX",
+      "currency": "KRW",
+      "flag": "🇰🇷"
+    },
+    "AU": {
+      "name": "Australia",
+      "exchange": "ASX",
+      "currency": "AUD",
+      "flag": "🇦🇺"
+    },
+    "BR": {
+      "name": "Brazil",
+      "exchange": "B3",
+      "currency": "BRL",
+      "flag": "🇧🇷"
+    },
+    "CA": {
+      "name": "Canada",
+      "exchange": "TSX",
+      "currency": "CAD",
+      "flag": "🇨🇦"
+    },
+    "CH": {
+      "name": "Switzerland",
+      "exchange": "SIX",
+      "currency": "CHF",
+      "flag": "🇨🇭"
+    },
+    "ES": {
+      "name": "Spain",
+      "exchange": "BME",
+      "currency": "EUR",
+      "flag": "🇪🇸"
+    },
+    "IT": {
+      "name": "Italy",
+      "exchange": "Borsa Italiana",
+      "currency": "EUR",
+      "flag": "🇮🇹"
+    },
+    "SG": {
+      "name": "Singapore",
+      "exchange": "SGX",
+      "currency": "SGD",
+      "flag": "🇸🇬"
+    },
+    "TW": {
+      "name": "Taiwan",
+      "exchange": "TWSE",
+      "currency": "TWD",
+      "flag": "🇹🇼"
+    }
   }
 }

@@ -1,45 +1,4020 @@
 {
   "symbols": [
-    { "symbol": "^TASI.SR", "name": "Tadawul All Share", "country": "Saudi Arabia", "flag": "\ud83c\uddf8\ud83c\udde6", "type": "index" },
-    { "symbol": "DFMGI.AE", "name": "Dubai Financial Market", "country": "UAE", "flag": "\ud83c\udde6\ud83c\uddea", "type": "index" },
-    { "symbol": "UAE", "name": "Abu Dhabi (iShares)", "country": "UAE", "flag": "\ud83c\udde6\ud83c\uddea", "type": "index" },
-    { "symbol": "QAT", "name": "Qatar (iShares)", "country": "Qatar", "flag": "\ud83c\uddf6\ud83c\udde6", "type": "index" },
-    { "symbol": "GULF", "name": "Gulf Dividend (WisdomTree)", "country": "Kuwait", "flag": "\ud83c\uddf0\ud83c\uddfc", "type": "index" },
-    { "symbol": "^MSM", "name": "Muscat MSM 30", "country": "Oman", "flag": "\ud83c\uddf4\ud83c\uddf2", "type": "index" },
-
-    { "symbol": "2222.SR", "name": "Saudi Aramco", "country": "Saudi Arabia", "flag": "\ud83c\uddf8\ud83c\udde6", "type": "stock" },
-    { "symbol": "1180.SR", "name": "Al Rajhi Bank", "country": "Saudi Arabia", "flag": "\ud83c\uddf8\ud83c\udde6", "type": "stock" },
-    { "symbol": "2010.SR", "name": "SABIC", "country": "Saudi Arabia", "flag": "\ud83c\uddf8\ud83c\udde6", "type": "stock" },
-    { "symbol": "7010.SR", "name": "STC", "country": "Saudi Arabia", "flag": "\ud83c\uddf8\ud83c\udde6", "type": "stock" },
-    { "symbol": "1010.SR", "name": "Riyad Bank", "country": "Saudi Arabia", "flag": "\ud83c\uddf8\ud83c\udde6", "type": "stock" },
-    { "symbol": "1211.SR", "name": "Ma'aden", "country": "Saudi Arabia", "flag": "\ud83c\uddf8\ud83c\udde6", "type": "stock" },
-
-    { "symbol": "FAB.AE", "name": "First Abu Dhabi Bank", "country": "UAE", "flag": "\ud83c\udde6\ud83c\uddea", "type": "stock" },
-    { "symbol": "ETISALAT.AE", "name": "e& (Etisalat)", "country": "UAE", "flag": "\ud83c\udde6\ud83c\uddea", "type": "stock" },
-    { "symbol": "EMAAR.AE", "name": "Emaar Properties", "country": "UAE", "flag": "\ud83c\udde6\ud83c\uddea", "type": "stock" },
-    { "symbol": "DIB.AE", "name": "Dubai Islamic Bank", "country": "UAE", "flag": "\ud83c\udde6\ud83c\uddea", "type": "stock" },
-    { "symbol": "ALDAR.AE", "name": "Aldar Properties", "country": "UAE", "flag": "\ud83c\udde6\ud83c\uddea", "type": "stock" },
-    { "symbol": "ADNOCDIST.AE", "name": "ADNOC Distribution", "country": "UAE", "flag": "\ud83c\udde6\ud83c\uddea", "type": "stock" },
-    { "symbol": "DAMAC.AE", "name": "DAMAC Properties", "country": "UAE", "flag": "\ud83c\udde6\ud83c\uddea", "type": "stock" },
-
-    { "symbol": "NBK.KW", "name": "National Bank of Kuwait", "country": "Kuwait", "flag": "\ud83c\uddf0\ud83c\uddfc", "type": "stock" },
-    { "symbol": "ZAIN.KW", "name": "Zain Group", "country": "Kuwait", "flag": "\ud83c\uddf0\ud83c\uddfc", "type": "stock" },
-    { "symbol": "KFH.KW", "name": "Kuwait Finance House", "country": "Kuwait", "flag": "\ud83c\uddf0\ud83c\uddfc", "type": "stock" },
-
-    { "symbol": "BATELCO.BH", "name": "Batelco", "country": "Bahrain", "flag": "\ud83c\udde7\ud83c\udded", "type": "stock" },
-    { "symbol": "NBB.BH", "name": "National Bank of Bahrain", "country": "Bahrain", "flag": "\ud83c\udde7\ud83c\udded", "type": "stock" },
-    { "symbol": "ALBA.BH", "name": "Aluminium Bahrain", "country": "Bahrain", "flag": "\ud83c\udde7\ud83c\udded", "type": "stock" },
-
-    { "symbol": "OMAN.OM", "name": "Bank Muscat", "country": "Oman", "flag": "\ud83c\uddf4\ud83c\uddf2", "type": "stock" },
-    { "symbol": "OTEL.OM", "name": "Omantel", "country": "Oman", "flag": "\ud83c\uddf4\ud83c\uddf2", "type": "stock" },
-
-    { "symbol": "SARUSD=X", "name": "Saudi Riyal", "country": "Saudi Arabia", "flag": "\ud83c\uddf8\ud83c\udde6", "type": "currency" },
-    { "symbol": "AEDUSD=X", "name": "UAE Dirham", "country": "UAE", "flag": "\ud83c\udde6\ud83c\uddea", "type": "currency" },
-    { "symbol": "QARUSD=X", "name": "Qatari Riyal", "country": "Qatar", "flag": "\ud83c\uddf6\ud83c\udde6", "type": "currency" },
-    { "symbol": "KWDUSD=X", "name": "Kuwaiti Dinar", "country": "Kuwait", "flag": "\ud83c\uddf0\ud83c\uddfc", "type": "currency" },
-    { "symbol": "BHDUSD=X", "name": "Bahraini Dinar", "country": "Bahrain", "flag": "\ud83c\udde7\ud83c\udded", "type": "currency" },
-    { "symbol": "OMRUSD=X", "name": "Omani Rial", "country": "Oman", "flag": "\ud83c\uddf4\ud83c\uddf2", "type": "currency" },
-    { "symbol": "CL=F", "name": "WTI Crude", "country": "", "flag": "\ud83d\udee2\ufe0f", "type": "oil" },
-    { "symbol": "BZ=F", "name": "Brent Crude", "country": "", "flag": "\ud83d\udee2\ufe0f", "type": "oil" }
+    {
+      "symbol": "^TASI.SR",
+      "name": "Tadawul All Share",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "index",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "DFMGI.AE",
+      "name": "DFM General Index",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "index",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "UAE",
+      "name": "ADX General (iShares)",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "index",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "QAT",
+      "name": "Qatar (iShares)",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "index",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "GULF",
+      "name": "Gulf Dividend (WisdomTree)",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "index",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "^MSM",
+      "name": "Muscat MSM 30",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "index",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "FAB.AE",
+      "name": "First Abu Dhabi Bank",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ADCB.AE",
+      "name": "Abu Dhabi Commercial Bank",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ADIB.AE",
+      "name": "Abu Dhabi Islamic Bank",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "RAKBANK.AE",
+      "name": "RAK Bank",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "NBQ.AE",
+      "name": "National Bank of RAK",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "UNB.AE",
+      "name": "Union National Bank",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "SIB.AE",
+      "name": "Sharjah Islamic Bank",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "INVESTB.AE",
+      "name": "Invest Bank",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "FNB.AE",
+      "name": "Finance House",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "WAHA.AE",
+      "name": "Waha Capital",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "SHUAACAP.AE",
+      "name": "SHUAA Capital ADX",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ETISALAT.AE",
+      "name": "e& (Etisalat)",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "PRESIGHT.AE",
+      "name": "Presight AI",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "BAYANAT.AE",
+      "name": "Bayanat AI",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "AIQ.AE",
+      "name": "AIQ (G42)",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "YAHSAT.AE",
+      "name": "Al Yah Satellite",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ADNOCDIST.AE",
+      "name": "ADNOC Distribution",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ADNOCGAS.AE",
+      "name": "ADNOC Gas",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ADNOCDRILL.AE",
+      "name": "ADNOC Drilling",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ADNOCLS.AE",
+      "name": "ADNOC Logistics",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "TAQA.AE",
+      "name": "TAQA",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "MASDAR.AE",
+      "name": "Masdar",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "FERTIGLOBE.AE",
+      "name": "Fertiglobe",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "BOROUGE.AE",
+      "name": "Borouge",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "DANA.AE",
+      "name": "Dana Gas",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ALDAR.AE",
+      "name": "Aldar Properties",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ESHRAQ.AE",
+      "name": "Eshraq Investments",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "RAK.AE",
+      "name": "RAK Properties",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "MANAZEL.AE",
+      "name": "Manazel Real Estate",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "BILDCO.AE",
+      "name": "Bildco",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ADNECH.AE",
+      "name": "Abu Dhabi Natl Hotels",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "IHC.AE",
+      "name": "International Holding Co",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ALPHADHABI.AE",
+      "name": "Alpha Dhabi Holding",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "MULTIPLY.AE",
+      "name": "Multiply Group",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "PUREHEALTH.AE",
+      "name": "Pure Health",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ADPORTS.AE",
+      "name": "AD Ports Group",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "BURJEEL.AE",
+      "name": "Burjeel Holdings",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ESG.AE",
+      "name": "Emirates Steel Arkan",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "NMDC.AE",
+      "name": "NMDC Group",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "QAPADV.AE",
+      "name": "Q Holding",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "NATIONAL.AE",
+      "name": "National Holdings",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "GHITHA.AE",
+      "name": "Al Ghitha Holding",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "LULU.AE",
+      "name": "Lulu Retail",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "TAALEEM.AE",
+      "name": "Taaleem Holdings",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "INVICTUS.AE",
+      "name": "Invictus Investment",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ADNIC.AE",
+      "name": "ADNIC Insurance",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "DHAFRA.AE",
+      "name": "Al Dhafra Insurance",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ORIENT.AE",
+      "name": "Orient Insurance",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "AXA.AE",
+      "name": "AXA Green Crescent",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "WATANIA.AE",
+      "name": "Al Wathba Natl Ins",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "HAYAH.AE",
+      "name": "Hayah Insurance",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "EIIC.AE",
+      "name": "Emirates Insurance",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "SANAD.AE",
+      "name": "Sanad Insurance",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "UNION.AE",
+      "name": "Union Insurance",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ALDAAR.AE",
+      "name": "Al Dafra Insurance",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "SHARJAHINS.AE",
+      "name": "Sharjah Insurance",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ALBUHAIRA.AE",
+      "name": "Al Buhaira Insurance",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "METHA.AE",
+      "name": "Methaq Takaful",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "AGTHIA.AE",
+      "name": "Agthia Group",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "FOODCO.AE",
+      "name": "Intl Fish Farming",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ASMAK.AE",
+      "name": "Asmak",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "JULPHAR.AE",
+      "name": "Gulf Pharmaceutical",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "RESPONSE.AE",
+      "name": "Response Plus Medical",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ADPHARMA.AE",
+      "name": "AD Pharma",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "GMPC.AE",
+      "name": "Gulf Medical Projects",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "RKCC.AE",
+      "name": "RAK Ceramics",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "RKCE.AE",
+      "name": "RAK Cement",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "FOAH.AE",
+      "name": "Fujairah Cement",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "GULFA.AE",
+      "name": "Gulf Cement",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "UMMAL.AE",
+      "name": "Umm Al Qaiwain Cement",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ARKAN.AE",
+      "name": "Arkan Building Materials",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "APEX.AE",
+      "name": "Apex Cement",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "RAKWCT.AE",
+      "name": "RAK White Cement",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ADAVIATION.AE",
+      "name": "Abu Dhabi Aviation",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ADSB.AE",
+      "name": "AD Ship Building",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "NCTH.AE",
+      "name": "National Corp Tourism",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "PALMS.AE",
+      "name": "Palms Sports",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ALJAZEERA.AE",
+      "name": "Al Jazeera Services",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ALKHALEEJ.AE",
+      "name": "Al Khaleej Investment",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ANAN.AE",
+      "name": "Anan Investment",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "AABAR.AE",
+      "name": "Aabar Investments",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "SPIMACO.AE",
+      "name": "Spimaco Addwaeih",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ITHMAAR.AE",
+      "name": "Ithmaar Holding",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "AZURE.AE",
+      "name": "Azure Group",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ABYAAR.AE",
+      "name": "Abyaar Real Estate",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "SUDATEL.AE",
+      "name": "Sudan Telecom ADX",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "OOREDOO.AE",
+      "name": "Ooredoo ADX dual",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "KIZAD.AE",
+      "name": "Khalifa Industrial Zone",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "APC.AE",
+      "name": "Abu Dhabi Polymers",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "QABC.AE",
+      "name": "Qatar Abu Dhabi Ins",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "GCEM.AE",
+      "name": "Gulf Cement Co",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "EIHC.AE",
+      "name": "Emirates Intl Hospital",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "TAMWEEL.AE",
+      "name": "Tamweel",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ATIC.AE",
+      "name": "Abu Dhabi Technology",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ALFIRDOUS.AE",
+      "name": "Al Firdous Holding",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "SUKOON.AE",
+      "name": "Sukoon Insurance",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "TAWREEQ.AE",
+      "name": "Tawreeq Holdings",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "SENAAT.AE",
+      "name": "Senaat Gen Ind Corp",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "ALAMEERA.AE",
+      "name": "Al Ameera Medical",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "BIJOU.AE",
+      "name": "Bijou Investments",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "MPRC.AE",
+      "name": "Manazel PJSC",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "RAKGAS.AE",
+      "name": "RAK Gas",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "AWHAAM.AE",
+      "name": "Awaham Capital",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "TAMOIL.AE",
+      "name": "Tamoil ADX",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "NYADM.AE",
+      "name": "New York Abi Dhabi Market",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "ADX"
+    },
+    {
+      "symbol": "EMAAR.AE",
+      "name": "Emaar Properties",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "DIB.AE",
+      "name": "Dubai Islamic Bank",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "DFM.AE",
+      "name": "Dubai Financial Market",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "DAMAC.AE",
+      "name": "DAMAC Properties",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "DEWA.AE",
+      "name": "DEWA",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "SALIK.AE",
+      "name": "Salik Company",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "ENBD.AE",
+      "name": "Emirates NBD",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "CBD.AE",
+      "name": "Commercial Bank of Dubai",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "MASHREQ.AE",
+      "name": "Mashreqbank",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "NOOR.AE",
+      "name": "Noor Bank",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "AJMANBANK.AE",
+      "name": "Ajman Bank",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "DU.AE",
+      "name": "du (EITC)",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "PARKIN.AE",
+      "name": "Parkin Company",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "TALABAT.AE",
+      "name": "Talabat Holdings",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "DEYAAR.AE",
+      "name": "Deyaar Development",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "UNIONP.AE",
+      "name": "Union Properties",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "AMLAK.AE",
+      "name": "Amlak Finance",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "EMAARDEV.AE",
+      "name": "Emaar Development",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "MAZAYA.AE",
+      "name": "Mazaya Holding",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "TECOM.AE",
+      "name": "TECOM Group",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "DPARK.AE",
+      "name": "Dubai Parks Holdings",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "SALAMA.AE",
+      "name": "Salama Islamic Ins",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "AMAN.AE",
+      "name": "Aman Insurance",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "TAKAFUL.AE",
+      "name": "Takaful Emarat",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "TKFL.AE",
+      "name": "Takaful House",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "SNIC.AE",
+      "name": "SNIC Insurance",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "GIG.AE",
+      "name": "Gulf Insurance Group",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "EMAARENT.AE",
+      "name": "Emaar Entertainment",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "SHUAA.AE",
+      "name": "SHUAA Capital",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "GFH.AE",
+      "name": "GFH Financial Group",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "GGICO.AE",
+      "name": "Gulf General Investments",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "EKTTITAB.AE",
+      "name": "Ekttitab Holding",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "DIFC.AE",
+      "name": "DIFC Investments",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "ARAMEX.AE",
+      "name": "Aramex",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "NCC.AE",
+      "name": "National Cement Co",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "GULFNAV.AE",
+      "name": "Gulf Navigation",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "DRAKE.AE",
+      "name": "Drake & Scull",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "TABREED.AE",
+      "name": "Tabreed (Natl CC)",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "EMPOWER.AE",
+      "name": "Empower",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "ASTER.AE",
+      "name": "Aster DM Healthcare",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "DUBAIREF.AE",
+      "name": "Dubai Refreshments",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "DUBAIINVEST.AE",
+      "name": "Dubai Investments",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "ALRAMZ.AE",
+      "name": "Al Ramz Corp",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "EMIRATES.AE",
+      "name": "Emirates Driving Co",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "ALSALAMB.AE",
+      "name": "Al Salam Bank",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "BEACON.AE",
+      "name": "Beacon Education",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "ENOVA.AE",
+      "name": "Enova Energy Mgmt",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "IRTH.AE",
+      "name": "Irth Communications",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "BHMUAE.AE",
+      "name": "BHM UAE Real Estate",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "SALAM.AE",
+      "name": "Salam Bounian",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "AWTAD.AE",
+      "name": "Awtad Capital",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "TCOM.AE",
+      "name": "Tcom Holdings",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "ALSAFWA.AE",
+      "name": "Al Safwa Mubasher",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "HITS.AE",
+      "name": "HITS Telecom",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "CHOITHRAM.AE",
+      "name": "Choithrams",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "DUBAILEIS.AE",
+      "name": "Dubai Leisure",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "PORTS.AE",
+      "name": "DP World DFM",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "LOGISTICS.AE",
+      "name": "Dubai Logistics",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "ALASAS.AE",
+      "name": "Al Asas RE Investment",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "EMIRATESNBD.AE",
+      "name": "Emirates NBD REIT",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "DHAMAAN.AE",
+      "name": "Dhamaan Islamic Insurance",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "AISF.AE",
+      "name": "AIS Finance",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "AMANHOLD.AE",
+      "name": "Aman Holding",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "ALWATANIYA.AE",
+      "name": "Al Wataniya Insurance",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "DRICGOLD.AE",
+      "name": "DRIC Gold",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "DNATA.AE",
+      "name": "Dnata Travel",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "SPICE.AE",
+      "name": "Spice Trading",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "SOUQ.AE",
+      "name": "Souq Trading",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "stock",
+      "exchange": "DFM"
+    },
+    {
+      "symbol": "2222.SR",
+      "name": "Saudi Aramco",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "1180.SR",
+      "name": "Al Rajhi Bank",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "1020.SR",
+      "name": "Saudi National Bank",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "7010.SR",
+      "name": "STC",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2010.SR",
+      "name": "SABIC",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "1010.SR",
+      "name": "Riyad Bank",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "1050.SR",
+      "name": "Banque Saudi Fransi",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "1060.SR",
+      "name": "Saudi British Bank",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "1150.SR",
+      "name": "Alinma Bank",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "1211.SR",
+      "name": "Ma'aden",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2350.SR",
+      "name": "Saudi Kayan",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2020.SR",
+      "name": "SAFCO",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "5110.SR",
+      "name": "Saudi Electricity",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2082.SR",
+      "name": "ACWA Power",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4030.SR",
+      "name": "Albaik",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2280.SR",
+      "name": "Almarai",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2050.SR",
+      "name": "Savola Group",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4190.SR",
+      "name": "Jarir Marketing",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4003.SR",
+      "name": "United Electronics (Extra)",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "7020.SR",
+      "name": "Etihad Etisalat (Mobily)",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "7030.SR",
+      "name": "Zain KSA",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "8210.SR",
+      "name": "Bupa Arabia",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4002.SR",
+      "name": "Mouwasat Medical",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "6010.SR",
+      "name": "NADEC",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "3030.SR",
+      "name": "Saudi Cement",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "3020.SR",
+      "name": "Yamama Cement",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4001.SR",
+      "name": "Abdullah Al Othaim",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2040.SR",
+      "name": "Saudi Ceramics",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2290.SR",
+      "name": "Yanbu Natl Petrochem",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "5310.SR",
+      "name": "Yansab",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "1030.SR",
+      "name": "Saudi Investment Bank",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "1080.SR",
+      "name": "Arab National Bank",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "1040.SR",
+      "name": "Bank AlBilad",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "1120.SR",
+      "name": "Al Jazira Bank",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2310.SR",
+      "name": "SIPCHEM",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2250.SR",
+      "name": "Saudi Industrial Inv Group",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4200.SR",
+      "name": "Al Dawaa Pharmacies",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4005.SR",
+      "name": "Saudi Airlines Catering",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4009.SR",
+      "name": "Saudi Ground Services",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "8010.SR",
+      "name": "Tawuniya Insurance",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "8020.SR",
+      "name": "Malath Insurance",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "8030.SR",
+      "name": "Medgulf",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "8040.SR",
+      "name": "SABB Takaful",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "8050.SR",
+      "name": "Salama Insurance",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "8060.SR",
+      "name": "Walaa Insurance",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2030.SR",
+      "name": "Sadara Chemical",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2060.SR",
+      "name": "National Industrialization",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2070.SR",
+      "name": "Saudi International Petrochemical (Sipchem)",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4180.SR",
+      "name": "Fitaihi Group",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4260.SR",
+      "name": "United Cooperative Assurance",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "6020.SR",
+      "name": "JAPFA",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "6040.SR",
+      "name": "SIDC",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "1210.SR",
+      "name": "BCI (Saudi)",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "1320.SR",
+      "name": "Saudi Enaya",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4050.SR",
+      "name": "SASCO",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4070.SR",
+      "name": "Tihama Advertising",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4150.SR",
+      "name": "Dur Hospitality",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4210.SR",
+      "name": "Saudi Automotive",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4240.SR",
+      "name": "Fawaz Abdulaziz Alhokair",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4320.SR",
+      "name": "Al Rajhi REIT",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4340.SR",
+      "name": "Riyad REIT",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4330.SR",
+      "name": "Jadwa REIT Al Haramain",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2120.SR",
+      "name": "Advanced Petrochemical",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2150.SR",
+      "name": "ZOUJAJ",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2170.SR",
+      "name": "Alujain",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2190.SR",
+      "name": "Sinad Holding",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2200.SR",
+      "name": "Unilever Saudi",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2210.SR",
+      "name": "Nama Chemicals",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2240.SR",
+      "name": "Zamil Industrial",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "2270.SR",
+      "name": "SADAFCO",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "3010.SR",
+      "name": "Arabian Cement",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "3040.SR",
+      "name": "Saudi Vitrified Clay",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "3050.SR",
+      "name": "Al Jouf Cement",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "3060.SR",
+      "name": "Hail Cement",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "3080.SR",
+      "name": "Eastern Province Cement",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "3090.SR",
+      "name": "Tabuk Cement",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "3091.SR",
+      "name": "Umm Al-Qura Cement",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4004.SR",
+      "name": "Dallah Healthcare",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4006.SR",
+      "name": "Saudi Catering",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4007.SR",
+      "name": "Al Sagr Insurance",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4013.SR",
+      "name": "Seera Group",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "4020.SR",
+      "name": "Saudi Real Estate",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "stock",
+      "exchange": "TADAWUL"
+    },
+    {
+      "symbol": "QNBK.QA",
+      "name": "QNB Group",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "MARK.QA",
+      "name": "Masraf Al Rayan",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "CBQK.QA",
+      "name": "Commercial Bank",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "DHBK.QA",
+      "name": "Doha Bank",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "QIBK.QA",
+      "name": "Qatar Islamic Bank",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "ABQK.QA",
+      "name": "Ahli Bank",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "KCBK.QA",
+      "name": "Al Khaliji Commercial",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "QIIK.QA",
+      "name": "QIIB",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "ORDS.QA",
+      "name": "Ooredoo Qatar",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "VFQS.QA",
+      "name": "Vodafone Qatar",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "QAMC.QA",
+      "name": "Qatar Aluminium Mfg",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "IQCD.QA",
+      "name": "Industries Qatar",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "QGTS.QA",
+      "name": "Qatar Gas Transport",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "MPHC.QA",
+      "name": "Mesaieed Petrochemical",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "QFLS.QA",
+      "name": "Qatar Fuel (WOQOD)",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "QEWS.QA",
+      "name": "Qatar Electricity & Water",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "BRES.QA",
+      "name": "Barwa Real Estate",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "ERES.QA",
+      "name": "Ezdan Holding",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "UDCD.QA",
+      "name": "United Development",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "MRDS.QA",
+      "name": "Mazaya Qatar Real Est",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "QLMI.QA",
+      "name": "QLM Life & Medical Ins",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "QISI.QA",
+      "name": "Qatar Islamic Insurance",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "DOHI.QA",
+      "name": "Doha Insurance",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "QATI.QA",
+      "name": "Qatar Insurance",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "GISS.QA",
+      "name": "Gulf International Services",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "NLCS.QA",
+      "name": "Natl Leasing",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "MCCS.QA",
+      "name": "Mannai Corp",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "AHCS.QA",
+      "name": "Aamal Company",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "QNNS.QA",
+      "name": "Qatar Navigation (Milaha)",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "GWCS.QA",
+      "name": "Gulf Warehousing",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "ZHCD.QA",
+      "name": "Zad Holding",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "MERS.QA",
+      "name": "Al Meera Consumer",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "SIIS.QA",
+      "name": "Salam Intl Invest",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "DBIS.QA",
+      "name": "Dlala Brokerage",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "WDAM.QA",
+      "name": "Widam Food",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "BLDN.QA",
+      "name": "Baladna",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "QCFS.QA",
+      "name": "Qatar Cinema & Film",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "QGMD.QA",
+      "name": "Qatari German Med Devices",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "IGRD.QA",
+      "name": "Investment Holding Group",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "QATR.QA",
+      "name": "Qatar Re Insurance",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "ONBS.QA",
+      "name": "Qatar First Bank",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "QEBS.QA",
+      "name": "Qatar Exchange",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "MKDM.QA",
+      "name": "Mekdam Holding",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "MCGS.QA",
+      "name": "Medicare Group",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "QNCD.QA",
+      "name": "Qatar Natl Cement",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "stock",
+      "exchange": "QSE"
+    },
+    {
+      "symbol": "NBK.KW",
+      "name": "National Bank of Kuwait",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "KFH.KW",
+      "name": "Kuwait Finance House",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "ZAIN.KW",
+      "name": "Zain Group",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "AGLTY.KW",
+      "name": "Agility",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "GBK.KW",
+      "name": "Gulf Bank",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "ABK.KW",
+      "name": "Al Ahli Bank of Kuwait",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "BURG.KW",
+      "name": "Burgan Bank",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "BOUBYAN.KW",
+      "name": "Boubyan Bank",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "WBK.KW",
+      "name": "Warba Bank",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "KIB.KW",
+      "name": "Kuwait International Bank",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "CBK.KW",
+      "name": "Commercial Bank of Kuwait",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "STCQ.KW",
+      "name": "STC Kuwait",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "OOREDOO.KW",
+      "name": "Ooredoo Kuwait",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "VIVA.KW",
+      "name": "VIVA Kuwait Telecom",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "KPC.KW",
+      "name": "Kuwait Projects Co (KIPCO)",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "ARC.KW",
+      "name": "Arzan Financial Group",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "MABANEE.KW",
+      "name": "Mabanee Co",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "SALHIA.KW",
+      "name": "Salhia Real Estate",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "TAMDEEN.KW",
+      "name": "Tamdeen Real Estate",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "UPAC.KW",
+      "name": "United Projects Aviation",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "ALSAFAT.KW",
+      "name": "Al Safat Investment",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "ALIMTIAZ.KW",
+      "name": "Al Imtiaz Investment",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "IFA.KW",
+      "name": "IFA Hotels & Resorts",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "KWCP.KW",
+      "name": "Kuwait Cement",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "KGSC.KW",
+      "name": "Kuwait General State Transp",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "LOGISTICS.KW",
+      "name": "Agility Logistics Parks",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "HUMANSOFT.KW",
+      "name": "Humansoft Holding",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "AQARAT.KW",
+      "name": "Ajial Real Estate",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "AAYAN.KW",
+      "name": "Aayan Leasing",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "AREEC.KW",
+      "name": "Al Arabi Holding",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "BOUBYANPETRO.KW",
+      "name": "Boubyan Petrochemical",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "KWFUEL.KW",
+      "name": "Kuwait National Petroleum",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "MEZZAN.KW",
+      "name": "Mezzan Holding",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "ALG.KW",
+      "name": "Al Ghanim Industries",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "QURAIN.KW",
+      "name": "Qurain Petrochemical",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "KPPC.KW",
+      "name": "Kuwait Petroleum Corp",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "PGROUP.KW",
+      "name": "Privatization Holding",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "KESC.KW",
+      "name": "Kuwait Energy",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "GIG.KW",
+      "name": "Gulf Insurance Group KW",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "KSE.KW",
+      "name": "Kuwait Stock Exchange",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "MUBARRAD.KW",
+      "name": "National Industries Group",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "ALSAFWA.KW",
+      "name": "Al Safwa Group",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "WATANIYA.KW",
+      "name": "Wataniya Insurance",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "KWTTKFL.KW",
+      "name": "Kuwait Takaful",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "AHLI.KW",
+      "name": "Al Ahli Holding",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "MARKAZ.KW",
+      "name": "Kuwait Fin Centre (Markaz)",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "KIPCO.KW",
+      "name": "KIPCO Asset Management",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "BAYAN.KW",
+      "name": "Bayan Investment",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "NIND.KW",
+      "name": "National Industries Holding",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "COAST.KW",
+      "name": "Coast Investment Dev",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "ALEID.KW",
+      "name": "Aleid Foods",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "stock",
+      "exchange": "BK"
+    },
+    {
+      "symbol": "BATELCO.BH",
+      "name": "Batelco",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "NBB.BH",
+      "name": "National Bank of Bahrain",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "ALBA.BH",
+      "name": "Aluminium Bahrain",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "AHLI.BH",
+      "name": "Ahli United Bank",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "BBK.BH",
+      "name": "BBK",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "BISB.BH",
+      "name": "Bahrain Islamic Bank",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "KHALEEJI.BH",
+      "name": "Khaleeji Commercial",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "SALAM.BH",
+      "name": "Al Salam Bank",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "ITHMAAR.BH",
+      "name": "Ithmaar Holding",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "GFH.BH",
+      "name": "GFH Financial Group BH",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "SEEF.BH",
+      "name": "Seef Properties",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "NASS.BH",
+      "name": "Nass Corporation",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "TRAFCO.BH",
+      "name": "Trafco Group",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "FAMILY.BH",
+      "name": "Family Bank",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "DELMON.BH",
+      "name": "Delmon Poultry",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "BMMI.BH",
+      "name": "BMMI (Bahrain)",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "BFOOD.BH",
+      "name": "Bahrain Flour Mills",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "BHOTEL.BH",
+      "name": "Bahrain Hotels",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "CINEMA.BH",
+      "name": "Bahrain Cinema",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "BNAGAS.BH",
+      "name": "Bahrain National Gas",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "BGAS.BH",
+      "name": "Bahrain Gas Company",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "APM.BH",
+      "name": "APM Terminals Bahrain",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "ESTERAD.BH",
+      "name": "Esterad Investment",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "TAKAFUL.BH",
+      "name": "Takaful International",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "SOLIDARITY.BH",
+      "name": "Solidarity Insurance",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "BKIC.BH",
+      "name": "BKIC Insurance",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "TASAHEEL.BH",
+      "name": "Tasaheel Holding",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "ALBARAKA.BH",
+      "name": "Al Baraka Banking",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "INVESTCORP.BH",
+      "name": "Investcorp Bank",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "BTIC.BH",
+      "name": "Bahrain Tourism",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "GPIC.BH",
+      "name": "Gulf Petrochemical Ind",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "ZAIN.BH",
+      "name": "Zain Bahrain",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "STC.BH",
+      "name": "STC Bahrain",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "BISCUIT.BH",
+      "name": "Bahrain Biscuit Co",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "DUTYF.BH",
+      "name": "Bahrain Duty Free",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "ALJAZEERA.BH",
+      "name": "Al Jazeera Tourism",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "stock",
+      "exchange": "BHB"
+    },
+    {
+      "symbol": "OMAN.OM",
+      "name": "Bank Muscat",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "OTEL.OM",
+      "name": "Omantel",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "ORES.OM",
+      "name": "OQ Gas Networks",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "BKDB.OM",
+      "name": "Bank Dhofar",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "NBO.OM",
+      "name": "National Bank of Oman",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "SOHAR.OM",
+      "name": "Sohar International",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "ALIZZ.OM",
+      "name": "Alizz Islamic Bank",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "HSBC.OM",
+      "name": "HSBC Oman",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "ABAN.OM",
+      "name": "Ahli Bank Oman",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "BBM.OM",
+      "name": "Bank Al Bilad Muscat",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "OTE.OM",
+      "name": "Oman Telecom",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "AWA.OM",
+      "name": "Awasr Telecom",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "OQEP.OM",
+      "name": "OQ Exploration & Production",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "OQBP.OM",
+      "name": "OQ Base Industries",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "OMINVEST.OM",
+      "name": "Ominvest",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "OQSA.OM",
+      "name": "OQ Sanad",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "ORC.OM",
+      "name": "Oman Refineries",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "ACWA.OM",
+      "name": "Acwa Power Barka",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "SMN.OM",
+      "name": "Sohar Methanol",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "OFC.OM",
+      "name": "Oman Flour Mills",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "SFM.OM",
+      "name": "Salalah Flour Mills",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "OFI.OM",
+      "name": "Oman Fisheries",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "AOCA.OM",
+      "name": "Al Ahlia Insurance",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "DHOF.OM",
+      "name": "Dhofar Insurance",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "NLIF.OM",
+      "name": "National Life Insurance",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "VISI.OM",
+      "name": "Vision Insurance",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "OUIS.OM",
+      "name": "Oman United Insurance",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "TAAG.OM",
+      "name": "Taageer Finance",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "OMBR.OM",
+      "name": "Oman Chlorine",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "OCMN.OM",
+      "name": "Oman Cement",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "RACI.OM",
+      "name": "Raysut Cement",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "SAOG.OM",
+      "name": "Sharqiya Cement",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "GCCO.OM",
+      "name": "Gulf Cement Co Oman",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "OONC.OM",
+      "name": "Oman Oil",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "MNSS.OM",
+      "name": "MNSS (Services)",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "OCI.OM",
+      "name": "Oman Cables Industry",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "OQNG.OM",
+      "name": "OQ Natural Gas",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "APB.OM",
+      "name": "Al Jazeera Poultry",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "AMP.OM",
+      "name": "A'Saffa Foods",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "SME.OM",
+      "name": "SMN Power",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "PHG.OM",
+      "name": "Phoenix Power",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "MRHI.OM",
+      "name": "Muscat National Holding",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "SRPS.OM",
+      "name": "Shell Oman",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "GCES.OM",
+      "name": "Global Fin Invest",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "JRES.OM",
+      "name": "Al Jazeera Real Estate",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "ALANSARI.OM",
+      "name": "Al Ansari Exchange",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "BKMZ.OM",
+      "name": "Bank Musandam",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "SEZD.OM",
+      "name": "Sezad Development",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "SIFC.OM",
+      "name": "Salalah Industrial",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "OMCO.OM",
+      "name": "Oman Mining",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "GLSS.OM",
+      "name": "Global Securities",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "PORT.OM",
+      "name": "Oman Ports",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "GCB.OM",
+      "name": "Gulf Corp Bank",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "SPS.OM",
+      "name": "Salalah Port Services",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "OLNG.OM",
+      "name": "Oman LNG",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "NCPI.OM",
+      "name": "National Cement Products",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "ODP.OM",
+      "name": "Oman Data Park",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "TPOL.OM",
+      "name": "Tethys Oil",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "AGR.OM",
+      "name": "Al Madina Gulf",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "AERO.OM",
+      "name": "Oman Aerospace",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "MUSQ.OM",
+      "name": "Musandam Power",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "ONRG.OM",
+      "name": "Oman Energy",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "BQWA.OM",
+      "name": "Barka Water",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "NWRS.OM",
+      "name": "Nawras (Ooredoo Oman)",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "SAHM.OM",
+      "name": "Sahm Properties",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "MZOON.OM",
+      "name": "Mzoon Dairy",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "ABOB.OM",
+      "name": "Al Batinah Dev",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "SRUR.OM",
+      "name": "Swaihan Power",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "OITH.OM",
+      "name": "Oman Intl Trade Holdings",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "RAKI.OM",
+      "name": "Rakiza REIT",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "ALTI.OM",
+      "name": "Al Tilal Investments",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "TCCI.OM",
+      "name": "Takaful Insurance Co",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "HAYA.OM",
+      "name": "Haya Water",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "VOLT.OM",
+      "name": "Voltamp Energy",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "MKZM.OM",
+      "name": "Majan Glass",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "GBRM.OM",
+      "name": "Galfar Engineering",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "SFST.OM",
+      "name": "Salalah Free Zone",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "AOCM.OM",
+      "name": "Al Oman Mining",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "BATS.OM",
+      "name": "Batinah Saham Power",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "OQDS.OM",
+      "name": "OQ Drilling",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "AMAN.OM",
+      "name": "Aman Real Estate",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "UBAR.OM",
+      "name": "Ubar Group",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "ADPC.OM",
+      "name": "Areej Data Processing",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "SFOD.OM",
+      "name": "Salalah Food",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "NOOR.OM",
+      "name": "Noor Al Sahara",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "MUZE.OM",
+      "name": "Muzoon Holding",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "BWRE.OM",
+      "name": "Barka Water RE",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "MJAS.OM",
+      "name": "Majas Industrial",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "ORCI.OM",
+      "name": "Oman Real Estate Inv",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "SNCK.OM",
+      "name": "Snack Foods",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "TANO.OM",
+      "name": "Takaful Oman",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "MDCI.OM",
+      "name": "Muscat Dredging",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "HBMO.OM",
+      "name": "Hotel Al Bustan",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "NTDC.OM",
+      "name": "Natl Tourism Dev Co",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "IBEL.OM",
+      "name": "Ibn Majid Tourism",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "SAHI.OM",
+      "name": "Sahara Hospitality",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "FALAJ.OM",
+      "name": "Al Falaj Trading",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "TKFU.OM",
+      "name": "Takaful Fund",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "GECO.OM",
+      "name": "Gulf Energy Oman",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "ADON.OM",
+      "name": "Al Dhahirah Oman",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "PCOI.OM",
+      "name": "Phoenix Gas Oman",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "stock",
+      "exchange": "MSX"
+    },
+    {
+      "symbol": "SARUSD=X",
+      "name": "Saudi Riyal",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "type": "currency",
+      "exchange": ""
+    },
+    {
+      "symbol": "AEDUSD=X",
+      "name": "UAE Dirham",
+      "country": "UAE",
+      "flag": "🇦🇪",
+      "type": "currency",
+      "exchange": ""
+    },
+    {
+      "symbol": "QARUSD=X",
+      "name": "Qatari Riyal",
+      "country": "Qatar",
+      "flag": "🇶🇦",
+      "type": "currency",
+      "exchange": ""
+    },
+    {
+      "symbol": "KWDUSD=X",
+      "name": "Kuwaiti Dinar",
+      "country": "Kuwait",
+      "flag": "🇰🇼",
+      "type": "currency",
+      "exchange": ""
+    },
+    {
+      "symbol": "BHDUSD=X",
+      "name": "Bahraini Dinar",
+      "country": "Bahrain",
+      "flag": "🇧🇭",
+      "type": "currency",
+      "exchange": ""
+    },
+    {
+      "symbol": "OMRUSD=X",
+      "name": "Omani Rial",
+      "country": "Oman",
+      "flag": "🇴🇲",
+      "type": "currency",
+      "exchange": ""
+    },
+    {
+      "symbol": "CL=F",
+      "name": "WTI Crude",
+      "country": "",
+      "flag": "🛢️",
+      "type": "oil",
+      "exchange": ""
+    },
+    {
+      "symbol": "BZ=F",
+      "name": "Brent Crude",
+      "country": "",
+      "flag": "🛢️",
+      "type": "oil",
+      "exchange": ""
+    }
   ]
 }

@@ -43,7 +43,7 @@ export function sanitizeSymbol(raw: string): string {
  * typed as `string[]`.  At runtime `req.symbols` may therefore be a
  * comma-separated string rather than an actual array.
  */
-export function parseStringArray(raw: unknown, maxItems = 200): string[] {
+export function parseStringArray(raw: unknown, maxItems = 800): string[] {
   if (Array.isArray(raw)) return raw.filter(Boolean).slice(0, maxItems);
   if (typeof raw === 'string' && raw.length > 0) return raw.split(',').filter(Boolean).slice(0, maxItems);
   return [];
@@ -69,10 +69,20 @@ export async function fetchYahooQuotesBatch(
   return { results, rateLimited: rateLimitHits > symbols.length / 2 };
 }
 
-// Yahoo-only symbols: indices and futures not on Finnhub free tier
+// Yahoo-only symbols: indices, futures, and international exchanges not on Finnhub free tier
 export const YAHOO_ONLY_SYMBOLS = new Set([
-  '^GSPC', '^DJI', '^IXIC', '^VIX',
-  'GC=F', 'CL=F', 'NG=F', 'SI=F', 'HG=F',
+  // US indices
+  '^GSPC', '^DJI', '^IXIC', '^VIX', '^RUT', '^SOX',
+  // Commodity futures
+  'GC=F', 'CL=F', 'NG=F', 'SI=F', 'HG=F', 'BZ=F', 'PL=F', 'PA=F',
+  'RB=F', 'HO=F', 'ZC=F', 'ZW=F', 'ZS=F', 'KC=F', 'CC=F', 'SB=F', 'CT=F', 'LC=F', 'LBS=F',
+  // International indices
+  '^FTSE', '^GDAXI', '^N225', '^BSESN', '^NSEI', '^EGX30.CA', '^TASI.SR',
+  '^HSI', '^FCHI', '^KS11', '^AXJO', '^BVSP', '^GSPTSE', '^SSMI', '^IBEX', '^MSM',
+  // Gulf/MENA (all Yahoo-sourced)
+  'DFMGI.AE', 'UAE', 'QAT', 'GULF',
+  // Forex
+  'SARUSD=X', 'AEDUSD=X', 'QARUSD=X', 'KWDUSD=X', 'BHDUSD=X', 'OMRUSD=X',
 ]);
 
 export const CRYPTO_META: Record<string, { name: string; symbol: string }> = cryptoConfig.meta;
