@@ -57,6 +57,8 @@ import { listPredictionMarkets } from './list-prediction-markets';
 import { listEarnings } from './list-earnings';
 import { listCyclones } from './list-cyclones';
 import { listCyberThreats } from './list-cyber-threats';
+import { getTensionIndex } from './get-tension-index';
+import { listGeoSignals } from './list-geo-signals';
 
 // Re-export shared helpers so existing imports from './handler' still work
 export { parseBody, jsonResponse, errorResponse } from './_shared';
@@ -185,6 +187,8 @@ export function createTradingRoutes(): RouteDescriptor[] {
     { method: 'GET',  path: `${BASE}/list-earnings`,          handler: listEarnings },
     { method: 'GET',  path: `${BASE}/list-cyclones`,          handler: listCyclones },
     { method: 'GET',  path: `${BASE}/list-cyber-threats`,     handler: listCyberThreats },
+    { method: 'GET',  path: `${BASE}/get-tension-index`,     handler: getTensionIndex },
+    { method: 'GET',  path: `${BASE}/list-geo-signals`,      handler: listGeoSignals },
 
     // Platform Configuration
     { method: 'GET',  path: `${BASE}/get-platform-config`,    handler: getPlatformConfigHandler },

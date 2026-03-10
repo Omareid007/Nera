@@ -24,6 +24,7 @@ const AlertsPage = lazy(() => import('./pages/AlertsPage').then(m => ({ default:
 const ComparePage = lazy(() => import('./pages/ComparePage').then(m => ({ default: m.ComparePage })));
 const WatchlistPage = lazy(() => import('./pages/WatchlistPage').then(m => ({ default: m.WatchlistPage })));
 const AttributionPage = lazy(() => import('./pages/AttributionPage').then(m => ({ default: m.AttributionPage })));
+const GeoSignalsPage = lazy(() => import('./pages/GeoSignalsPage').then(m => ({ default: m.GeoSignalsPage })));
 
 function PageLoader() {
   return (
@@ -57,6 +58,7 @@ export function App() {
         <Route path="/compare" element={<ComparePage />} />
         <Route path="/watchlist" element={<WatchlistPage />} />
         <Route path="/attribution" element={<AttributionPage />} />
+        <Route path="/geo-signals" element={<GeoSignalsPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />

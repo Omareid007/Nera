@@ -762,6 +762,64 @@ export function listCyberThreats() {
   return rpc<{ threats: CyberThreat[]; summary: { total: number; critical: number; high: number; ransomwareLinked: number }; timestamp: number }>('GET', 'list-cyber-threats');
 }
 
+// --- Tension Index ---
+
+export interface TensionIndex {
+  score: number;
+  change: number;
+  level: 'LOW' | 'MODERATE' | 'ELEVATED' | 'HIGH' | 'CRITICAL';
+  components: { conflict: number; sentiment: number; cyber: number; natural: number };
+  triggers: TensionTrigger[];
+  timestamp: number;
+}
+
+export interface TensionTrigger {
+  title: string;
+  category: string;
+  severity: number;
+  region: string;
+  timestamp: string;
+  affectedAssets: string[];
+}
+
+export function getTensionIndex() {
+  return rpc<TensionIndex>('GET', 'get-tension-index');
+}
+
+// --- Geo Signals ---
+
+export type SignalDirection = 'BUY' | 'SELL' | 'HOLD';
+
+export interface GeoSignal {
+  id: string;
+  symbol: string;
+  name: string;
+  assetClass: string;
+  direction: SignalDirection;
+  confidence: number;
+  bullStrength: number;
+  bearStrength: number;
+  volatility: string;
+  timeHorizon: string;
+  riskReward: number;
+  triggeringEvent: { title: string; category: string; severity: number; region: string };
+  tradeSetup: {
+    entry: number | null;
+    stopLoss: number | null;
+    target: number | null;
+    riskRewardRatio: number;
+    atrDaily: number | null;
+    maxPositionPct: number;
+  };
+  reasoningChain: { step: number; title: string; description: string; contribution: number }[];
+  tags: string[];
+  timestamp: number;
+}
+
+export function listGeoSignals() {
+  return rpc<{ signals: GeoSignal[]; timestamp: number }>('GET', 'list-geo-signals');
+}
+
 // --- Provider Health ---
 
 export interface ProviderStatus {

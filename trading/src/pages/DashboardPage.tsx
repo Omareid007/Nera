@@ -7,9 +7,9 @@ import { StatusBadge } from '@/components/StatusBadge';
 import { timeAgo } from '@/lib/utils';
 import {
   listStrategies, listBacktestRuns, getPortfolio, listAiEvents, listForwardRuns, listEvidence, getWatchlistQuotes, listAlerts,
-  getSettings, getIntelStatus,
+  getSettings, getIntelStatus, getTensionIndex,
   type StrategyIndexEntry, type BacktestIndexEntry, type PortfolioSnapshot, type AiEventIndexEntry, type ForwardRunIndexEntry, type EvidenceEntry, type WatchlistQuote, type Alert,
-  type IntelSource,
+  type IntelSource, type TensionIndex,
 } from '@/lib/api';
 
 const DEFAULT_TICKER_SYMBOLS = ['SPY', 'QQQ', 'DIA', 'AAPL', 'MSFT', 'NVDA', 'BTC-USD', 'ETH-USD', 'GLD', 'TLT'];
@@ -24,6 +24,7 @@ export function DashboardPage() {
   const [ticker, setTicker] = useState<WatchlistQuote[]>([]);
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [intelSources, setIntelSources] = useState<IntelSource[]>([]);
+  const [tension, setTension] = useState<TensionIndex | null>(null);
   const [loading, setLoading] = useState(true);
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [lastRefresh, setLastRefresh] = useState(Date.now());
@@ -42,6 +43,7 @@ export function DashboardPage() {
         .catch(() => getWatchlistQuotes(DEFAULT_TICKER_SYMBOLS).then((r) => setTicker(r.quotes)).catch(() => {})),
       listAlerts().then((r) => setAlerts(r.alerts)).catch(() => {}),
       getIntelStatus().then((r) => setIntelSources(r.sources)).catch(() => {}),
+      getTensionIndex().then((r) => setTension(r)).catch(() => {}),
     ]).finally(() => { setLoading(false); setLastRefresh(Date.now()); });
   }, []);
 
@@ -84,6 +86,49 @@ export function DashboardPage() {
         }
       />
 
+      {/* Global Tension Index + Geo Event Ticker */}
+      {tension && (
+        <div className="mb-4 animate-slide-up" style={{ animationDelay: '0.03s' }}>
+          <div className="flex items-center gap-3 mb-2">
+            <Link to="/geo-signals" className="flex items-center gap-2 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] px-3 py-2 transition-all duration-200 hover:border-[var(--color-border-default)]">
+              <Activity size={14} className="text-[var(--color-accent)]" />
+              <div>
+                <p className="text-[8px] font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Global Tension Index</p>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-sm font-bold text-[var(--color-text-primary)]">{tension.score}</span>
+                  <span className={`text-[10px] font-semibold ${tension.change >= 0 ? 'text-[var(--color-loss)]' : 'text-[var(--color-profit)]'}`}>
+                    {tension.change >= 0 ? '+' : ''}{tension.change}
+                  </span>
+                  <span className={`rounded px-1.5 py-0.5 text-[8px] font-bold ${
+                    tension.level === 'CRITICAL' ? 'bg-red-500/20 text-red-400' :
+                    tension.level === 'HIGH' ? 'bg-orange-500/20 text-orange-400' :
+                    tension.level === 'ELEVATED' ? 'bg-amber-500/20 text-amber-400' :
+                    tension.level === 'MODERATE' ? 'bg-blue-500/20 text-blue-400' :
+                    'bg-emerald-500/20 text-emerald-400'
+                  }`}>{tension.level}</span>
+                </div>
+              </div>
+            </Link>
+            {tension.triggers.length > 0 && (
+              <div className="flex-1 overflow-x-auto">
+                <div className="flex gap-2">
+                  {tension.triggers.slice(0, 4).map((t, i) => (
+                    <Link key={i} to="/geo-signals" className="flex shrink-0 items-center gap-2 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] px-3 py-1.5 text-[11px] transition-all duration-200 hover:border-[var(--color-border-default)]">
+                      <span className={`h-2 w-2 shrink-0 rounded-full ${t.severity >= 70 ? 'bg-red-500 animate-pulse' : t.severity >= 40 ? 'bg-amber-500' : 'bg-blue-500'}`} />
+                      <span className="font-medium text-[var(--color-text-primary)] max-w-[180px] truncate">{t.title}</span>
+                      <span className="text-[9px] text-[var(--color-text-muted)]">{t.region}</span>
+                      <span className={`rounded px-1 py-0.5 text-[8px] font-bold ${t.severity >= 70 ? 'text-red-400' : t.severity >= 40 ? 'text-amber-400' : 'text-blue-400'}`}>
+                        {t.severity >= 70 ? 'CRITICAL' : t.severity >= 40 ? 'HIGH' : 'MEDIUM'}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Market ticker strip */}
       {ticker.length > 0 && (
         <div className="mb-5 overflow-x-auto animate-slide-up" style={{ animationDelay: '0.05s' }}>
@@ -125,6 +170,7 @@ export function DashboardPage() {
           <QuickAction to="/portfolio" icon={BarChart3} label="Portfolio" />
           <QuickAction to="/analytics" icon={Activity} label="Analytics" />
           <QuickAction to="/risk" icon={Shield} label="Risk Matrix" />
+          <QuickAction to="/geo-signals" icon={Globe} label="Geo Signals" />
           <QuickAction to="/ai" icon={Brain} label="AI Pulse" />
           <QuickAction to="/alerts" icon={Bell} label="Alerts" />
         </div>

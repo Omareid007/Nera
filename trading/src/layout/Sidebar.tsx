@@ -21,6 +21,7 @@ import {
   Eye,
   GitCompare,
   Target,
+  Globe,
 } from 'lucide-react';
 
 const NAV_SECTIONS = [
@@ -56,6 +57,7 @@ const NAV_SECTIONS = [
   {
     label: 'Intelligence',
     items: [
+      { to: '/geo-signals', icon: Globe, label: 'Geo Signals' },
       { to: '/ai', icon: Brain, label: 'AI Pulse' },
       { to: '/research', icon: Search, label: 'Research' },
       { to: '/evidence', icon: FileCheck, label: 'Evidence' },
