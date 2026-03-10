@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { PlusCircle, Play, FlaskConical, Brain, Loader2, ArrowRightLeft, Shield, Globe, FileCheck, BarChart3, Activity, RefreshCw, TrendingUp, TrendingDown, Bell } from 'lucide-react';
+import { PlusCircle, Play, FlaskConical, Brain, ArrowRightLeft, Shield, Globe, FileCheck, BarChart3, Activity, RefreshCw, TrendingUp, TrendingDown, Bell, Zap } from 'lucide-react';
 import { PageHeader } from '@/components/PageHeader';
 import { MetricCard } from '@/components/MetricCard';
 import { StatusBadge } from '@/components/StatusBadge';
@@ -47,7 +47,6 @@ export function DashboardPage() {
 
   useEffect(() => { fetchAll(); }, [fetchAll]);
 
-  // Auto-refresh every 60s
   useEffect(() => {
     if (!autoRefresh) return;
     const id = window.setInterval(fetchAll, 60_000);
@@ -59,34 +58,42 @@ export function DashboardPage() {
   const activeAlerts = alerts.filter((a) => a.status === 'active').length;
   const triggeredAlerts = alerts.filter((a) => a.status === 'triggered').length;
 
-  if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={24} /></div>;
+  if (loading) return (
+    <div className="flex flex-col items-center justify-center py-20 gap-3">
+      <div className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--color-accent)] border-t-transparent" />
+      <span className="text-[13px] text-[var(--color-text-muted)]">Loading dashboard...</span>
+    </div>
+  );
 
   return (
-    <div>
-      <PageHeader title="Command Center" description="Unified intelligence — portfolio, strategies, AI activity, and global intelligence feeds"
+    <div className="animate-fade-in">
+      <PageHeader title="Command Center" description="Portfolio, strategies, AI activity, and global intelligence"
         actions={
           <div className="flex items-center gap-2">
             <button onClick={() => setAutoRefresh(!autoRefresh)}
-              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium ${
-                autoRefresh ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-[var(--color-surface-2)] text-[var(--color-text-tertiary)]'
+              className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-semibold transition-all duration-200 ${
+                autoRefresh
+                  ? 'bg-[var(--color-accent)]/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20'
+                  : 'bg-[var(--color-surface-2)] text-[var(--color-text-tertiary)] border border-[var(--color-border-subtle)]'
               }`}>
-              <RefreshCw size={12} className={autoRefresh ? 'animate-spin' : ''} /> {autoRefresh ? 'Live' : 'Paused'}
+              <RefreshCw size={11} className={autoRefresh ? 'animate-spin' : ''} />
+              {autoRefresh ? 'Live' : 'Paused'}
             </button>
             <span className="text-[10px] text-[var(--color-text-muted)]">{timeAgo(lastRefresh)}</span>
           </div>
         }
       />
 
-      {/* Live market ticker */}
+      {/* Market ticker strip */}
       {ticker.length > 0 && (
-        <div className="mb-4 overflow-x-auto">
+        <div className="mb-5 overflow-x-auto animate-slide-up" style={{ animationDelay: '0.05s' }}>
           <div className="flex gap-2">
             {ticker.map((q) => (
               <Link key={q.symbol} to={`/analytics?symbol=${q.symbol}`}
-                className="flex shrink-0 items-center gap-2 rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] px-3 py-2 text-xs transition-colors hover:border-[var(--color-accent)]">
-                <span className="font-medium text-[var(--color-text-primary)]">{q.symbol}</span>
+                className="group flex shrink-0 items-center gap-2.5 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] px-3 py-2 text-[12px] transition-all duration-200 hover:border-[var(--color-border-default)] hover:shadow-sm">
+                <span className="font-semibold text-[var(--color-text-primary)]">{q.symbol}</span>
                 <span className="text-[var(--color-text-secondary)]">${q.price.toFixed(2)}</span>
-                <span className={`flex items-center gap-0.5 font-medium ${q.changePct >= 0 ? 'text-[var(--color-profit)]' : 'text-[var(--color-loss)]'}`}>
+                <span className={`flex items-center gap-0.5 font-semibold ${q.changePct >= 0 ? 'text-[var(--color-profit)]' : 'text-[var(--color-loss)]'}`}>
                   {q.changePct >= 0 ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
                   {q.changePct >= 0 ? '+' : ''}{q.changePct.toFixed(2)}%
                 </span>
@@ -96,10 +103,10 @@ export function DashboardPage() {
         </div>
       )}
 
-      {/* Top metrics row */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-6">
+      {/* Metrics row */}
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-6 animate-slide-up" style={{ animationDelay: '0.1s' }}>
         <MetricCard label="Total Equity" value={portfolio ? `$${portfolio.totalEquity.toLocaleString()}` : '$100,000'} subtitle="Paper account" />
-        <MetricCard label="Total P&L" value={portfolio ? `$${portfolio.totalPnl.toLocaleString(undefined, { maximumFractionDigits: 2 })}` : '$0.00'}
+        <MetricCard label="Total P&L" value={portfolio ? `$${portfolio.totalPnl.toLocaleString(undefined, { maximumFractionDigits: 2 })}` : '$0'}
           change={portfolio ? portfolio.totalPnlPct : 0} />
         <MetricCard label="Strategies" value={String(strategies.length)} subtitle={activeStrategies > 0 ? `${activeStrategies} active` : undefined} />
         <MetricCard label="Backtests" value={String(backtests.length)} subtitle={backtests.filter((b) => b.status === 'complete').length > 0 ? `${backtests.filter((b) => b.status === 'complete').length} complete` : undefined} />
@@ -108,10 +115,10 @@ export function DashboardPage() {
       </div>
 
       {/* Quick actions */}
-      <div className="mt-8">
-        <h2 className="mb-3 text-sm font-semibold text-[var(--color-text-tertiary)]">Quick Actions</h2>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-9">
-          <QuickAction to="/create" icon={PlusCircle} label="Create Strategy" />
+      <div className="mt-7 animate-slide-up" style={{ animationDelay: '0.15s' }}>
+        <h2 className="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--color-text-muted)]">Quick Actions</h2>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-9">
+          <QuickAction to="/create" icon={PlusCircle} label="Create Strategy" accent />
           <QuickAction to="/backtests" icon={FlaskConical} label="Backtests" />
           <QuickAction to="/forward" icon={Play} label="Forward Runner" />
           <QuickAction to="/execution" icon={ArrowRightLeft} label="Execution" />
@@ -123,20 +130,22 @@ export function DashboardPage() {
         </div>
       </div>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-3">
-        {/* Left column — Strategies + Backtests */}
-        <div className="lg:col-span-2 space-y-6">
+      <div className="mt-7 grid gap-5 lg:grid-cols-3 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+        {/* Left column */}
+        <div className="lg:col-span-2 space-y-5">
           {/* Active forward runs */}
           {runningForward > 0 && (
             <div>
-              <div className="mb-3 flex items-center justify-between">
-                <h2 className="flex items-center gap-2 text-sm font-semibold text-[var(--color-text-tertiary)]"><Activity size={14} className="text-[var(--color-profit)]" /> Active Runners</h2>
-                <Link to="/forward" className="text-xs text-[var(--color-accent)] hover:underline">View all</Link>
+              <div className="mb-2.5 flex items-center justify-between">
+                <h2 className="flex items-center gap-2 text-[12px] font-semibold text-[var(--color-text-tertiary)]">
+                  <Zap size={13} className="text-[var(--color-accent)]" /> Active Runners
+                </h2>
+                <Link to="/forward" className="text-[11px] font-medium text-[var(--color-accent)] hover:underline">View all</Link>
               </div>
               <div className="space-y-1.5">
                 {forwardRuns.filter((r) => r.status === 'running').map((r) => (
-                  <Link key={r.id} to="/forward" className="flex items-center justify-between rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-3 text-xs transition-colors hover:border-emerald-500/50">
-                    <div><span className="font-medium text-[var(--color-text-primary)]">{r.strategyName}</span></div>
+                  <Link key={r.id} to="/forward" className="flex items-center justify-between rounded-lg border border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 p-3 text-[12px] transition-all duration-200 hover:border-[var(--color-accent)]/40">
+                    <span className="font-medium text-[var(--color-text-primary)]">{r.strategyName}</span>
                     <StatusBadge status="running" />
                   </Link>
                 ))}
@@ -146,25 +155,32 @@ export function DashboardPage() {
 
           {/* Recent strategies */}
           <div>
-            <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-sm font-semibold text-[var(--color-text-tertiary)]">Recent Strategies</h2>
-              {strategies.length > 0 && <Link to="/strategies" className="text-xs text-[var(--color-accent)] hover:underline">View all</Link>}
+            <div className="mb-2.5 flex items-center justify-between">
+              <h2 className="text-[12px] font-semibold text-[var(--color-text-tertiary)]">Recent Strategies</h2>
+              {strategies.length > 0 && <Link to="/strategies" className="text-[11px] font-medium text-[var(--color-accent)] hover:underline">View all</Link>}
             </div>
             {strategies.length === 0 ? (
-              <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-6">
-                <div className="flex flex-col items-center justify-center py-6 text-center">
-                  <PlusCircle size={32} className="mb-3 text-[var(--color-text-muted)]" />
-                  <p className="text-sm text-[var(--color-text-secondary)]">No strategies yet</p>
-                  <Link to="/create" className="mt-3 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-[var(--color-surface-0)]">Create your first strategy</Link>
+              <div className="rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-8">
+                <div className="flex flex-col items-center justify-center text-center">
+                  <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-surface-2)]">
+                    <PlusCircle size={24} className="text-[var(--color-text-muted)]" />
+                  </div>
+                  <p className="text-[13px] font-medium text-[var(--color-text-secondary)]">No strategies yet</p>
+                  <p className="mt-1 text-[11px] text-[var(--color-text-muted)]">Create your first strategy to get started</p>
+                  <Link to="/create" className="mt-4 rounded-lg bg-[var(--color-accent)] px-5 py-2 text-[13px] font-semibold text-[#121417] transition-all duration-200 hover:brightness-110 hover:shadow-[0_2px_12px_rgba(90,197,58,0.3)]">
+                    Create Strategy
+                  </Link>
                 </div>
               </div>
             ) : (
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 {strategies.slice(0, 5).map((s) => (
                   <Link key={s.id} to={`/strategy/${s.id}`}
-                    className="flex items-center justify-between rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-3 text-xs transition-colors hover:border-[var(--color-border-default)]">
-                    <div><span className="font-medium text-[var(--color-text-primary)]">{s.name}</span>
-                      <span className="ml-2 text-[var(--color-text-tertiary)]">{s.templateId}</span></div>
+                    className="flex items-center justify-between rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-3 text-[12px] transition-all duration-200 hover:border-[var(--color-border-default)] hover:bg-[var(--color-surface-2)]">
+                    <div>
+                      <span className="font-medium text-[var(--color-text-primary)]">{s.name}</span>
+                      <span className="ml-2 text-[var(--color-text-muted)]">{s.templateId}</span>
+                    </div>
                     <StatusBadge status={s.status as 'draft' | 'active' | 'paper'} />
                   </Link>
                 ))}
@@ -175,19 +191,21 @@ export function DashboardPage() {
           {/* Recent backtests */}
           {backtests.length > 0 && (
             <div>
-              <div className="mb-3 flex items-center justify-between">
-                <h2 className="text-sm font-semibold text-[var(--color-text-tertiary)]">Recent Backtests</h2>
-                <Link to="/backtests" className="text-xs text-[var(--color-accent)] hover:underline">View all</Link>
+              <div className="mb-2.5 flex items-center justify-between">
+                <h2 className="text-[12px] font-semibold text-[var(--color-text-tertiary)]">Recent Backtests</h2>
+                <Link to="/backtests" className="text-[11px] font-medium text-[var(--color-accent)] hover:underline">View all</Link>
               </div>
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 {backtests.slice(0, 5).map((bt) => (
                   <Link key={bt.id} to={`/backtests?id=${bt.id}`}
-                    className="flex items-center justify-between rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-3 text-xs transition-colors hover:border-[var(--color-border-default)]">
-                    <div><span className="font-medium text-[var(--color-text-primary)]">{bt.strategyName}</span>
-                      <span className="ml-2 text-[var(--color-text-tertiary)]">{new Date(bt.createdAt).toLocaleDateString()}</span></div>
+                    className="flex items-center justify-between rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-3 text-[12px] transition-all duration-200 hover:border-[var(--color-border-default)] hover:bg-[var(--color-surface-2)]">
+                    <div>
+                      <span className="font-medium text-[var(--color-text-primary)]">{bt.strategyName}</span>
+                      <span className="ml-2 text-[var(--color-text-muted)]">{new Date(bt.createdAt).toLocaleDateString()}</span>
+                    </div>
                     <div className="flex items-center gap-2">
                       {bt.totalReturn !== null && (
-                        <span className={bt.totalReturn >= 0 ? 'font-medium text-[var(--color-profit)]' : 'font-medium text-[var(--color-loss)]'}>
+                        <span className={`font-semibold ${bt.totalReturn >= 0 ? 'text-[var(--color-profit)]' : 'text-[var(--color-loss)]'}`}>
                           {bt.totalReturn >= 0 ? '+' : ''}{bt.totalReturn.toFixed(2)}%
                         </span>
                       )}
@@ -200,21 +218,21 @@ export function DashboardPage() {
           )}
         </div>
 
-        {/* Right sidebar — Intelligence feeds */}
-        <div className="space-y-6">
+        {/* Right sidebar */}
+        <div className="space-y-5">
           {/* AI Activity */}
           <div>
-            <div className="mb-3 flex items-center justify-between">
-              <h2 className="flex items-center gap-2 text-sm font-semibold text-[var(--color-text-tertiary)]"><Brain size={14} /> AI Activity</h2>
-              <Link to="/ai" className="text-xs text-[var(--color-accent)] hover:underline">View all</Link>
+            <div className="mb-2.5 flex items-center justify-between">
+              <h2 className="flex items-center gap-1.5 text-[12px] font-semibold text-[var(--color-text-tertiary)]"><Brain size={13} /> AI Activity</h2>
+              <Link to="/ai" className="text-[11px] font-medium text-[var(--color-accent)] hover:underline">View all</Link>
             </div>
-            <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+            <div className="rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
               {aiEvents.length === 0 ? (
-                <p className="text-xs text-[var(--color-text-muted)]">No AI activity yet. Request an AI interpretation on a strategy.</p>
+                <p className="text-[12px] text-[var(--color-text-muted)]">No AI activity yet. Request an AI interpretation on a strategy.</p>
               ) : (
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   {aiEvents.slice(0, 5).map((ev) => (
-                    <div key={ev.id} className="flex items-center justify-between text-xs">
+                    <div key={ev.id} className="flex items-center justify-between text-[11px]">
                       <span className="text-[var(--color-text-secondary)]">{ev.type.replace(/_/g, ' ')}</span>
                       <span className="text-[var(--color-text-muted)]">{timeAgo(ev.timestamp)}</span>
                     </div>
@@ -224,44 +242,47 @@ export function DashboardPage() {
             </div>
           </div>
 
-          {/* Intel sources — live status */}
+          {/* Intel Sources */}
           <div>
-            <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[var(--color-text-tertiary)]"><Globe size={14} /> Intel Sources</h2>
-            <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
-              <div className="space-y-2">
+            <h2 className="mb-2.5 flex items-center gap-1.5 text-[12px] font-semibold text-[var(--color-text-tertiary)]"><Globe size={13} /> Intel Sources</h2>
+            <div className="rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+              <div className="space-y-2.5">
                 {intelSources.length > 0 ? intelSources.map((src) => (
-                  <div key={src.name} className="flex items-center justify-between text-xs">
+                  <div key={src.name} className="flex items-center justify-between text-[11px]">
                     <div className="flex items-center gap-2">
                       <div className={`h-1.5 w-1.5 rounded-full ${
-                        src.status === 'live' ? 'bg-emerald-400' :
-                        src.status === 'stale' ? 'bg-amber-400' :
-                        src.status === 'down' ? 'bg-red-400' : 'bg-gray-400'
+                        src.status === 'live' ? 'bg-[var(--color-active)]' :
+                        src.status === 'stale' ? 'bg-[var(--color-warning)]' :
+                        src.status === 'down' ? 'bg-[var(--color-loss)]' : 'bg-[var(--color-text-muted)]'
                       }`} />
                       <span className="text-[var(--color-text-secondary)]">{src.name}</span>
                     </div>
                     <span className="text-[10px] text-[var(--color-text-muted)]">{src.impact}</span>
                   </div>
                 )) : (
-                  <p className="text-xs text-[var(--color-text-muted)]">Loading intel sources...</p>
+                  <div className="space-y-2">
+                    {[1,2,3].map(i => (
+                      <div key={i} className="h-4 rounded animate-shimmer" />
+                    ))}
+                  </div>
                 )}
               </div>
-              <a href="/" className="mt-3 block text-center text-xs text-[var(--color-accent)] hover:underline">Open Intelligence Hub</a>
             </div>
           </div>
 
-          {/* Evidence trail */}
+          {/* Audit Trail */}
           <div>
-            <div className="mb-3 flex items-center justify-between">
-              <h2 className="flex items-center gap-2 text-sm font-semibold text-[var(--color-text-tertiary)]"><FileCheck size={14} /> Audit Trail</h2>
-              <Link to="/evidence" className="text-xs text-[var(--color-accent)] hover:underline">View all</Link>
+            <div className="mb-2.5 flex items-center justify-between">
+              <h2 className="flex items-center gap-1.5 text-[12px] font-semibold text-[var(--color-text-tertiary)]"><FileCheck size={13} /> Audit Trail</h2>
+              <Link to="/evidence" className="text-[11px] font-medium text-[var(--color-accent)] hover:underline">View all</Link>
             </div>
-            <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+            <div className="rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
               {evidence.length === 0 ? (
-                <p className="text-xs text-[var(--color-text-muted)]">No audit events yet.</p>
+                <p className="text-[12px] text-[var(--color-text-muted)]">No audit events yet.</p>
               ) : (
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   {evidence.slice(0, 5).map((ev) => (
-                    <div key={ev.id} className="flex items-center justify-between text-xs">
+                    <div key={ev.id} className="flex items-center justify-between text-[11px]">
                       <span className="text-[var(--color-text-secondary)]">{ev.summary}</span>
                       <span className="text-[var(--color-text-muted)]">{timeAgo(ev.timestamp)}</span>
                     </div>
@@ -276,11 +297,16 @@ export function DashboardPage() {
   );
 }
 
-function QuickAction({ to, icon: Icon, label }: { to: string; icon: typeof PlusCircle; label: string }) {
+function QuickAction({ to, icon: Icon, label, accent }: { to: string; icon: typeof PlusCircle; label: string; accent?: boolean }) {
   return (
     <Link to={to}
-      className="flex items-center gap-2 rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-3 text-sm text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]">
-      <Icon size={16} /><span>{label}</span>
+      className={`group flex items-center gap-2 rounded-lg border p-2.5 text-[12px] font-medium transition-all duration-200 ${
+        accent
+          ? 'border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 text-[var(--color-accent)] hover:bg-[var(--color-accent)]/10 hover:border-[var(--color-accent)]/40'
+          : 'border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] text-[var(--color-text-secondary)] hover:border-[var(--color-border-default)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface-2)]'
+      }`}>
+      <Icon size={15} className="shrink-0 transition-transform duration-150 group-hover:scale-110" />
+      <span className="truncate">{label}</span>
     </Link>
   );
 }

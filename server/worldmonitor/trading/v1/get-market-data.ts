@@ -9,6 +9,7 @@
 import { parseBody, jsonResponse, errorResponse } from './handler';
 import { isValidSymbol } from './_shared';
 import { CHROME_UA } from '../../../_shared/constants';
+import { getCachedJson, setCachedJson } from '../../../_shared/redis';
 
 interface Candle {
   timestamp: number;
@@ -146,6 +147,12 @@ export async function getMarketData(req: Request): Promise<Response> {
   if (!VALID_INTERVALS.includes(interval)) return errorResponse(`Invalid interval: ${interval}`);
   if (!VALID_RANGES.includes(range)) return errorResponse(`Invalid range: ${range}`);
 
+  // Cache market data to reduce Yahoo rate-limiting on Replit
+  const cacheKey = `trading:market-data:${symbol}:${interval}:${range}`;
+  const cacheTtl = interval === '1d' ? 300 : interval === '1h' ? 120 : 60; // seconds
+  const cached = await getCachedJson(cacheKey);
+  if (cached) return jsonResponse(cached);
+
   try {
     const url = `https://query2.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?interval=${interval}&range=${range}&includePrePost=false`;
     const res = await fetch(url, {
@@ -276,6 +283,9 @@ export async function getMarketData(req: Request): Promise<Response> {
       macdHistogram: sanitizeArray(macdHistogram),
       volumeSma20: sanitizeArray(volumeSma20),
     };
+
+    // Cache the result to reduce rate limiting
+    await setCachedJson(cacheKey, data, cacheTtl).catch(() => {});
 
     return jsonResponse(data);
   } catch {

@@ -1,3 +1,5 @@
+import { TrendingUp, TrendingDown } from 'lucide-react';
+
 interface MetricCardProps {
   label: string;
   value: string;
@@ -25,12 +27,26 @@ export function MetricCard({ label, value, change, changeType, subtitle }: Metri
     neutral: 'text-[var(--color-text-secondary)]',
   }[resolvedType];
 
+  const changeBg = {
+    profit: 'bg-[var(--color-profit-bg)]',
+    loss: 'bg-[var(--color-loss-bg)]',
+    neutral: 'bg-[var(--color-surface-2)]',
+  }[resolvedType];
+
   return (
-    <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
-      <p className="text-xs font-medium text-[var(--color-text-tertiary)]">{label}</p>
-      <p className="mt-1 text-xl font-semibold text-[var(--color-text-primary)]">{value}</p>
-      {displayChange && <p className={`mt-0.5 text-xs font-medium ${changeColor}`}>{displayChange}</p>}
-      {subtitle && <p className="mt-0.5 text-xs text-[var(--color-text-muted)]">{subtitle}</p>}
+    <div className="group rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4 transition-all duration-200 hover:border-[var(--color-border-default)] hover:shadow-[0_2px_8px_rgba(0,0,0,0.12)]">
+      <p className="text-[11px] font-medium uppercase tracking-wide text-[var(--color-text-tertiary)]">{label}</p>
+      <p className="mt-1.5 text-2xl font-bold tracking-tight text-[var(--color-text-primary)]">{value}</p>
+      <div className="mt-1.5 flex items-center gap-2">
+        {displayChange && (
+          <span className={`inline-flex items-center gap-0.5 rounded-md px-1.5 py-0.5 text-[11px] font-semibold ${changeColor} ${changeBg}`}>
+            {resolvedType === 'profit' && <TrendingUp size={10} />}
+            {resolvedType === 'loss' && <TrendingDown size={10} />}
+            {displayChange}
+          </span>
+        )}
+        {subtitle && <span className="text-[11px] text-[var(--color-text-muted)]">{subtitle}</span>}
+      </div>
     </div>
   );
 }
