@@ -28,7 +28,8 @@ interface GulfSymbolMeta {
   name: string;
   country: string;
   flag: string;
-  type: 'index' | 'currency' | 'oil';
+  type: 'index' | 'stock' | 'currency' | 'oil';
+  exchange?: string;
 }
 
 const GULF_SYMBOLS: GulfSymbolMeta[] = gulfConfig.symbols as GulfSymbolMeta[];

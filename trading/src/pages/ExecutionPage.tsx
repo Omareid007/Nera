@@ -44,7 +44,7 @@ export function ExecutionPage() {
       <PageHeader title="Execution Center" description="Paper order submission, fills, and execution history"
         actions={<StatusBadge status="paper" label="PAPER MODE" />} />
 
-      <div className="mb-6 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+      <div className="mb-6 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
         <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Quick Order (Paper)</h3>
         <div className="flex flex-wrap items-end gap-3">
           <div>
@@ -103,14 +103,14 @@ export function ExecutionPage() {
       {loading ? (
         <div className="flex justify-center py-12"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={20} /></div>
       ) : filtered.length === 0 ? (
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12">
           <div className="flex flex-col items-center justify-center text-center">
             <ArrowRightLeft size={28} className="mb-3 text-[var(--color-text-muted)]" />
             <p className="text-sm text-[var(--color-text-secondary)]">No execution activity. Submit a paper order above or use the Forward Runner.</p>
           </div>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-2xl border border-[var(--color-border-subtle)]">
+        <div className="overflow-hidden rounded-lg border border-[var(--color-border-subtle)]">
           <table className="w-full text-xs">
             <thead className="bg-[var(--color-surface-2)]">
               <tr className="text-left text-[var(--color-text-tertiary)]">
@@ -129,7 +129,7 @@ export function ExecutionPage() {
                   <td className="px-4 py-2.5 text-[var(--color-text-muted)]">{timeAgo(entry.timestamp)}</td>
                   <td className="px-4 py-2.5">
                     <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase ${
-                      entry.type === 'fill' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-blue-500/20 text-blue-400'
+                      entry.type === 'fill' ? 'bg-teal-500/20 text-teal-400' : 'bg-blue-500/20 text-blue-400'
                     }`}>{entry.type}</span>
                   </td>
                   <td className="px-4 py-2.5 font-medium text-[var(--color-text-primary)]">{entry.symbol ?? '-'}</td>

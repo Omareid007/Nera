@@ -10,14 +10,24 @@ import { PageHeader } from '@/components/PageHeader';
 import { getWatchlistQuotes, listWatchlists, createWatchlist, getWatchlistById, deleteWatchlist, type WatchlistQuote, type WatchlistIndexEntry } from '@/lib/api';
 
 const PRESET_WATCHLISTS: Record<string, string[]> = {
-  'Mega Cap Tech': ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA'],
-  'Market Indices': ['SPY', 'QQQ', 'DIA', 'IWM', 'VTI'],
-  'Crypto Majors': ['BTC-USD', 'ETH-USD', 'SOL-USD', 'BNB-USD', 'ADA-USD'],
-  'Sector ETFs': ['XLK', 'XLF', 'XLE', 'XLV', 'XLI', 'XLU', 'XLP', 'XLB', 'XLC', 'XLRE', 'XLY'],
-  'Commodities': ['GLD', 'SLV', 'USO', 'UNG', 'DBA', 'DBB'],
+  'US Mega Cap': ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'BRK-B', 'JPM', 'V'],
+  'US Growth': ['PLTR', 'COIN', 'UBER', 'ABNB', 'SNOW', 'SQ', 'SHOP', 'NFLX', 'CRM', 'AMD'],
+  'Market Indices': ['SPY', 'QQQ', 'DIA', 'IWM', 'VTI', 'EFA', 'EEM', 'VWO'],
+  'UK & Europe': ['SHEL.L', 'AZN.L', 'HSBA.L', 'SAP.DE', 'SIE.DE', 'MC.PA', 'SAN.MC', 'NESN.SW'],
+  'Japan': ['7203.T', '6758.T', '9984.T', '7974.T', '8035.T', '6861.T', '6501.T'],
+  'India': ['RELIANCE.NS', 'TCS.NS', 'HDFCBANK.NS', 'INFY.NS', 'ICICIBANK.NS', 'ITC.NS'],
+  'Saudi Arabia': ['2222.SR', '1180.SR', '2010.SR', '7010.SR', '1010.SR', '1211.SR'],
+  'UAE': ['FAB.AE', 'ETISALAT.AE', 'EMAAR.AE', 'DIB.AE', 'ALDAR.AE', 'DAMAC.AE'],
+  'Egypt': ['COMI.CA', 'HRHO.CA', 'TMGH.CA', 'SWDY.CA', 'ETEL.CA', 'EFIH.CA'],
+  'Crypto Majors': ['BTC-USD', 'ETH-USD', 'SOL-USD', 'BNB-USD', 'ADA-USD', 'XRP-USD', 'DOT-USD'],
+  'Crypto DeFi': ['UNI-USD', 'LINK-USD', 'AVAX-USD', 'NEAR-USD', 'INJ-USD', 'GRT-USD', 'ARB-USD'],
+  'Forex Majors': ['EURUSD=X', 'GBPUSD=X', 'USDJPY=X', 'AUDUSD=X', 'USDCAD=X', 'USDCHF=X'],
+  'Gulf Currencies': ['SARUSD=X', 'AEDUSD=X', 'KWDUSD=X', 'BHDUSD=X', 'OMRUSD=X', 'QARUSD=X'],
+  'Sector ETFs': ['XLK', 'XLF', 'XLE', 'XLV', 'XLI', 'XLU', 'XLP', 'XLB', 'XLC', 'XLRE', 'XLY', 'SMH'],
+  'Commodities': ['GLD', 'SLV', 'USO', 'UNG', 'DBA', 'DBB', 'CPER', 'WEAT', 'CORN'],
+  'Bonds & Rates': ['TLT', 'IEF', 'SHY', 'LQD', 'HYG', 'AGG', 'EMB', 'TIP'],
   'Defense & Aerospace': ['LMT', 'RTX', 'NOC', 'BA', 'GD', 'HII'],
-  'Energy Majors': ['XOM', 'CVX', 'COP', 'SLB', 'EOG', 'MPC'],
-  'Emerging Markets': ['EEM', 'VWO', 'IEMG', 'MCHI', 'EWZ', 'EWJ'],
+  'Energy Majors': ['XOM', 'CVX', 'COP', 'SLB', 'EOG', 'MPC', 'BP.L', 'TTE.PA'],
 };
 
 type SortKey = 'symbol' | 'price' | 'changePct' | 'volume';
@@ -118,9 +128,9 @@ export function WatchlistPage() {
 
   // Heatmap color based on change %
   function heatColor(pct: number): string {
-    if (pct >= 3) return 'bg-emerald-500/30 text-emerald-300';
-    if (pct >= 1) return 'bg-emerald-500/15 text-emerald-400';
-    if (pct > 0) return 'bg-emerald-500/5 text-emerald-400';
+    if (pct >= 3) return 'bg-teal-500/30 text-teal-300';
+    if (pct >= 1) return 'bg-teal-500/15 text-teal-400';
+    if (pct > 0) return 'bg-teal-500/5 text-teal-400';
     if (pct === 0) return 'bg-[var(--color-surface-2)] text-[var(--color-text-secondary)]';
     if (pct > -1) return 'bg-red-500/5 text-red-400';
     if (pct > -3) return 'bg-red-500/15 text-red-400';
@@ -137,7 +147,7 @@ export function WatchlistPage() {
           <div className="flex items-center gap-2">
             <button onClick={() => setAutoRefresh(!autoRefresh)}
               className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium ${
-                autoRefresh ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-[var(--color-surface-2)] text-[var(--color-text-tertiary)]'
+                autoRefresh ? 'bg-teal-500/10 text-teal-400 border border-teal-500/30' : 'bg-[var(--color-surface-2)] text-[var(--color-text-tertiary)]'
               }`}>
               <RefreshCw size={12} className={autoRefresh ? 'animate-spin' : ''} /> {autoRefresh ? 'Live' : 'Paused'}
             </button>
@@ -195,7 +205,7 @@ export function WatchlistPage() {
               <input value={saveName} onChange={(e) => setSaveName(e.target.value)} placeholder="Watchlist name..."
                 className="w-36 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] px-3 py-1.5 text-sm text-[var(--color-text-primary)]" />
               <button type="button" onClick={handleSaveWatchlist}
-                className="flex items-center gap-1 rounded-lg bg-emerald-500/20 px-3 py-1.5 text-xs font-medium text-emerald-400 hover:bg-emerald-500/30">
+                className="flex items-center gap-1 rounded-lg bg-teal-500/20 px-3 py-1.5 text-xs font-medium text-teal-400 hover:bg-teal-500/30">
                 <Save size={12} /> Save
               </button>
             </>
@@ -218,7 +228,7 @@ export function WatchlistPage() {
       {/* Summary bar */}
       {quotes.length > 0 && (
         <div className="mb-4 flex gap-3 text-xs">
-          <span className="flex items-center gap-1 rounded-lg bg-emerald-500/10 px-3 py-1.5 font-medium text-emerald-400">
+          <span className="flex items-center gap-1 rounded-lg bg-teal-500/10 px-3 py-1.5 font-medium text-teal-400">
             <TrendingUp size={12} /> {gainers} Gainers
           </span>
           <span className="flex items-center gap-1 rounded-lg bg-red-500/10 px-3 py-1.5 font-medium text-red-400">
@@ -233,7 +243,7 @@ export function WatchlistPage() {
       {loading && quotes.length === 0 ? (
         <div className="flex justify-center py-20"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={24} /></div>
       ) : currentSymbols.length === 0 ? (
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12 text-center">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12 text-center">
           <Eye size={32} className="mx-auto mb-3 text-[var(--color-text-muted)]" />
           <p className="text-sm text-[var(--color-text-secondary)]">Add symbols to your custom watchlist to get started.</p>
         </div>
@@ -254,7 +264,7 @@ export function WatchlistPage() {
           </div>
 
           {/* Detailed table */}
-          <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+          <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
             <h4 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
               <BarChart3 size={12} /> Detailed Quotes
             </h4>

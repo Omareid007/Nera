@@ -134,7 +134,7 @@ export function CreateStrategyPage() {
                   const Icon = ICONS[t.id] ?? Wrench;
                   return (
                     <button key={t.id} onClick={() => selectTemplate(t)}
-                      className="group rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5 text-left transition-all hover:border-[var(--color-border-default)]">
+                      className="group rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5 text-left transition-all hover:border-[var(--color-border-default)]">
                       <div className="flex items-start justify-between">
                         <div className="rounded-xl bg-[var(--color-surface-2)] p-2.5 group-hover:bg-[var(--color-surface-3)]">
                           <Icon size={20} className="text-[var(--color-accent)]" />
@@ -184,7 +184,7 @@ export function CreateStrategyPage() {
               </div>
 
               {/* Dynamic fields */}
-              <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-6">
+              <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-6">
                 <div className="grid gap-5 sm:grid-cols-2">
                   {selectedTemplate.fields.filter((f) => !f.advanced).map((f) => <FieldInput key={f.key} field={f} value={params[f.key]} onChange={(v) => { setParams({ ...params, [f.key]: v }); setPreset('custom'); }} />)}
                 </div>
@@ -230,7 +230,7 @@ export function CreateStrategyPage() {
               </div>
 
               {universe.length > 0 ? (
-                <div className="flex flex-wrap gap-2 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+                <div className="flex flex-wrap gap-2 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
                   {universe.map((sym) => (
                     <span key={sym} className="flex items-center gap-1 rounded-lg bg-[var(--color-surface-3)] px-2.5 py-1 text-xs font-medium text-[var(--color-text-primary)]">
                       {sym}
@@ -239,7 +239,7 @@ export function CreateStrategyPage() {
                   ))}
                 </div>
               ) : (
-                <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-8">
+                <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-8">
                   <p className="text-center text-sm text-[var(--color-text-muted)]">Add at least one symbol to continue.</p>
                 </div>
               )}
@@ -256,7 +256,7 @@ export function CreateStrategyPage() {
               <h2 className="mb-1 text-lg font-medium text-[var(--color-text-primary)]">Risk Controls</h2>
               <p className="mb-6 text-sm text-[var(--color-text-secondary)]">Set guardrails to manage downside risk and position sizing.</p>
 
-              <div className="grid gap-5 sm:grid-cols-2 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-6">
+              <div className="grid gap-5 sm:grid-cols-2 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-6">
                 <RiskField label="Max Position Size (%)" value={riskLimits.maxPositionPct} onChange={(v) => setRiskLimits({ ...riskLimits, maxPositionPct: v })} min={1} max={100} description="Maximum allocation per position as % of portfolio" />
                 <RiskField label="Max Drawdown (%)" value={riskLimits.maxDrawdownPct} onChange={(v) => setRiskLimits({ ...riskLimits, maxDrawdownPct: v })} min={1} max={50} description="Halt strategy if drawdown exceeds this %" />
                 <RiskField label="Stop Loss (%)" value={riskLimits.stopLossPct} onChange={(v) => setRiskLimits({ ...riskLimits, stopLossPct: v })} min={0.5} max={30} description="Per-trade stop loss as % from entry" />
@@ -368,7 +368,7 @@ function RiskField({ label, value, onChange, min, max, description }: { label: s
 
 function ReviewSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5">
+    <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5">
       <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">{title}</h3>
       <div className="space-y-2">{children}</div>
     </div>

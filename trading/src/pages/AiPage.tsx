@@ -31,7 +31,7 @@ function typeBadge(type: string) {
 }
 
 function ConfidenceBar({ value }: { value: number }) {
-  const color = value >= 70 ? 'bg-emerald-500' : value >= 40 ? 'bg-amber-500' : 'bg-red-500';
+  const color = value >= 70 ? 'bg-teal-500' : value >= 40 ? 'bg-amber-500' : 'bg-red-500';
   return (
     <div className="flex items-center gap-2">
       <div className="h-1.5 flex-1 rounded-full bg-[var(--color-surface-2)]">
@@ -101,7 +101,7 @@ function AiEventCard({ entry, onExpand }: { entry: AiEventIndexEntry; onExpand: 
               <p className="text-sm text-[var(--color-text-secondary)]">{interpretation.summary}</p>
 
               <div>
-                <h4 className="mb-1 flex items-center gap-1 text-xs font-semibold text-emerald-400">
+                <h4 className="mb-1 flex items-center gap-1 text-xs font-semibold text-teal-400">
                   <Sparkles size={12} /> Strengths
                 </h4>
                 <ul className="space-y-0.5">
@@ -241,7 +241,7 @@ export function AiPage() {
           )}
 
           {!loadingEvents && events.length === 0 && (
-            <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-8">
+            <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-8">
               <div className="flex flex-col items-center justify-center text-center">
                 <Brain size={28} className="mb-3 text-[var(--color-text-muted)]" />
                 <p className="text-sm text-[var(--color-text-secondary)]">
@@ -272,7 +272,7 @@ export function AiPage() {
         {/* Sidebar */}
         <div>
           <h2 className="mb-3 text-sm font-semibold text-[var(--color-text-tertiary)]">Request AI Interpretation</h2>
-          <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+          <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
             {strategies.length === 0 ? (
               <p className="text-xs text-[var(--color-text-muted)]">
                 No strategies found. Create a strategy first.
@@ -297,7 +297,7 @@ export function AiPage() {
                 <button
                   onClick={handleInterpret}
                   disabled={interpreting || !selectedStrategyId}
-                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-[#121417] hover:brightness-110 disabled:opacity-50 transition-all duration-200"
+                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-[#0c0e12] hover:brightness-110 disabled:opacity-50 transition-all duration-200"
                 >
                   {interpreting ? (
                     <>
@@ -318,7 +318,7 @@ export function AiPage() {
           </div>
 
           <h2 className="mb-3 mt-6 text-sm font-semibold text-[var(--color-text-tertiary)]">Source Freshness</h2>
-          <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+          <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
             {events.length === 0 ? (
               <p className="text-xs text-[var(--color-text-muted)]">
                 No AI analyses yet.

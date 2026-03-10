@@ -104,7 +104,7 @@ export function DashboardPage() {
                     tension.level === 'HIGH' ? 'bg-orange-500/20 text-orange-400' :
                     tension.level === 'ELEVATED' ? 'bg-amber-500/20 text-amber-400' :
                     tension.level === 'MODERATE' ? 'bg-blue-500/20 text-blue-400' :
-                    'bg-emerald-500/20 text-emerald-400'
+                    'bg-teal-500/20 text-teal-400'
                   }`}>{tension.level}</span>
                 </div>
               </div>
@@ -213,7 +213,7 @@ export function DashboardPage() {
                   </div>
                   <p className="text-[13px] font-medium text-[var(--color-text-secondary)]">No strategies yet</p>
                   <p className="mt-1 text-[11px] text-[var(--color-text-muted)]">Create your first strategy to get started</p>
-                  <Link to="/create" className="mt-4 rounded-lg bg-[var(--color-accent)] px-5 py-2 text-[13px] font-semibold text-[#121417] transition-all duration-200 hover:brightness-110 hover:shadow-[0_2px_12px_rgba(90,197,58,0.3)]">
+                  <Link to="/create" className="mt-4 rounded-lg bg-[var(--color-accent)] px-5 py-2 text-[13px] font-semibold text-[#0c0e12] transition-all duration-200 hover:brightness-110 hover:shadow-[0_2px_12px_rgba(226,168,75,0.2)]">
                     Create Strategy
                   </Link>
                 </div>

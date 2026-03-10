@@ -41,7 +41,7 @@ export function RiskMatrixPage() {
   if (!analytics) return (
     <div>
       <PageHeader title="Risk Matrix" description="Aladdin-inspired portfolio risk decomposition and stress testing" />
-      <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12 text-center">
+      <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12 text-center">
         <Shield size={32} className="mx-auto mb-3 text-[var(--color-text-muted)]" />
         <p className="text-sm text-[var(--color-text-secondary)]">No risk data available. Open positions in your portfolio first.</p>
       </div>
@@ -94,7 +94,7 @@ export function RiskMatrixPage() {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         {/* Risk radar */}
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
           <h3 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
             <Target size={12} /> Risk Profile Radar
           </h3>
@@ -109,7 +109,7 @@ export function RiskMatrixPage() {
         </div>
 
         {/* Exposure breakdown */}
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
           <h3 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
             <Layers size={12} /> Exposure Breakdown
           </h3>
@@ -150,7 +150,7 @@ export function RiskMatrixPage() {
       </div>
 
       {/* Stress tests */}
-      <div className="mt-6 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+      <div className="mt-6 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
         <h3 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
           <AlertTriangle size={12} /> Stress Scenarios
         </h3>
@@ -196,7 +196,7 @@ export function RiskMatrixPage() {
 
       {/* Correlation matrix */}
       {a.correlationMatrix.symbols.length > 1 && (
-        <div className="mt-6 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+        <div className="mt-6 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
           <h3 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
             <Activity size={12} /> Correlation Matrix
           </h3>
@@ -231,7 +231,7 @@ export function RiskMatrixPage() {
 
       {/* Position-level risk table */}
       {hasPositions && (
-        <div className="mt-6 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+        <div className="mt-6 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
           <h3 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
             <TrendingDown size={12} /> Position Risk Decomposition
           </h3>

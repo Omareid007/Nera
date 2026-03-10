@@ -111,7 +111,7 @@ export function ForwardRunnerPage() {
         actions={<StatusBadge status="paper" label="PAPER ONLY" />} />
 
       {/* Controls */}
-      <div className="mb-6 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+      <div className="mb-6 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
         {!activeRun ? (
           <div className="flex flex-wrap items-end gap-3">
             <div>
@@ -145,7 +145,7 @@ export function ForwardRunnerPage() {
             </div>
             <div className="flex items-center gap-2">
               <button onClick={handleEvaluate} disabled={evaluating}
-                className="flex items-center gap-1.5 rounded-lg bg-[var(--color-accent)] px-3 py-1.5 text-xs font-medium text-[#121417] disabled:opacity-50 transition-all duration-200 hover:brightness-110">
+                className="flex items-center gap-1.5 rounded-lg bg-[var(--color-accent)] px-3 py-1.5 text-xs font-medium text-[#0c0e12] disabled:opacity-50 transition-all duration-200 hover:brightness-110">
                 {evaluating ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
                 {evaluating ? 'Evaluating...' : 'Evaluate Now'}
               </button>
@@ -181,7 +181,7 @@ export function ForwardRunnerPage() {
           <div className="mt-6">
             <h2 className="mb-3 text-sm font-semibold text-[var(--color-text-tertiary)]">Signal History ({activeRun.signals.length})</h2>
             {activeRun.signals.length === 0 ? (
-              <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-8 text-center">
+              <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-8 text-center">
                 <p className="text-sm text-[var(--color-text-muted)]">Click "Evaluate Now" to generate signals from live market data.</p>
               </div>
             ) : (
@@ -192,9 +192,9 @@ export function ForwardRunnerPage() {
       )}
 
       {!activeRun && (
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12">
           <div className="flex flex-col items-center justify-center text-center">
-            <div className="mb-4 rounded-2xl bg-[var(--color-surface-2)] p-4"><Play size={28} className="text-[var(--color-text-muted)]" /></div>
+            <div className="mb-4 rounded-lg bg-[var(--color-surface-2)] p-4"><Play size={28} className="text-[var(--color-text-muted)]" /></div>
             <h3 className="text-lg font-medium text-[var(--color-text-primary)]">No active runners</h3>
             <p className="mt-1 max-w-md text-sm text-[var(--color-text-secondary)]">
               Select a strategy and click "Start Runner" to begin evaluating against live market data. All signals are paper-only.

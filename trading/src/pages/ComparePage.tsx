@@ -131,7 +131,7 @@ export function ComparePage() {
       <PageHeader title="Strategy Comparison" description="Side-by-side backtest analysis — overlay equity curves, compare metrics, rank strategies" />
 
       {allRuns.length === 0 ? (
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12 text-center">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12 text-center">
           <BarChart3 size={32} className="mx-auto mb-3 text-[var(--color-text-muted)]" />
           <p className="text-sm text-[var(--color-text-secondary)]">No completed backtests to compare. Run backtests on your strategies first.</p>
         </div>
@@ -170,7 +170,7 @@ export function ComparePage() {
           {runs.length >= 2 && (
             <>
               {/* Overlay equity curves */}
-              <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+              <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
                 <h4 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
                   <TrendingUp size={12} /> Normalized Equity Curves (base = 100)
                 </h4>
@@ -195,7 +195,7 @@ export function ComparePage() {
               </div>
 
               {/* Metric bar chart */}
-              <div className="mt-4 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+              <div className="mt-4 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
                 <div className="mb-3 flex items-center justify-between">
                   <h4 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
                     <BarChart3 size={12} /> Metric Comparison
@@ -228,7 +228,7 @@ export function ComparePage() {
               </div>
 
               {/* Full metrics table */}
-              <div className="mt-4 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+              <div className="mt-4 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
                 <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Full Metrics Table</h4>
                 <div className="overflow-x-auto">
                   <table className="w-full text-xs">
@@ -285,7 +285,7 @@ export function ComparePage() {
           )}
 
           {runs.length < 2 && selectedIds.length > 0 && !loadingRuns && (
-            <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12 text-center">
+            <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12 text-center">
               <p className="text-sm text-[var(--color-text-secondary)]">Select at least 2 completed backtests to compare.</p>
             </div>
           )}

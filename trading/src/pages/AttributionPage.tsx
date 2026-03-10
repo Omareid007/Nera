@@ -114,7 +114,7 @@ export function AttributionPage() {
       <PageHeader title="Performance Attribution" description="Factor decomposition, return attribution, and trade distribution analysis" />
 
       {allRuns.length === 0 ? (
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12 text-center">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12 text-center">
           <Target size={32} className="mx-auto mb-3 text-[var(--color-text-muted)]" />
           <p className="text-sm text-[var(--color-text-secondary)]">No completed backtests for attribution analysis.</p>
         </div>
@@ -159,7 +159,7 @@ export function AttributionPage() {
 
               <div className="mt-6 grid gap-6 lg:grid-cols-2">
                 {/* Factor waterfall chart */}
-                <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+                <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
                   <h4 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
                     <BarChart3 size={12} /> Return Attribution Waterfall
                   </h4>
@@ -187,7 +187,7 @@ export function AttributionPage() {
 
                 {/* Exit reason pie */}
                 {exitReasons.length > 0 && (
-                  <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+                  <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
                     <h4 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
                       <PieIcon size={12} /> Exit Reason Distribution
                     </h4>
@@ -210,7 +210,7 @@ export function AttributionPage() {
 
               {/* Trade P&L distribution */}
               {tradeDistribution.length > 0 && (
-                <div className="mt-6 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+                <div className="mt-6 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
                   <h4 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
                     <Activity size={12} /> Trade P&L Distribution
                   </h4>
@@ -233,7 +233,7 @@ export function AttributionPage() {
 
               {/* Monthly returns */}
               {monthlyReturns.length > 0 && (
-                <div className="mt-6 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+                <div className="mt-6 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
                   <h4 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
                     <TrendingUp size={12} /> Monthly Returns
                   </h4>
@@ -257,7 +257,7 @@ export function AttributionPage() {
               )}
 
               {/* Key insights */}
-              <div className="mt-6 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5">
+              <div className="mt-6 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5">
                 <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Attribution Insights</h4>
                 <div className="space-y-2 text-xs text-[var(--color-text-secondary)]">
                   <p>

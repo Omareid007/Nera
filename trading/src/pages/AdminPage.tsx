@@ -204,7 +204,7 @@ export function AdminPage() {
 
           <div className="mt-6">
             <h2 className="mb-3 text-sm font-semibold text-[var(--color-text-tertiary)]">System</h2>
-            <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5">
+            <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5">
               <div className="grid gap-3 text-xs">
                 <InfoRow label="Platform" value="Nera" />
                 <InfoRow label="Version" value="2.0.0" />
@@ -233,7 +233,7 @@ export function AdminPage() {
             return (
               <div key={cat} className="mb-4">
                 <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">{cat}</h3>
-                <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+                <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
                   <div className="space-y-3">
                     {flags.map((flag) => (
                       <div key={flag.id} className="flex items-center justify-between">
@@ -264,7 +264,7 @@ export function AdminPage() {
 
           <div className="mt-6">
             <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Trading Limits</h3>
-            <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+            <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
               <div className="grid gap-3 text-xs sm:grid-cols-2">
                 <InfoRow label="Max Strategies" value={String(platformConfig.tradingLimits.maxStrategies)} />
                 <InfoRow label="Max Backtests/Day" value={String(platformConfig.tradingLimits.maxBacktestsPerDay)} />
@@ -277,7 +277,7 @@ export function AdminPage() {
 
           <div className="mt-6">
             <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">AI Model Policy</h3>
-            <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+            <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
               <div className="grid gap-3 text-xs sm:grid-cols-2">
                 <InfoRow label="Primary Provider" value={platformConfig.aiModelPolicy.primaryProvider} />
                 <InfoRow label="Fallback Providers" value={platformConfig.aiModelPolicy.fallbackProviders.join(', ') || 'None'} />
@@ -296,12 +296,12 @@ export function AdminPage() {
             All API mutation actions are logged automatically. {auditEntries.length} entries recorded.
           </p>
           {auditEntries.length === 0 ? (
-            <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-8 text-center">
+            <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-8 text-center">
               <ScrollText size={32} className="mx-auto mb-3 text-[var(--color-text-muted)]" />
               <p className="text-sm text-[var(--color-text-secondary)]">No audit entries yet. Actions will appear here as you use the platform.</p>
             </div>
           ) : (
-            <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] overflow-hidden">
+            <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] overflow-hidden">
               <table className="w-full text-xs">
                 <thead>
                   <tr className="border-b border-[var(--color-border-subtle)] bg-[var(--color-surface-2)]">
@@ -318,7 +318,7 @@ export function AdminPage() {
                       <td className="px-3 py-2 text-[var(--color-text-tertiary)]">{entry.actor}</td>
                       <td className="px-3 py-2">
                         <span className={`inline-block rounded-full px-1.5 py-0.5 text-[10px] font-medium ${
-                          entry.responseStatus < 300 ? 'bg-emerald-500/20 text-emerald-400' :
+                          entry.responseStatus < 300 ? 'bg-teal-500/20 text-teal-400' :
                           entry.responseStatus < 500 ? 'bg-amber-500/20 text-amber-400' :
                           'bg-red-500/20 text-red-400'
                         }`}>{entry.responseStatus}</span>
@@ -340,7 +340,7 @@ export function AdminPage() {
             Notification delivery history. Configure webhook URLs in Settings.
           </p>
           {notifications.length === 0 ? (
-            <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-8 text-center">
+            <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-8 text-center">
               <Bell size={32} className="mx-auto mb-3 text-[var(--color-text-muted)]" />
               <p className="text-sm text-[var(--color-text-secondary)]">No notifications sent yet.</p>
             </div>
@@ -348,7 +348,7 @@ export function AdminPage() {
             <div className="space-y-2">
               {notifications.slice(0, 50).map((n) => (
                 <div key={n.id} className={`flex items-center justify-between rounded-xl border p-3 text-xs ${
-                  n.status === 'sent' ? 'border-emerald-500/20 bg-emerald-500/5' :
+                  n.status === 'sent' ? 'border-teal-500/20 bg-teal-500/5' :
                   n.status === 'failed' ? 'border-red-500/20 bg-red-500/5' :
                   'border-[var(--color-border-subtle)] bg-[var(--color-surface-1)]'
                 }`}>
@@ -375,7 +375,7 @@ export function AdminPage() {
             Configuration change history. Each change is versioned for rollback.
           </p>
           {configHistory.length === 0 ? (
-            <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-8 text-center">
+            <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-8 text-center">
               <History size={32} className="mx-auto mb-3 text-[var(--color-text-muted)]" />
               <p className="text-sm text-[var(--color-text-secondary)]">No configuration changes recorded yet.</p>
             </div>
@@ -413,7 +413,7 @@ export function AdminPage() {
               { entity: 'portfolio' as const, label: 'Portfolio', description: 'Current positions and exposure breakdown' },
             ].map((item) => (
               <button key={item.entity} onClick={() => handleExport(item.entity)}
-                className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5 text-left transition-colors hover:border-[var(--color-accent)]">
+                className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5 text-left transition-colors hover:border-[var(--color-accent)]">
                 <div className="flex items-center gap-2">
                   <Download size={16} className="text-[var(--color-accent)]" />
                   <span className="text-sm font-medium text-[var(--color-text-primary)]">{item.label}</span>

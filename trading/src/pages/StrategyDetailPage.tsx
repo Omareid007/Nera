@@ -93,7 +93,7 @@ export function StrategyDetailPage() {
       </div>
 
       {/* Parameters */}
-      <div className="mt-6 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5">
+      <div className="mt-6 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5">
         <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Parameters</h3>
         <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {Object.entries(strategy.parameters).map(([key, val]) => (
@@ -109,7 +109,7 @@ export function StrategyDetailPage() {
       <div className="mt-6">
         <h3 className="mb-3 text-sm font-semibold text-[var(--color-text-tertiary)]">Backtest History</h3>
         {backtests.length === 0 ? (
-          <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-8 text-center">
+          <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-8 text-center">
             <p className="text-sm text-[var(--color-text-muted)]">No backtests yet. Click "Run Backtest" to test this strategy on historical data.</p>
           </div>
         ) : (
