@@ -5,6 +5,24 @@ function errMsg(err: unknown): string {
   return err instanceof Error ? err.message : String(err);
 }
 
+// --- In-memory fallback when Redis is not configured ---
+const memStore = new Map<string, { value: string; expiresAt: number }>();
+
+function memGet(key: string): string | null {
+  const entry = memStore.get(key);
+  if (!entry) return null;
+  if (Date.now() > entry.expiresAt) { memStore.delete(key); return null; }
+  return entry.value;
+}
+
+function memSet(key: string, value: string, ttlSeconds: number): void {
+  memStore.set(key, { value, expiresAt: Date.now() + ttlSeconds * 1000 });
+}
+
+function isRedisConfigured(): boolean {
+  return !!(process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN);
+}
+
 /**
  * Environment-based key prefix to avoid collisions when multiple deployments
  * share the same Upstash Redis instance (M-6 fix).
@@ -24,11 +42,14 @@ function prefixKey(key: string): string {
 }
 
 export async function getCachedJson(key: string, raw = false): Promise<unknown | null> {
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (!url || !token) return null;
+  const finalKey = raw ? key : prefixKey(key);
+  if (!isRedisConfigured()) {
+    const raw = memGet(finalKey);
+    return raw ? JSON.parse(raw) : null;
+  }
+  const url = process.env.UPSTASH_REDIS_REST_URL!;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN!;
   try {
-    const finalKey = raw ? key : prefixKey(key);
     const resp = await fetch(`${url}/get/${encodeURIComponent(finalKey)}`, {
       headers: { Authorization: `Bearer ${token}` },
       signal: AbortSignal.timeout(REDIS_OP_TIMEOUT_MS),
@@ -43,11 +64,15 @@ export async function getCachedJson(key: string, raw = false): Promise<unknown |
 }
 
 export async function setCachedJson(key: string, value: unknown, ttlSeconds: number): Promise<void> {
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (!url || !token) return;
+  const finalKey = prefixKey(key);
+  if (!isRedisConfigured()) {
+    memSet(finalKey, JSON.stringify(value), ttlSeconds);
+    return;
+  }
+  const url = process.env.UPSTASH_REDIS_REST_URL!;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN!;
   // Atomic SET with EX — single call avoids race between SET and EXPIRE (C-3 fix)
-  const resp = await fetch(`${url}/set/${encodeURIComponent(prefixKey(key))}/${encodeURIComponent(JSON.stringify(value))}/EX/${ttlSeconds}`, {
+  const resp = await fetch(`${url}/set/${encodeURIComponent(finalKey)}/${encodeURIComponent(JSON.stringify(value))}/EX/${ttlSeconds}`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
     signal: AbortSignal.timeout(REDIS_OP_TIMEOUT_MS),
@@ -100,10 +125,21 @@ export async function getCachedJsonBatch(keys: string[]): Promise<Map<string, un
   const result = new Map<string, unknown>();
   if (keys.length === 0) return result;
 
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (!url || !token) return result;
+  if (!isRedisConfigured()) {
+    for (const k of keys) {
+      const raw = memGet(prefixKey(k));
+      if (raw) {
+        try {
+          const parsed = JSON.parse(raw);
+          if (parsed !== NEG_SENTINEL) result.set(k, parsed);
+        } catch { /* skip malformed */ }
+      }
+    }
+    return result;
+  }
 
+  const url = process.env.UPSTASH_REDIS_REST_URL!;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN!;
   try {
     const pipeline = keys.map((k) => ['GET', prefixKey(k)]);
     const resp = await fetch(`${url}/pipeline`, {
@@ -236,9 +272,10 @@ export async function geoSearchByBox(
   key: string, lon: number, lat: number,
   widthKm: number, heightKm: number, count: number, raw = false,
 ): Promise<string[]> {
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (!url || !token) return [];
+  // Geo search has no in-memory fallback — requires Redis
+  if (!isRedisConfigured()) return [];
+  const url = process.env.UPSTASH_REDIS_REST_URL!;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN!;
   try {
     const finalKey = raw ? key : prefixKey(key);
     const pipeline = [
@@ -265,9 +302,10 @@ export async function getHashFieldsBatch(
 ): Promise<Map<string, string>> {
   const result = new Map<string, string>();
   if (fields.length === 0) return result;
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (!url || !token) return result;
+  // Hash fields have no in-memory fallback — requires Redis
+  if (!isRedisConfigured()) return result;
+  const url = process.env.UPSTASH_REDIS_REST_URL!;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN!;
   try {
     const finalKey = raw ? key : prefixKey(key);
     const pipeline = [['HMGET', finalKey, ...fields]];
@@ -297,10 +335,41 @@ export async function runRedisPipeline(
 ): Promise<Array<{ result?: unknown }>> {
   if (commands.length === 0) return [];
 
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (!url || !token) return [];
+  if (!isRedisConfigured()) {
+    // In-memory fallback: execute SET/GET/DEL commands locally
+    const results: Array<{ result?: unknown }> = [];
+    for (const command of commands) {
+      const [verb, ...rest] = command;
+      const v = String(verb).toUpperCase();
+      if (v === 'SET' && rest.length >= 2) {
+        const key = raw ? String(rest[0]) : prefixKey(String(rest[0]));
+        const value = String(rest[1]);
+        // Look for EX ttl
+        let ttl = 86400; // default 1 day
+        for (let i = 2; i < rest.length - 1; i++) {
+          if (String(rest[i]).toUpperCase() === 'EX') {
+            ttl = Number(rest[i + 1]) || ttl;
+            break;
+          }
+        }
+        memSet(key, value, ttl);
+        results.push({ result: 'OK' });
+      } else if (v === 'GET' && rest.length >= 1) {
+        const key = raw ? String(rest[0]) : prefixKey(String(rest[0]));
+        results.push({ result: memGet(key) });
+      } else if (v === 'DEL' && rest.length >= 1) {
+        const key = raw ? String(rest[0]) : prefixKey(String(rest[0]));
+        memStore.delete(key);
+        results.push({ result: 1 });
+      } else {
+        results.push({ result: null });
+      }
+    }
+    return results;
+  }
 
+  const url = process.env.UPSTASH_REDIS_REST_URL!;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN!;
   const pipeline = commands.map((command) => {
     const [verb, ...rest] = command;
     if (raw || rest.length === 0 || typeof rest[0] !== 'string') {
