@@ -113,6 +113,9 @@ export async function getIntelStatus(_req: Request): Promise<Response> {
     { name: 'CISA KEV', description: 'Known exploited vulnerabilities — cybersecurity sector', impact: 'Cyber stocks', status: 'live', lastDataTimestamp: null, latencyMs: null, recordCount: null },
     { name: 'NHC Cyclones', description: 'Tropical storm tracking — commodity disruption', impact: 'Commodities', status: 'live', lastDataTimestamp: null, latencyMs: null, recordCount: null },
     { name: 'Earnings Calendar', description: 'Major company earnings reports — equity catalysts', impact: 'Equity signals', status: 'live', lastDataTimestamp: null, latencyMs: null, recordCount: null },
+    { name: 'Global Tension Index', description: '6-component composite score — conflict, sentiment, cyber, natural, political, supply chain', impact: 'Risk scoring', status: 'live', lastDataTimestamp: null, latencyMs: null, recordCount: null },
+    { name: 'Geo Signals (34 Categories)', description: 'Trade signals across all global regions and thematic verticals', impact: 'Multi-sector', status: 'live', lastDataTimestamp: null, latencyMs: null, recordCount: null },
+    { name: 'GDACS Disasters', description: 'Global disaster alerts — natural disaster tracking', impact: 'Commodities', status: 'live', lastDataTimestamp: null, latencyMs: null, recordCount: null },
   ];
 
   const live = sources.filter((s) => s.status === 'live').length;

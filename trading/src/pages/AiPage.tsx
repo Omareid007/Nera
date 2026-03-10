@@ -297,7 +297,7 @@ export function AiPage() {
                 <button
                   onClick={handleInterpret}
                   disabled={interpreting || !selectedStrategyId}
-                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-[#121417] hover:brightness-110 disabled:opacity-50 transition-all duration-200"
                 >
                   {interpreting ? (
                     <>

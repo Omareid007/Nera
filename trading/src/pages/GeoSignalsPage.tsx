@@ -129,7 +129,7 @@ function DetailPanel({ signal }: { signal: GeoSignal }) {
                 : 'border-transparent text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
             }`}>
             {t === 'setup' && <><Shield size={11} /> Trade Setup</>}
-            {t === 'reasoning' && <><Zap size={11} /> AI Reasoning</>}
+            {t === 'reasoning' && <><Zap size={11} /> Reasoning</>}
             {t === 'timeline' && <><Clock size={11} /> Timeline</>}
             {t === 'reliability' && <><BarChart3 size={11} /> Reliability</>}
           </button>
@@ -312,7 +312,7 @@ export function GeoSignalsPage() {
 
   return (
     <div className="animate-fade-in">
-      <PageHeader title="Geo Signals" description="AI-powered trade signals from geopolitical events"
+      <PageHeader title="Geo Signals" description="Real-time trade signals derived from geopolitical events"
         actions={
           <div className="flex items-center gap-3">
             {/* GTI Badge */}
@@ -356,9 +356,9 @@ export function GeoSignalsPage() {
         </div>
       )}
 
-      <div className="flex gap-4" style={{ minHeight: 'calc(100vh - 260px)' }}>
+      <div className="flex flex-col lg:flex-row gap-4" style={{ minHeight: 'calc(100vh - 260px)' }}>
         {/* Left sidebar — signal list */}
-        <div className="w-80 shrink-0 space-y-3">
+        <div className="w-full lg:w-80 shrink-0 space-y-3">
           {/* Filters */}
           <div className="space-y-2">
             <p className="text-[10px] font-semibold uppercase text-[var(--color-text-muted)]">Asset Class</p>
@@ -402,7 +402,7 @@ export function GeoSignalsPage() {
           </div>
 
           {/* Signal Cards */}
-          <div className="space-y-2 max-h-[calc(100vh-400px)] overflow-y-auto pr-1">
+          <div className="space-y-2 max-h-[60vh] lg:max-h-[calc(100vh-400px)] overflow-y-auto pr-1">
             {filtered.length === 0 ? (
               <p className="py-8 text-center text-xs text-[var(--color-text-muted)]">No signals match filters</p>
             ) : (

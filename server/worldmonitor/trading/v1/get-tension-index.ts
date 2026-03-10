@@ -3,7 +3,7 @@
  * ACLED conflict data, GDELT news sentiment, CISA cyber threats, and
  * active tropical cyclones. Returns a 0-100 score with severity level.
  *
- * Inspired by GeoTrade's GTI concept — adapted for Nera's trading platform.
+ * Nera's proprietary Global Tension Index for the trading platform.
  */
 
 import { jsonResponse } from './_shared';

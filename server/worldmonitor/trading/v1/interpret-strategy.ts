@@ -1,5 +1,5 @@
 /**
- * interpret-strategy RPC — AI-powered strategy analysis.
+ * interpret-strategy RPC — Strategy analysis and interpretation.
  *
  * Uses the existing LLM router to generate a structured interpretation
  * of a strategy's logic, strengths, risks, and market conditions.

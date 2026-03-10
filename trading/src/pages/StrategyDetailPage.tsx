@@ -67,9 +67,9 @@ export function StrategyDetailPage() {
           <div className="flex items-center gap-2">
             <StatusBadge status={strategy.status as 'draft'} />
             <button onClick={handleInterpret} disabled={interpreting}
-              className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-blue-700 disabled:opacity-50">
+              className="flex items-center gap-1.5 rounded-lg bg-[var(--color-info)] px-3 py-1.5 text-xs font-medium text-white disabled:opacity-50 transition-all duration-200 hover:brightness-110">
               {interpreting ? <Loader2 size={14} className="animate-spin" /> : <Brain size={14} />}
-              {interpreting ? 'Analyzing...' : 'AI Interpret'}
+              {interpreting ? 'Analyzing...' : 'Interpret'}
             </button>
             <button onClick={handleBacktest} disabled={running}
               className="flex items-center gap-1.5 rounded-lg bg-[var(--color-accent)] px-3 py-1.5 text-xs font-medium text-[var(--color-surface-0)] disabled:opacity-50">

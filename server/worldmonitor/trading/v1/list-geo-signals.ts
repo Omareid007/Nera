@@ -1,5 +1,5 @@
 /**
- * list-geo-signals RPC — Generates AI-style trade signals from geopolitical events.
+ * list-geo-signals RPC — Generates trade signals from geopolitical events.
  * Links GDELT/ACLED events to specific assets with directional signals,
  * confidence scores, and causal reasoning chains.
  *
