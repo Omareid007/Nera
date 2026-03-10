@@ -10,9 +10,23 @@ const MAX_META_LENGTH = 100;
 const rateLimitMap = new Map();
 const RATE_LIMIT = 5;
 const RATE_WINDOW_MS = 60 * 60 * 1000;
+const RATE_LIMIT_MAX_ENTRIES = 4096;
+let rateLimitLastCleanup = Date.now();
 
 function isRateLimited(ip) {
   const now = Date.now();
+  // Periodic cleanup: evict expired entries every 5 minutes to prevent unbounded growth
+  if (now - rateLimitLastCleanup > 300_000) {
+    rateLimitLastCleanup = now;
+    for (const [key, entry] of rateLimitMap) {
+      if (now - entry.windowStart > RATE_WINDOW_MS) rateLimitMap.delete(key);
+    }
+  }
+  // Hard cap: evict oldest entries if map exceeds max size
+  if (rateLimitMap.size >= RATE_LIMIT_MAX_ENTRIES && !rateLimitMap.has(ip)) {
+    const first = rateLimitMap.keys().next().value;
+    if (first !== undefined) rateLimitMap.delete(first);
+  }
   const entry = rateLimitMap.get(ip);
   if (!entry || now - entry.windowStart > RATE_WINDOW_MS) {
     rateLimitMap.set(ip, { windowStart: now, count: 1 });

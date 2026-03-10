@@ -68,6 +68,7 @@ const RPC_CACHE_TIER: Record<string, CacheTier> = {
   '/api/conflict/v1/list-acled-events': 'slow',
   '/api/military/v1/get-theater-posture': 'slow',
   '/api/infrastructure/v1/get-temporal-baseline': 'slow',
+  '/api/infrastructure/v1/list-temporal-anomalies': 'slow',
   '/api/aviation/v1/list-airport-delays': 'static',
   '/api/aviation/v1/get-airport-ops-summary': 'static',
   '/api/aviation/v1/list-airport-flights': 'static',
@@ -125,6 +126,49 @@ const RPC_CACHE_TIER: Record<string, CacheTier> = {
   '/api/news/v1/list-feed-digest': 'slow',
   '/api/intelligence/v1/classify-event': 'static',
   '/api/news/v1/summarize-article-cache': 'slow',
+
+  // Trading service — no-store for mutations, fast for reads
+  '/api/trading/v1/list-templates': 'static',
+  '/api/trading/v1/create-strategy': 'no-store',
+  '/api/trading/v1/get-strategy': 'fast',
+  '/api/trading/v1/list-strategies': 'fast',
+  '/api/trading/v1/update-strategy': 'no-store',
+  '/api/trading/v1/delete-strategy': 'no-store',
+  '/api/trading/v1/run-backtest': 'no-store',
+  '/api/trading/v1/get-backtest-run': 'fast',
+  '/api/trading/v1/list-backtest-runs': 'fast',
+  '/api/trading/v1/get-portfolio': 'fast',
+
+  // Forward Runner
+  '/api/trading/v1/start-forward-run': 'no-store',
+  '/api/trading/v1/stop-forward-run': 'no-store',
+  '/api/trading/v1/evaluate-forward-run': 'no-store',
+  '/api/trading/v1/list-forward-runs': 'fast',
+  '/api/trading/v1/get-forward-run': 'fast',
+
+  // Execution & Orders
+  '/api/trading/v1/submit-order': 'no-store',
+  '/api/trading/v1/list-orders': 'fast',
+
+  // Ledger & Evidence
+  '/api/trading/v1/list-ledger': 'fast',
+  '/api/trading/v1/list-evidence': 'fast',
+
+  // AI
+  '/api/trading/v1/interpret-strategy': 'no-store',
+  '/api/trading/v1/list-ai-events': 'fast',
+  '/api/trading/v1/get-ai-event': 'fast',
+
+  // Market Data & Analytics
+  '/api/trading/v1/get-market-data': 'fast',
+  '/api/trading/v1/get-watchlist-quotes': 'fast',
+  '/api/trading/v1/get-risk-analytics': 'fast',
+
+  // Alerts
+  '/api/trading/v1/create-alert': 'no-store',
+  '/api/trading/v1/list-alerts': 'fast',
+  '/api/trading/v1/dismiss-alert': 'no-store',
+  '/api/trading/v1/delete-alert': 'no-store',
 };
 
 const PREMIUM_RPC_PATHS = new Set([
@@ -267,22 +311,30 @@ export function createDomainGateway(
       mergedHeaders.delete('X-Cache-Tier');
     }
 
+    // Vary header — ensures CDN partitions cache by encoding and origin
+    mergedHeaders.set('Vary', 'Accept-Encoding, Origin');
+
     // ETag / 304 Not Modified — avoid resending unchanged data
+    // Skip ETag for large responses (>2MB) to avoid buffering overhead in edge runtime
+    const MAX_ETAG_BODY_SIZE = 2 * 1024 * 1024;
     if (response.status === 200 && request.method === 'GET' && response.body) {
       const bodyBytes = await response.arrayBuffer();
-      // FNV-1a inspired fast hash — good enough for cache validation
-      let hash = 2166136261;
-      const view = new Uint8Array(bodyBytes);
-      for (let i = 0; i < view.length; i++) {
-        hash ^= view[i]!;
-        hash = Math.imul(hash, 16777619);
-      }
-      const etag = `"${(hash >>> 0).toString(36)}-${view.length.toString(36)}"`;
-      mergedHeaders.set('ETag', etag);
 
-      const ifNoneMatch = request.headers.get('If-None-Match');
-      if (ifNoneMatch === etag) {
-        return new Response(null, { status: 304, headers: mergedHeaders });
+      if (bodyBytes.byteLength <= MAX_ETAG_BODY_SIZE) {
+        // FNV-1a inspired fast hash — good enough for cache validation
+        let hash = 2166136261;
+        const view = new Uint8Array(bodyBytes);
+        for (let i = 0; i < view.length; i++) {
+          hash ^= view[i]!;
+          hash = Math.imul(hash, 16777619);
+        }
+        const etag = `"${(hash >>> 0).toString(36)}-${view.length.toString(36)}"`;
+        mergedHeaders.set('ETag', etag);
+
+        const ifNoneMatch = request.headers.get('If-None-Match');
+        if (ifNoneMatch === etag) {
+          return new Response(null, { status: 304, headers: mergedHeaders });
+        }
       }
 
       return new Response(bodyBytes, {

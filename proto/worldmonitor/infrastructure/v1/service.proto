@@ -32,7 +32,7 @@ service InfrastructureService {
 
   // RecordBaselineSnapshot batch-updates baseline statistics using Welford's online algorithm.
   rpc RecordBaselineSnapshot(RecordBaselineSnapshotRequest) returns (RecordBaselineSnapshotResponse) {
-    option (sebuf.http.config) = {path: "/record-baseline-snapshot"};
+    option (sebuf.http.config) = {path: "/record-baseline-snapshot", method: HTTP_METHOD_POST};
   }
 
   // GetCableHealth computes health status for submarine cables from NGA maritime warning signals.

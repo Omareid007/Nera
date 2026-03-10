@@ -20,7 +20,8 @@
   <div class="c">
     <h1>You're Offline</h1>
     <p>WorldMonitor requires an internet connection for real-time intelligence data.</p>
-    <button onclick="location.reload()">Retry</button>
+    <button id="retry-btn">Retry</button>
+    <script>document.getElementById('retry-btn').addEventListener('click',function(){location.reload()});</script>
   </div>
 </body>
 </html>

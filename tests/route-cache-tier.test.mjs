@@ -18,10 +18,11 @@ function extractGetRoutes() {
         walk(full);
       } else if (entry === 'service_server.ts') {
         const src = readFileSync(full, 'utf-8');
-        const re = /method:\s*"GET",[\s\S]*?path:\s*"([^"]+)"/g;
+        // Match both inline route objects and makeHandler factory calls
+        const re = /(?:method:\s*"GET",[\s\S]*?path:\s*"([^"]+)"|makeHandler\(\s*"[^"]+",\s*"(\/api\/[^"]+)")/g;
         let m;
         while ((m = re.exec(src)) !== null) {
-          routes.push(m[1]);
+          routes.push(m[1] || m[2]);
         }
       }
     }
@@ -62,7 +63,9 @@ describe('RPC_CACHE_TIER route parity', () => {
   });
 
   it('every cache tier key maps to a real generated route', () => {
-    const stale = tierKeys.filter((k) => !getRoutes.includes(k));
+    // Trading routes are defined in a hand-written handler, not generated service_server.ts files.
+    // They are covered by trading-handlers.test.mjs instead.
+    const stale = tierKeys.filter((k) => !getRoutes.includes(k) && !k.startsWith('/api/trading/'));
     assert.deepStrictEqual(
       stale,
       [],

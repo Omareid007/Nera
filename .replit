@@ -1,0 +1,34 @@
+entrypoint = "index.html"
+modules = ["nodejs-20"]
+
+hidden = [".config", "node_modules", ".git", "src-tauri", "e2e", "pro-test", ".claude", ".agent", ".agents", ".factory", ".windsurf", "src"]
+
+onBoot = "npm install"
+
+[run]
+args = ["npx", "vite", "--port", "5000", "--host", "0.0.0.0"]
+
+[run.env]
+NODE_ENV = "development"
+PORT = "5000"
+
+[nix]
+channel = "stable-24_05"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[deployment]
+run = ["npx", "tsx", "replit-server.ts"]
+build = "npm install && npx vite build"
+deploymentTarget = "cloudrun"
+ignorePorts = false
+
+[packager]
+language = "nodejs"
+
+[packager.features]
+guessImports = true
+packageSearch = true
+enabledForHosting = true

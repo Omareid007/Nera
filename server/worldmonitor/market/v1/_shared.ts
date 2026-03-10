@@ -43,9 +43,9 @@ export function sanitizeSymbol(raw: string): string {
  * typed as `string[]`.  At runtime `req.symbols` may therefore be a
  * comma-separated string rather than an actual array.
  */
-export function parseStringArray(raw: unknown): string[] {
-  if (Array.isArray(raw)) return raw.filter(Boolean);
-  if (typeof raw === 'string' && raw.length > 0) return raw.split(',').filter(Boolean);
+export function parseStringArray(raw: unknown, maxItems = 200): string[] {
+  if (Array.isArray(raw)) return raw.filter(Boolean).slice(0, maxItems);
+  if (typeof raw === 'string' && raw.length > 0) return raw.split(',').filter(Boolean).slice(0, maxItems);
   return [];
 }
 

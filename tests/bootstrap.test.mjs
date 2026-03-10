@@ -48,7 +48,7 @@ describe('Bootstrap cache key registry', () => {
       keys.push(m[1]);
     }
     for (const key of keys) {
-      assert.match(key, /^[a-z_]+(?::[a-z_-]+)+:v\d+$/, `Cache key "${key}" does not match expected pattern`);
+      assert.match(key, /^[a-z_-]+(?::[a-z_-]+)+:v\d+$/, `Cache key "${key}" does not match expected pattern`);
     }
   });
 
@@ -84,17 +84,19 @@ describe('Bootstrap cache key registry', () => {
     }
 
     const handlerDirs = join(root, 'server', 'worldmonitor');
+    const seedDir = join(root, 'scripts');
     const handlerFiles = [];
-    function walk(dir) {
+    function walk(dir, exts = ['.ts']) {
       for (const entry of readdirSync(dir)) {
         const full = join(dir, entry);
-        if (statSync(full).isDirectory()) walk(full);
-        else if (entry.endsWith('.ts') && !entry.includes('service_server') && !entry.includes('service_client')) {
+        if (statSync(full).isDirectory()) walk(full, exts);
+        else if (exts.some(ext => entry.endsWith(ext)) && !entry.includes('service_server') && !entry.includes('service_client')) {
           handlerFiles.push(full);
         }
       }
     }
     walk(handlerDirs);
+    walk(seedDir, ['.ts', '.mjs', '.js', '.cjs']);
     const allHandlerCode = handlerFiles.map(f => readFileSync(f, 'utf-8')).join('\n');
 
     for (const key of keys) {

@@ -1,14 +1,17 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const geojson = JSON.parse(readFileSync(resolve(__dirname, '../public/data/countries.geojson'), 'utf-8'));
+const geoPath = resolve(__dirname, '../public/data/countries.geojson');
+
+const skip = !existsSync(geoPath);
+const geojson = skip ? { features: [] } : JSON.parse(readFileSync(geoPath, 'utf-8'));
 const features = geojson.features;
 
-describe('countries.geojson data integrity', () => {
+describe('countries.geojson data integrity', { skip: skip ? 'countries.geojson not present (download from CDN)' : false }, () => {
   it('all feature names are unique', () => {
     const names = features.map(f => f.properties.name);
     const dupes = names.filter((n, i) => names.indexOf(n) !== i);

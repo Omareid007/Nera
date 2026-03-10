@@ -42,6 +42,6 @@ service IntelligenceService {
 
   // DeductSituation performs AI-powered situational analysis and deduction.
   rpc DeductSituation(DeductSituationRequest) returns (DeductSituationResponse) {
-    option (sebuf.http.config) = {path: "/deduct-situation"};
+    option (sebuf.http.config) = {path: "/deduct-situation", method: HTTP_METHOD_POST};
   }
 }

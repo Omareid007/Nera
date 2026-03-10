@@ -262,7 +262,7 @@ export async function fetchConflictEvents(): Promise<ConflictData> {
   let totalFatalities = 0;
 
   for (const event of events) {
-    totalFatalities += event.fatalities;
+    totalFatalities += event.fatalities || 0;
     const existing = byCountry.get(event.country) || [];
     existing.push(event);
     byCountry.set(event.country, existing);

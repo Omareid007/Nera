@@ -85,6 +85,8 @@ describe('redis caching behavior', { concurrency: 1 }, () => {
         return jsonResponse({ result: undefined });
       }
       if (raw.includes('/set/')) {
+        // Ignore seed-meta writes (fire-and-forget bookkeeping)
+        if (raw.includes('seed-meta')) return jsonResponse({ result: 'OK' });
         setCalls += 1;
         return jsonResponse({ result: 'OK' });
       }
@@ -684,7 +686,8 @@ describe('country intel brief caching behavior', { concurrency: 1 }, () => {
         const key = parseRedisKey(raw, 'set');
         const encodedValue = raw.slice(raw.indexOf('/set/') + 5).split('/')[1] || '';
         store.set(key, decodeURIComponent(encodedValue));
-        setKeys.push(key);
+        // Ignore seed-meta writes (fire-and-forget bookkeeping)
+        if (!key.startsWith('seed-meta:')) setKeys.push(key);
         return jsonResponse({ result: 'OK' });
       }
       if (raw.includes('api.groq.com/openai/v1/chat/completions')) {
@@ -745,7 +748,8 @@ describe('country intel brief caching behavior', { concurrency: 1 }, () => {
         const key = parseRedisKey(raw, 'set');
         const encodedValue = raw.slice(raw.indexOf('/set/') + 5).split('/')[1] || '';
         store.set(key, decodeURIComponent(encodedValue));
-        setKeys.push(key);
+        // Ignore seed-meta writes (fire-and-forget bookkeeping)
+        if (!key.startsWith('seed-meta:')) setKeys.push(key);
         return jsonResponse({ result: 'OK' });
       }
       if (raw.includes('api.groq.com/openai/v1/chat/completions')) {
