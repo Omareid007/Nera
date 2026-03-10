@@ -685,6 +685,83 @@ export function deleteWatchlist(id: string) {
   return rpc<{ deleted: boolean }>('POST', 'delete-watchlist', { id });
 }
 
+// --- Prediction Markets ---
+
+export interface PredictionMarket {
+  id: string;
+  title: string;
+  probability: number;
+  volume: number;
+  source: 'kalshi' | 'polymarket';
+  category: string;
+  lastUpdated: number;
+}
+
+export function listPredictionMarkets() {
+  return rpc<{ markets: PredictionMarket[]; timestamp: number }>('GET', 'list-prediction-markets');
+}
+
+// --- Earnings ---
+
+export interface EarningsEvent {
+  symbol: string;
+  company: string;
+  reportDate: string;
+  fiscalQuarter: string;
+  epsEstimate: number | null;
+  epsActual: number | null;
+  revenueEstimate: number | null;
+  revenueActual: number | null;
+  surprise: number | null;
+  timing: 'bmo' | 'amc' | 'unknown';
+}
+
+export function listEarnings() {
+  return rpc<{ earnings: EarningsEvent[]; upcoming: EarningsEvent[]; recent: EarningsEvent[]; timestamp: number }>('GET', 'list-earnings');
+}
+
+// --- Cyclones ---
+
+export interface TropicalCyclone {
+  id: string;
+  name: string;
+  basin: string;
+  category: string;
+  windKt: number | null;
+  pressureMb: number | null;
+  lat: number;
+  lon: number;
+  movementDir: string | null;
+  movementSpeedKt: number | null;
+  source: string;
+  lastUpdated: string;
+  commodityImpact: string[];
+}
+
+export function listCyclones() {
+  return rpc<{ cyclones: TropicalCyclone[]; timestamp: number }>('GET', 'list-cyclones');
+}
+
+// --- Cyber Threats ---
+
+export interface CyberThreat {
+  cveId: string;
+  vendorProject: string;
+  product: string;
+  vulnerabilityName: string;
+  dateAdded: string;
+  dueDate: string;
+  knownRansomwareCampaignUse: boolean;
+  shortDescription: string;
+  requiredAction: string;
+  severity: 'critical' | 'high' | 'medium';
+  affectedSectors: string[];
+}
+
+export function listCyberThreats() {
+  return rpc<{ threats: CyberThreat[]; summary: { total: number; critical: number; high: number; ransomwareLinked: number }; timestamp: number }>('GET', 'list-cyber-threats');
+}
+
 // --- Provider Health ---
 
 export interface ProviderStatus {
