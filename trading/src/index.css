@@ -1,51 +1,51 @@
 @import "tailwindcss";
 
 @theme {
-  /* ─── Robinhood-inspired dark theme ─── */
+  /* ─── Nera — Obsidian palette ─── */
 
-  /* Surfaces — warm dark grays (Robinhood dark mode) */
-  --color-surface-0: #121417;
-  --color-surface-1: #1a1d21;
-  --color-surface-2: #22262a;
-  --color-surface-3: #2a2e33;
-  --color-surface-4: #33383e;
+  /* Surfaces — deep slate with blue undertone */
+  --color-surface-0: #0c0e12;
+  --color-surface-1: #141720;
+  --color-surface-2: #1b1f2b;
+  --color-surface-3: #242936;
+  --color-surface-4: #2d3341;
 
-  /* Borders — subtle and clean */
-  --color-border-subtle: #1f2328;
-  --color-border-default: #2d3239;
-  --color-border-strong: #3d434b;
+  /* Borders */
+  --color-border-subtle: #1e2231;
+  --color-border-default: #2a3040;
+  --color-border-strong: #3a4155;
 
-  /* Text — crisp hierarchy */
-  --color-text-primary: #f0f2f5;
-  --color-text-secondary: #9da3ae;
-  --color-text-tertiary: #6b7280;
-  --color-text-muted: #4b5563;
+  /* Text — warm off-whites */
+  --color-text-primary: #e8e6e3;
+  --color-text-secondary: #9b9ea8;
+  --color-text-tertiary: #6c7086;
+  --color-text-muted: #474d60;
 
-  /* Primary accent — Robinhood green */
-  --color-accent: #5AC53A;
-  --color-accent-hover: #65d842;
-  --color-accent-muted: rgba(90, 197, 58, 0.12);
+  /* Primary accent — warm amber-gold */
+  --color-accent: #e2a84b;
+  --color-accent-hover: #eab55f;
+  --color-accent-muted: rgba(226, 168, 75, 0.10);
 
-  /* P&L colors — Robinhood style */
-  --color-profit: #5AC53A;
-  --color-profit-bg: rgba(90, 197, 58, 0.08);
-  --color-loss: #EB5D2A;
-  --color-loss-bg: rgba(235, 93, 42, 0.08);
+  /* P&L — teal up, rose down */
+  --color-profit: #34c6a8;
+  --color-profit-bg: rgba(52, 198, 168, 0.07);
+  --color-loss: #e05a5a;
+  --color-loss-bg: rgba(224, 90, 90, 0.07);
 
   /* Signal colors */
-  --color-warning: #F6C86A;
-  --color-warning-bg: rgba(246, 200, 106, 0.08);
-  --color-info: #5B8DEF;
-  --color-info-bg: rgba(91, 141, 239, 0.08);
+  --color-warning: #d4a843;
+  --color-warning-bg: rgba(212, 168, 67, 0.07);
+  --color-info: #5b8cef;
+  --color-info-bg: rgba(91, 140, 239, 0.07);
 
   /* Status */
-  --color-active: #5AC53A;
-  --color-paused: #F6C86A;
-  --color-stopped: #EB5D2A;
-  --color-draft: #6b7280;
+  --color-active: #34c6a8;
+  --color-paused: #d4a843;
+  --color-stopped: #e05a5a;
+  --color-draft: #6c7086;
 
-  /* Lime highlight (Robinhood's distinctive lime) */
-  --color-lime: #D5FD51;
+  /* Highlight */
+  --color-lime: #e2a84b;
 }
 
 /* ─── Base styles ─── */
@@ -60,10 +60,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ─── Scrollbar — minimal Robinhood style ─── */
+/* ─── Scrollbar ─── */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -78,28 +78,28 @@ body {
 
 /* ─── Focus ring ─── */
 *:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+  outline: 1px solid var(--color-accent);
+  outline-offset: 1px;
 }
 
 /* ─── Animations ─── */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-12px); }
+  from { opacity: 0; transform: translateX(-8px); }
   to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.95); }
+  from { opacity: 0; transform: scale(0.97); }
   to { opacity: 1; transform: scale(1); }
 }
 
@@ -108,21 +108,21 @@ body {
   100% { background-position: 200% 0; }
 }
 
-@keyframes pulse-green {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(90, 197, 58, 0.4); }
-  50% { box-shadow: 0 0 0 6px rgba(90, 197, 58, 0); }
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(52, 198, 168, 0.3); }
+  50% { box-shadow: 0 0 0 4px rgba(52, 198, 168, 0); }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.3s ease-out both;
+  animation: fadeIn 0.25s ease-out both;
 }
 
 .animate-slide-up {
-  animation: slideUp 0.4s ease-out both;
+  animation: slideUp 0.35s ease-out both;
 }
 
 .animate-slide-in-left {
-  animation: slideInLeft 0.3s ease-out both;
+  animation: slideInLeft 0.25s ease-out both;
 }
 
 .animate-scale-in {
@@ -141,30 +141,29 @@ body {
 }
 
 .animate-pulse-green {
-  animation: pulse-green 2s ease-in-out infinite;
+  animation: pulseGlow 2.5s ease-in-out infinite;
 }
 
-/* Staggered animation delays for cards */
-.stagger-1 { animation-delay: 0.05s; }
-.stagger-2 { animation-delay: 0.1s; }
-.stagger-3 { animation-delay: 0.15s; }
-.stagger-4 { animation-delay: 0.2s; }
-.stagger-5 { animation-delay: 0.25s; }
-.stagger-6 { animation-delay: 0.3s; }
+/* Stagger delays */
+.stagger-1 { animation-delay: 0.04s; }
+.stagger-2 { animation-delay: 0.08s; }
+.stagger-3 { animation-delay: 0.12s; }
+.stagger-4 { animation-delay: 0.16s; }
+.stagger-5 { animation-delay: 0.2s; }
+.stagger-6 { animation-delay: 0.24s; }
 
-/* ─── Card hover effects ─── */
+/* ─── Card hover ─── */
 .card-hover {
-  transition: all 0.2s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .card-hover:hover {
   border-color: var(--color-border-strong);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* ─── Glass morphism card ─── */
+/* ─── Glass card ─── */
 .glass-card {
-  background: rgba(26, 29, 33, 0.8);
-  backdrop-filter: blur(12px);
+  background: rgba(20, 23, 32, 0.85);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--color-border-subtle);
 }

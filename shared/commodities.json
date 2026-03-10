@@ -1,10 +1,24 @@
 {
   "commodities": [
-    { "symbol": "^VIX", "name": "VIX", "display": "VIX" },
-    { "symbol": "GC=F", "name": "Gold", "display": "GOLD" },
-    { "symbol": "CL=F", "name": "Crude Oil", "display": "OIL" },
-    { "symbol": "NG=F", "name": "Natural Gas", "display": "NATGAS" },
-    { "symbol": "SI=F", "name": "Silver", "display": "SILVER" },
-    { "symbol": "HG=F", "name": "Copper", "display": "COPPER" }
+    { "symbol": "^VIX", "name": "VIX", "display": "VIX", "category": "volatility" },
+    { "symbol": "GC=F", "name": "Gold", "display": "GOLD", "category": "metals" },
+    { "symbol": "SI=F", "name": "Silver", "display": "SILVER", "category": "metals" },
+    { "symbol": "PL=F", "name": "Platinum", "display": "PLATINUM", "category": "metals" },
+    { "symbol": "PA=F", "name": "Palladium", "display": "PALLADIUM", "category": "metals" },
+    { "symbol": "HG=F", "name": "Copper", "display": "COPPER", "category": "metals" },
+    { "symbol": "CL=F", "name": "WTI Crude Oil", "display": "WTI", "category": "energy" },
+    { "symbol": "BZ=F", "name": "Brent Crude", "display": "BRENT", "category": "energy" },
+    { "symbol": "NG=F", "name": "Natural Gas", "display": "NATGAS", "category": "energy" },
+    { "symbol": "RB=F", "name": "Gasoline", "display": "GASOLINE", "category": "energy" },
+    { "symbol": "HO=F", "name": "Heating Oil", "display": "HEATOIL", "category": "energy" },
+    { "symbol": "ZC=F", "name": "Corn", "display": "CORN", "category": "agriculture" },
+    { "symbol": "ZW=F", "name": "Wheat", "display": "WHEAT", "category": "agriculture" },
+    { "symbol": "ZS=F", "name": "Soybeans", "display": "SOYBEAN", "category": "agriculture" },
+    { "symbol": "KC=F", "name": "Coffee", "display": "COFFEE", "category": "agriculture" },
+    { "symbol": "CC=F", "name": "Cocoa", "display": "COCOA", "category": "agriculture" },
+    { "symbol": "SB=F", "name": "Sugar", "display": "SUGAR", "category": "agriculture" },
+    { "symbol": "CT=F", "name": "Cotton", "display": "COTTON", "category": "agriculture" },
+    { "symbol": "LC=F", "name": "Live Cattle", "display": "CATTLE", "category": "agriculture" },
+    { "symbol": "LBS=F", "name": "Lumber", "display": "LUMBER", "category": "agriculture" }
   ]
 }

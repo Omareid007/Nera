@@ -1,0 +1,37 @@
+{
+  "pairs": [
+    { "symbol": "EURUSD=X", "name": "EUR/USD", "display": "EUR/USD", "category": "major" },
+    { "symbol": "GBPUSD=X", "name": "GBP/USD", "display": "GBP/USD", "category": "major" },
+    { "symbol": "USDJPY=X", "name": "USD/JPY", "display": "USD/JPY", "category": "major" },
+    { "symbol": "USDCHF=X", "name": "USD/CHF", "display": "USD/CHF", "category": "major" },
+    { "symbol": "AUDUSD=X", "name": "AUD/USD", "display": "AUD/USD", "category": "major" },
+    { "symbol": "USDCAD=X", "name": "USD/CAD", "display": "USD/CAD", "category": "major" },
+    { "symbol": "NZDUSD=X", "name": "NZD/USD", "display": "NZD/USD", "category": "major" },
+
+    { "symbol": "EURGBP=X", "name": "EUR/GBP", "display": "EUR/GBP", "category": "cross" },
+    { "symbol": "EURJPY=X", "name": "EUR/JPY", "display": "EUR/JPY", "category": "cross" },
+    { "symbol": "GBPJPY=X", "name": "GBP/JPY", "display": "GBP/JPY", "category": "cross" },
+    { "symbol": "EURCHF=X", "name": "EUR/CHF", "display": "EUR/CHF", "category": "cross" },
+    { "symbol": "AUDNZD=X", "name": "AUD/NZD", "display": "AUD/NZD", "category": "cross" },
+    { "symbol": "CADJPY=X", "name": "CAD/JPY", "display": "CAD/JPY", "category": "cross" },
+
+    { "symbol": "USDCNY=X", "name": "USD/CNY", "display": "USD/CNY", "category": "emerging" },
+    { "symbol": "USDINR=X", "name": "USD/INR", "display": "USD/INR", "category": "emerging" },
+    { "symbol": "USDKRW=X", "name": "USD/KRW", "display": "USD/KRW", "category": "emerging" },
+    { "symbol": "USDBRL=X", "name": "USD/BRL", "display": "USD/BRL", "category": "emerging" },
+    { "symbol": "USDMXN=X", "name": "USD/MXN", "display": "USD/MXN", "category": "emerging" },
+    { "symbol": "USDTRY=X", "name": "USD/TRY", "display": "USD/TRY", "category": "emerging" },
+    { "symbol": "USDZAR=X", "name": "USD/ZAR", "display": "USD/ZAR", "category": "emerging" },
+    { "symbol": "USDEGP=X", "name": "USD/EGP", "display": "USD/EGP", "category": "emerging" },
+    { "symbol": "USDPKR=X", "name": "USD/PKR", "display": "USD/PKR", "category": "emerging" },
+
+    { "symbol": "SARUSD=X", "name": "SAR/USD", "display": "SAR/USD", "category": "gulf" },
+    { "symbol": "AEDUSD=X", "name": "AED/USD", "display": "AED/USD", "category": "gulf" },
+    { "symbol": "QARUSD=X", "name": "QAR/USD", "display": "QAR/USD", "category": "gulf" },
+    { "symbol": "KWDUSD=X", "name": "KWD/USD", "display": "KWD/USD", "category": "gulf" },
+    { "symbol": "BHDUSD=X", "name": "BHD/USD", "display": "BHD/USD", "category": "gulf" },
+    { "symbol": "OMRUSD=X", "name": "OMR/USD", "display": "OMR/USD", "category": "gulf" },
+
+    { "symbol": "DX-Y.NYB", "name": "US Dollar Index", "display": "DXY", "category": "index" }
+  ]
+}

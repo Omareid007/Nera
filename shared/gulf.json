@@ -6,6 +6,33 @@
     { "symbol": "QAT", "name": "Qatar (iShares)", "country": "Qatar", "flag": "\ud83c\uddf6\ud83c\udde6", "type": "index" },
     { "symbol": "GULF", "name": "Gulf Dividend (WisdomTree)", "country": "Kuwait", "flag": "\ud83c\uddf0\ud83c\uddfc", "type": "index" },
     { "symbol": "^MSM", "name": "Muscat MSM 30", "country": "Oman", "flag": "\ud83c\uddf4\ud83c\uddf2", "type": "index" },
+
+    { "symbol": "2222.SR", "name": "Saudi Aramco", "country": "Saudi Arabia", "flag": "\ud83c\uddf8\ud83c\udde6", "type": "stock" },
+    { "symbol": "1180.SR", "name": "Al Rajhi Bank", "country": "Saudi Arabia", "flag": "\ud83c\uddf8\ud83c\udde6", "type": "stock" },
+    { "symbol": "2010.SR", "name": "SABIC", "country": "Saudi Arabia", "flag": "\ud83c\uddf8\ud83c\udde6", "type": "stock" },
+    { "symbol": "7010.SR", "name": "STC", "country": "Saudi Arabia", "flag": "\ud83c\uddf8\ud83c\udde6", "type": "stock" },
+    { "symbol": "1010.SR", "name": "Riyad Bank", "country": "Saudi Arabia", "flag": "\ud83c\uddf8\ud83c\udde6", "type": "stock" },
+    { "symbol": "1211.SR", "name": "Ma'aden", "country": "Saudi Arabia", "flag": "\ud83c\uddf8\ud83c\udde6", "type": "stock" },
+
+    { "symbol": "FAB.AE", "name": "First Abu Dhabi Bank", "country": "UAE", "flag": "\ud83c\udde6\ud83c\uddea", "type": "stock" },
+    { "symbol": "ETISALAT.AE", "name": "e& (Etisalat)", "country": "UAE", "flag": "\ud83c\udde6\ud83c\uddea", "type": "stock" },
+    { "symbol": "EMAAR.AE", "name": "Emaar Properties", "country": "UAE", "flag": "\ud83c\udde6\ud83c\uddea", "type": "stock" },
+    { "symbol": "DIB.AE", "name": "Dubai Islamic Bank", "country": "UAE", "flag": "\ud83c\udde6\ud83c\uddea", "type": "stock" },
+    { "symbol": "ALDAR.AE", "name": "Aldar Properties", "country": "UAE", "flag": "\ud83c\udde6\ud83c\uddea", "type": "stock" },
+    { "symbol": "ADNOCDIST.AE", "name": "ADNOC Distribution", "country": "UAE", "flag": "\ud83c\udde6\ud83c\uddea", "type": "stock" },
+    { "symbol": "DAMAC.AE", "name": "DAMAC Properties", "country": "UAE", "flag": "\ud83c\udde6\ud83c\uddea", "type": "stock" },
+
+    { "symbol": "NBK.KW", "name": "National Bank of Kuwait", "country": "Kuwait", "flag": "\ud83c\uddf0\ud83c\uddfc", "type": "stock" },
+    { "symbol": "ZAIN.KW", "name": "Zain Group", "country": "Kuwait", "flag": "\ud83c\uddf0\ud83c\uddfc", "type": "stock" },
+    { "symbol": "KFH.KW", "name": "Kuwait Finance House", "country": "Kuwait", "flag": "\ud83c\uddf0\ud83c\uddfc", "type": "stock" },
+
+    { "symbol": "BATELCO.BH", "name": "Batelco", "country": "Bahrain", "flag": "\ud83c\udde7\ud83c\udded", "type": "stock" },
+    { "symbol": "NBB.BH", "name": "National Bank of Bahrain", "country": "Bahrain", "flag": "\ud83c\udde7\ud83c\udded", "type": "stock" },
+    { "symbol": "ALBA.BH", "name": "Aluminium Bahrain", "country": "Bahrain", "flag": "\ud83c\udde7\ud83c\udded", "type": "stock" },
+
+    { "symbol": "OMAN.OM", "name": "Bank Muscat", "country": "Oman", "flag": "\ud83c\uddf4\ud83c\uddf2", "type": "stock" },
+    { "symbol": "OTEL.OM", "name": "Omantel", "country": "Oman", "flag": "\ud83c\uddf4\ud83c\uddf2", "type": "stock" },
+
     { "symbol": "SARUSD=X", "name": "Saudi Riyal", "country": "Saudi Arabia", "flag": "\ud83c\uddf8\ud83c\udde6", "type": "currency" },
     { "symbol": "AEDUSD=X", "name": "UAE Dirham", "country": "UAE", "flag": "\ud83c\udde6\ud83c\uddea", "type": "currency" },
     { "symbol": "QARUSD=X", "name": "Qatari Riyal", "country": "Qatar", "flag": "\ud83c\uddf6\ud83c\udde6", "type": "currency" },

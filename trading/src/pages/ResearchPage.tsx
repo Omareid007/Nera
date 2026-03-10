@@ -10,7 +10,7 @@ import {
 const UNIVERSES = [
   { id: 'tech-mega', name: 'Tech Mega-Caps', symbols: ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA'], icon: Zap, color: 'text-blue-400', description: 'US mega-cap technology leaders' },
   { id: 'defense', name: 'Defense & Aerospace', symbols: ['LMT', 'RTX', 'NOC', 'GD', 'BA', 'LHX'], icon: Shield, color: 'text-amber-400', description: 'Linked to conflict intelligence (ACLED, UCDP)' },
-  { id: 'energy', name: 'Energy & Commodities', symbols: ['XOM', 'CVX', 'COP', 'SLB', 'OXY', 'MPC'], icon: TrendingUp, color: 'text-emerald-400', description: 'Linked to EIA energy data and sanctions intelligence' },
+  { id: 'energy', name: 'Energy & Commodities', symbols: ['XOM', 'CVX', 'COP', 'SLB', 'OXY', 'MPC'], icon: TrendingUp, color: 'text-teal-400', description: 'Linked to EIA energy data and sanctions intelligence' },
   { id: 'financials', name: 'Financials', symbols: ['JPM', 'BAC', 'GS', 'MS', 'WFC', 'C', 'BLK'], icon: Building2, color: 'text-purple-400', description: 'Major financial institutions' },
   { id: 'emerging', name: 'Emerging Markets ETFs', symbols: ['EEM', 'VWO', 'IEMG', 'INDA', 'EWZ', 'FXI'], icon: Globe, color: 'text-teal-400', description: 'Linked to CII country risk scores and geopolitical intelligence' },
   { id: 'news-reactive', name: 'News-Reactive', symbols: ['SPY', 'QQQ', 'VIX', 'GLD', 'TLT', 'UUP'], icon: Newspaper, color: 'text-rose-400', description: 'Macro instruments linked to GDELT news sentiment' },
@@ -59,7 +59,7 @@ export function ResearchPage() {
         <h2 className="mb-3 text-sm font-semibold text-[var(--color-text-tertiary)]">Intelligence-Linked Universes</h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((u) => (
-            <div key={u.id} className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4 transition-colors hover:border-[var(--color-border-default)]">
+            <div key={u.id} className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4 transition-colors hover:border-[var(--color-border-default)]">
               <div className="mb-2 flex items-center gap-2">
                 <u.icon size={16} className={u.color} />
                 <h3 className="text-sm font-medium text-[var(--color-text-primary)]">{u.name}</h3>
@@ -78,7 +78,7 @@ export function ResearchPage() {
       {/* Market Intelligence Panels */}
       <div className="mb-6 grid gap-4 lg:grid-cols-2">
         {/* Prediction Markets */}
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
           <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[var(--color-text-tertiary)]">
             <Percent size={14} className="text-purple-400" /> Prediction Markets
           </h3>
@@ -107,9 +107,9 @@ export function ResearchPage() {
         </div>
 
         {/* Earnings Calendar */}
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
           <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[var(--color-text-tertiary)]">
-            <BarChart3 size={14} className="text-emerald-400" /> Earnings Calendar
+            <BarChart3 size={14} className="text-teal-400" /> Earnings Calendar
           </h3>
           {earnings.upcoming.length === 0 && earnings.recent.length === 0 ? (
             <p className="text-xs text-[var(--color-text-muted)]">No earnings data available</p>
@@ -155,12 +155,12 @@ export function ResearchPage() {
         </div>
 
         {/* Tropical Cyclones */}
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
           <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[var(--color-text-tertiary)]">
             <CloudLightning size={14} className="text-amber-400" /> Tropical Cyclones
           </h3>
           {cyclones.length === 0 ? (
-            <div className="flex items-center gap-2 rounded-lg bg-emerald-500/10 px-3 py-2 text-xs text-emerald-400">
+            <div className="flex items-center gap-2 rounded-lg bg-teal-500/10 px-3 py-2 text-xs text-teal-400">
               <Shield size={12} /> No active tropical cyclones — clear for commodity markets
             </div>
           ) : (
@@ -188,7 +188,7 @@ export function ResearchPage() {
         </div>
 
         {/* CISA Cyber Threats */}
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
           <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[var(--color-text-tertiary)]">
             <ShieldAlert size={14} className="text-red-400" /> CISA Cyber Threats (KEV)
           </h3>
@@ -226,7 +226,7 @@ export function ResearchPage() {
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-medium text-[var(--color-text-primary)]">{src.name}</span>
                   <span className={`rounded-full px-1.5 py-0.5 text-[9px] font-semibold uppercase ${
-                    src.status === 'live' ? 'bg-emerald-500/20 text-emerald-400' :
+                    src.status === 'live' ? 'bg-teal-500/20 text-teal-400' :
                     src.status === 'stale' ? 'bg-amber-500/20 text-amber-400' :
                     src.status === 'down' ? 'bg-red-500/20 text-red-400' :
                     'bg-gray-500/20 text-gray-400'

@@ -6,7 +6,7 @@ import { timeAgo } from '@/lib/utils';
 
 const TYPE_COLORS: Record<string, string> = {
   order: 'bg-blue-500/20 text-blue-400',
-  fill: 'bg-emerald-500/20 text-emerald-400',
+  fill: 'bg-teal-500/20 text-teal-400',
   fee: 'bg-amber-500/20 text-amber-400',
   adjustment: 'bg-purple-500/20 text-purple-400',
   deposit: 'bg-teal-500/20 text-teal-400',
@@ -55,14 +55,14 @@ export function LedgerPage() {
       {loading ? (
         <div className="flex justify-center py-12"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={20} /></div>
       ) : entries.length === 0 ? (
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12">
           <div className="flex flex-col items-center justify-center text-center">
             <ScrollText size={28} className="mb-3 text-[var(--color-text-muted)]" />
             <p className="text-sm text-[var(--color-text-secondary)]">No ledger entries yet. Trade activity will appear here as orders are placed and filled.</p>
           </div>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-2xl border border-[var(--color-border-subtle)]">
+        <div className="overflow-hidden rounded-lg border border-[var(--color-border-subtle)]">
           <table className="w-full text-xs">
             <thead className="bg-[var(--color-surface-2)]">
               <tr className="text-left text-[var(--color-text-tertiary)]">

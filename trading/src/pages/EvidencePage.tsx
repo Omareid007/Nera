@@ -6,7 +6,7 @@ import { timeAgo } from '@/lib/utils';
 
 const CATEGORY_META: Record<string, { icon: typeof Brain; color: string; label: string }> = {
   ai: { icon: Brain, color: 'bg-blue-500/20 text-blue-400', label: 'AI' },
-  order: { icon: ArrowRightLeft, color: 'bg-emerald-500/20 text-emerald-400', label: 'Order' },
+  order: { icon: ArrowRightLeft, color: 'bg-teal-500/20 text-teal-400', label: 'Order' },
   fill: { icon: ArrowRightLeft, color: 'bg-teal-500/20 text-teal-400', label: 'Fill' },
   system: { icon: Settings, color: 'bg-gray-500/20 text-gray-400', label: 'System' },
   backtest: { icon: FlaskConical, color: 'bg-purple-500/20 text-purple-400', label: 'Backtest' },
@@ -46,7 +46,7 @@ export function EvidencePage() {
       {loading ? (
         <div className="flex justify-center py-12"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={20} /></div>
       ) : entries.length === 0 ? (
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12">
           <div className="flex flex-col items-center justify-center text-center">
             <FileCheck size={28} className="mb-3 text-[var(--color-text-muted)]" />
             <p className="text-sm text-[var(--color-text-secondary)]">

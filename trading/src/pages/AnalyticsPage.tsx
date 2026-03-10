@@ -137,7 +137,7 @@ export function AnalyticsPage() {
         {/* Auto-refresh toggle */}
         <button onClick={() => setAutoRefresh(!autoRefresh)}
           className={`ml-auto flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
-            autoRefresh ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-[var(--color-surface-2)] text-[var(--color-text-tertiary)]'
+            autoRefresh ? 'bg-teal-500/10 text-teal-400 border border-teal-500/30' : 'bg-[var(--color-surface-2)] text-[var(--color-text-tertiary)]'
           }`}>
           <RefreshCw size={12} className={autoRefresh ? 'animate-spin' : ''} /> {autoRefresh ? 'Live' : 'Auto'}
         </button>
@@ -149,7 +149,7 @@ export function AnalyticsPage() {
       {loading ? (
         <div className="flex justify-center py-20"><Loader2 className="animate-spin text-[var(--color-text-muted)]" size={24} /></div>
       ) : !data || !q ? (
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12 text-center">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12 text-center">
           <p className="text-sm text-[var(--color-text-secondary)]">No data available for {symbol}</p>
         </div>
       ) : (
@@ -225,7 +225,7 @@ export function AnalyticsPage() {
           </div>
 
           {/* Main price chart (OHLC as bar + overlays as lines) */}
-          <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+          <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
             <h4 className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
               <BarChart3 size={12} /> Price Chart
             </h4>
@@ -263,7 +263,7 @@ export function AnalyticsPage() {
 
           {/* Volume chart */}
           {showVolume && (
-            <div className="mt-3 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+            <div className="mt-3 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
               <h4 className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
                 <Activity size={12} /> Volume
               </h4>
@@ -284,7 +284,7 @@ export function AnalyticsPage() {
 
           {/* RSI chart */}
           {showRSI && (
-            <div className="mt-3 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+            <div className="mt-3 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
               <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">RSI (14)</h4>
               <ResponsiveContainer width="100%" height={120}>
                 <AreaChart data={chartData} margin={{ top: 4, right: 8, bottom: 0, left: 0 }}>
@@ -303,7 +303,7 @@ export function AnalyticsPage() {
 
           {/* MACD chart */}
           {showMACD && (
-            <div className="mt-3 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+            <div className="mt-3 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
               <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">MACD (12, 26, 9)</h4>
               <ResponsiveContainer width="100%" height={140}>
                 <ComposedChart data={chartData} margin={{ top: 4, right: 8, bottom: 0, left: 0 }}>

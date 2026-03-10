@@ -48,13 +48,13 @@ export function BacktestsPage() {
       <PageHeader title="Backtests" description="View, compare, and analyze historical strategy backtests" />
 
       {error ? (
-        <div className="rounded-2xl border border-[var(--color-loss)]/30 bg-[var(--color-loss)]/5 p-6 text-center">
+        <div className="rounded-lg border border-[var(--color-loss)]/30 bg-[var(--color-loss)]/5 p-6 text-center">
           <p className="text-sm text-[var(--color-loss)]">{error}</p>
         </div>
       ) : runs.length === 0 ? (
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12">
           <div className="flex flex-col items-center justify-center text-center">
-            <div className="mb-4 rounded-2xl bg-[var(--color-surface-2)] p-4">
+            <div className="mb-4 rounded-lg bg-[var(--color-surface-2)] p-4">
               <FlaskConical size={28} className="text-[var(--color-text-muted)]" />
             </div>
             <h3 className="text-lg font-medium text-[var(--color-text-primary)]">No backtests yet</h3>
@@ -103,7 +103,7 @@ export function BacktestsPage() {
             ) : selectedRun ? (
               <BacktestDetail run={selectedRun} expandedTrades={expandedTrades} setExpandedTrades={setExpandedTrades} />
             ) : (
-              <div className="flex flex-col items-center justify-center rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-16 text-center">
+              <div className="flex flex-col items-center justify-center rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-16 text-center">
                 <BarChart3 size={32} className="mb-3 text-[var(--color-text-muted)]" />
                 <p className="text-sm text-[var(--color-text-secondary)]">Select a backtest run to view results</p>
               </div>
@@ -124,7 +124,7 @@ function BacktestDetail({ run, expandedTrades, setExpandedTrades }: {
 
   if (run.status === 'failed') {
     return (
-      <div className="rounded-2xl border border-[var(--color-loss)]/30 bg-[var(--color-loss)]/5 p-6">
+      <div className="rounded-lg border border-[var(--color-loss)]/30 bg-[var(--color-loss)]/5 p-6">
         <h3 className="text-sm font-semibold text-[var(--color-loss)]">Backtest Failed</h3>
         <p className="mt-2 text-xs text-[var(--color-text-secondary)]">{run.error || 'Unknown error'}</p>
       </div>
@@ -133,7 +133,7 @@ function BacktestDetail({ run, expandedTrades, setExpandedTrades }: {
 
   if (run.status === 'running') {
     return (
-      <div className="flex flex-col items-center justify-center rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-16">
+      <div className="flex flex-col items-center justify-center rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-16">
         <Loader2 size={32} className="mb-3 animate-spin text-[var(--color-accent)]" />
         <p className="text-sm text-[var(--color-text-secondary)]">Backtest is running...</p>
       </div>
@@ -171,7 +171,7 @@ function BacktestDetail({ run, expandedTrades, setExpandedTrades }: {
 
       {/* Equity curve chart */}
       {run.equityCurve.length > 0 && (
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
           <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
             <TrendingUp size={12} className="mr-1 inline" /> Equity Curve
           </h4>
@@ -199,7 +199,7 @@ function BacktestDetail({ run, expandedTrades, setExpandedTrades }: {
 
       {/* Drawdown chart */}
       {run.equityCurve.length > 0 && (
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
           <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
             <BarChart3 size={12} className="mr-1 inline" /> Drawdown
           </h4>
@@ -226,7 +226,7 @@ function BacktestDetail({ run, expandedTrades, setExpandedTrades }: {
       )}
 
       {/* Extended metrics */}
-      <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5">
+      <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5">
         <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
           <Target size={12} className="mr-1 inline" /> Performance Metrics
         </h4>
@@ -259,7 +259,7 @@ function BacktestDetail({ run, expandedTrades, setExpandedTrades }: {
 
       {/* Trade list */}
       {run.trades.length > 0 && (
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
           <button onClick={() => setExpandedTrades(!expandedTrades)}
             className="flex w-full items-center justify-between text-xs">
             <h4 className="font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">

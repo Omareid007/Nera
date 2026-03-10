@@ -11,7 +11,7 @@ function fmt(n: number): string {
 
 function AllocationBar({ positions, totalEquity }: { positions: Position[]; totalEquity: number }) {
   if (positions.length === 0) return null;
-  const colors = ['bg-blue-500', 'bg-emerald-500', 'bg-amber-500', 'bg-purple-500', 'bg-rose-500', 'bg-teal-500', 'bg-orange-500', 'bg-indigo-500'];
+  const colors = ['bg-blue-500', 'bg-teal-500', 'bg-amber-500', 'bg-purple-500', 'bg-rose-500', 'bg-teal-500', 'bg-orange-500', 'bg-indigo-500'];
   return (
     <div>
       <div className="flex h-4 overflow-hidden rounded-full bg-[var(--color-surface-2)]">
@@ -51,7 +51,7 @@ function RiskDecomposition({ portfolio }: { portfolio: PortfolioSnapshot }) {
   const cashPct = portfolio.totalEquity > 0 ? (portfolio.cash / portfolio.totalEquity) * 100 : 100;
 
   return (
-    <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5">
+    <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5">
       <h3 className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
         <ShieldAlert size={14} /> Risk Decomposition
       </h3>
@@ -117,7 +117,7 @@ export function PortfolioPage() {
   if (error) return (
     <div>
       <PageHeader title="Portfolio" description="Positions, exposure, risk decomposition, and P&L tracking" />
-      <div className="rounded-2xl border border-[var(--color-loss)]/30 bg-[var(--color-loss)]/5 p-6 text-center">
+      <div className="rounded-lg border border-[var(--color-loss)]/30 bg-[var(--color-loss)]/5 p-6 text-center">
         <p className="text-sm text-[var(--color-loss)]">{error}</p>
       </div>
     </div>
@@ -147,7 +147,7 @@ export function PortfolioPage() {
       </div>
 
       {/* Fund management */}
-      <div className="mt-4 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
+      <div className="mt-4 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-4">
         <div className="flex flex-wrap items-end gap-3">
           <div>
             <label className="mb-1 block text-xs text-[var(--color-text-secondary)]">Action</label>
@@ -174,11 +174,11 @@ export function PortfolioPage() {
         <div className="lg:col-span-2">
           <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold text-[var(--color-text-tertiary)]"><BarChart3 size={14} /> Open Positions</h2>
           {portfolio.positions.length === 0 ? (
-            <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-8">
+            <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-8">
               <p className="text-center text-sm text-[var(--color-text-muted)]">No open positions. Execute paper trades to build your portfolio.</p>
             </div>
           ) : (
-            <div className="overflow-hidden rounded-2xl border border-[var(--color-border-subtle)]">
+            <div className="overflow-hidden rounded-lg border border-[var(--color-border-subtle)]">
               <table className="w-full text-xs">
                 <thead className="bg-[var(--color-surface-2)]">
                   <tr className="text-left text-[var(--color-text-tertiary)]">
@@ -218,7 +218,7 @@ export function PortfolioPage() {
           {portfolio.positions.length > 0 && (
             <div className="mt-6">
               <h2 className="mb-3 text-sm font-semibold text-[var(--color-text-tertiary)]">Allocation</h2>
-              <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5">
+              <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5">
                 <AllocationBar positions={portfolio.positions} totalEquity={portfolio.totalEquity} />
               </div>
             </div>

@@ -7,7 +7,7 @@ import {
 } from '@/lib/api';
 
 const LEVEL_COLORS: Record<string, string> = {
-  LOW: 'bg-emerald-500/20 text-emerald-400',
+  LOW: 'bg-teal-500/20 text-teal-400',
   MODERATE: 'bg-blue-500/20 text-blue-400',
   ELEVATED: 'bg-amber-500/20 text-amber-400',
   HIGH: 'bg-orange-500/20 text-orange-400',
@@ -15,7 +15,7 @@ const LEVEL_COLORS: Record<string, string> = {
 };
 
 const DIRECTION_COLORS: Record<string, { bg: string; text: string }> = {
-  BUY: { bg: 'bg-emerald-500', text: 'text-white' },
+  BUY: { bg: 'bg-teal-500', text: 'text-white' },
   SELL: { bg: 'bg-red-500', text: 'text-white' },
   HOLD: { bg: 'bg-gray-500', text: 'text-white' },
 };
@@ -49,7 +49,7 @@ function SignalCard({ signal, selected, onSelect }: { signal: GeoSignal; selecte
         <span className="text-lg font-bold text-[var(--color-accent)]">{signal.confidence}%</span>
       </div>
       <p className="text-[11px] text-[var(--color-text-muted)] mb-2">{signal.name}</p>
-      <StrengthBar label="Bull" value={signal.bullStrength} color="bg-emerald-500" />
+      <StrengthBar label="Bull" value={signal.bullStrength} color="bg-teal-500" />
       <StrengthBar label="Bear" value={signal.bearStrength} color="bg-red-500" />
       <div className="mt-2 flex items-center gap-1.5 flex-wrap">
         <span className={`rounded px-1.5 py-0.5 text-[8px] font-bold uppercase ${
@@ -91,11 +91,11 @@ function DetailPanel({ signal }: { signal: GeoSignal }) {
       {/* Bull/Bear Bars */}
       <div className="mb-4 rounded-xl bg-[var(--color-surface-2)] p-3">
         <div className="flex items-center justify-between text-xs mb-2">
-          <span className="font-semibold text-emerald-400">Bullish Strength</span>
+          <span className="font-semibold text-teal-400">Bullish Strength</span>
           <span className="font-semibold text-red-400">Bearish Strength</span>
         </div>
         <div className="flex h-2.5 rounded-full overflow-hidden bg-[var(--color-surface-3)]">
-          <div className="bg-emerald-500 transition-all" style={{ width: `${signal.bullStrength}%` }} />
+          <div className="bg-teal-500 transition-all" style={{ width: `${signal.bullStrength}%` }} />
           <div className="flex-1" />
           <div className="bg-red-500 transition-all" style={{ width: `${signal.bearStrength}%` }} />
         </div>
@@ -157,7 +157,7 @@ function DetailPanel({ signal }: { signal: GeoSignal }) {
               <div className="flex-1 h-2.5 rounded-full overflow-hidden bg-[var(--color-surface-3)]">
                 <div className="h-full bg-red-500 rounded-l-full" style={{ width: `${Math.round(100 / (1 + signal.tradeSetup.riskRewardRatio))}%` }} />
               </div>
-              <span className="text-[10px] text-emerald-400">+Reward</span>
+              <span className="text-[10px] text-teal-400">+Reward</span>
             </div>
           </div>
           <div className="rounded-lg border border-amber-500/20 bg-amber-500/5 p-3">
@@ -209,7 +209,7 @@ function DetailPanel({ signal }: { signal: GeoSignal }) {
             {[
               { time: 'T+0', badge: 'EVENT', badgeColor: 'bg-red-500', title: 'Event Detected', desc: signal.triggeringEvent.title },
               { time: 'T+2min', badge: 'NLP', badgeColor: 'bg-blue-500', title: 'NLP Classification', desc: `Category: ${signal.triggeringEvent.category} · Severity: ${signal.triggeringEvent.severity}%` },
-              { time: 'T+5min', badge: 'SIGNAL', badgeColor: 'bg-emerald-500', title: `${signal.direction} Signal Generated`, desc: `${signal.name} ${signal.direction} · Confidence: ${signal.confidence}%` },
+              { time: 'T+5min', badge: 'SIGNAL', badgeColor: 'bg-teal-500', title: `${signal.direction} Signal Generated`, desc: `${signal.name} ${signal.direction} · Confidence: ${signal.confidence}%` },
               { time: 'T+30min', badge: 'REACTION', badgeColor: 'bg-purple-500', title: 'Market Reaction', desc: `${signal.name} movement expected (est.)` },
             ].map((item, i) => (
               <div key={i} className="flex items-start gap-3">
@@ -414,7 +414,7 @@ export function GeoSignalsPage() {
         </div>
 
         {/* Right panel — detail */}
-        <div className="flex-1 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5 overflow-y-auto">
+        <div className="flex-1 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5 overflow-y-auto">
           {selected ? (
             <DetailPanel signal={selected} />
           ) : (

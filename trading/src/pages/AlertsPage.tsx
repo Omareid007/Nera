@@ -104,11 +104,11 @@ export function AlertsPage() {
           </div>
         }
       />
-      {evalResult && <div className="mb-3 rounded-lg bg-emerald-500/10 px-3 py-2 text-xs text-emerald-400">{evalResult}</div>}
+      {evalResult && <div className="mb-3 rounded-lg bg-teal-500/10 px-3 py-2 text-xs text-teal-400">{evalResult}</div>}
 
       {/* Stats */}
       <div className="mb-4 flex gap-3">
-        <div className="flex items-center gap-2 rounded-lg bg-emerald-500/10 px-3 py-1.5 text-xs font-medium text-emerald-400">
+        <div className="flex items-center gap-2 rounded-lg bg-teal-500/10 px-3 py-1.5 text-xs font-medium text-teal-400">
           <Bell size={12} /> {activeCount} Active
         </div>
         <div className="flex items-center gap-2 rounded-lg bg-amber-500/10 px-3 py-1.5 text-xs font-medium text-amber-400">
@@ -121,7 +121,7 @@ export function AlertsPage() {
       {/* Create form */}
       {showCreate && (
         <form onSubmit={handleCreate}
-          className="mb-6 rounded-2xl border border-[var(--color-accent)]/30 bg-[var(--color-accent)]/5 p-5">
+          className="mb-6 rounded-lg border border-[var(--color-accent)]/30 bg-[var(--color-accent)]/5 p-5">
           <h3 className="mb-4 text-sm font-semibold text-[var(--color-text-primary)]">Create New Alert</h3>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <div>
@@ -176,7 +176,7 @@ export function AlertsPage() {
 
       {/* Alert list */}
       {filtered.length === 0 ? (
-        <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12 text-center">
+        <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-12 text-center">
           <BellOff size={32} className="mx-auto mb-3 text-[var(--color-text-muted)]" />
           <p className="text-sm text-[var(--color-text-secondary)]">No alerts {filter !== 'all' ? `with status "${filter}"` : 'yet'}.</p>
         </div>
@@ -188,13 +188,13 @@ export function AlertsPage() {
             return (
               <div key={alert.id}
                 className={`flex items-center justify-between rounded-xl border p-4 text-xs transition-colors ${
-                  alert.status === 'active' ? 'border-emerald-500/20 bg-emerald-500/5' :
+                  alert.status === 'active' ? 'border-teal-500/20 bg-teal-500/5' :
                   alert.status === 'triggered' ? 'border-amber-500/30 bg-amber-500/5' :
                   'border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] opacity-60'
                 }`}>
                 <div className="flex items-center gap-3">
                   <div className={`rounded-lg p-2 ${
-                    alert.status === 'active' ? 'bg-emerald-500/10 text-emerald-400' :
+                    alert.status === 'active' ? 'bg-teal-500/10 text-teal-400' :
                     alert.status === 'triggered' ? 'bg-amber-500/10 text-amber-400' :
                     'bg-[var(--color-surface-2)] text-[var(--color-text-muted)]'
                   }`}>
@@ -230,7 +230,7 @@ export function AlertsPage() {
       )}
 
       {/* Alert type guide */}
-      <div className="mt-8 rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5">
+      <div className="mt-8 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5">
         <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Available Alert Types</h3>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {ALERT_TYPES.map((t) => (

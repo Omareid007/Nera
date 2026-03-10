@@ -198,7 +198,7 @@ export function SettingsPage() {
       </div>
 
       {/* Disclaimer */}
-      <div className="mt-6 rounded-2xl border border-amber-500/20 bg-amber-500/5 p-4">
+      <div className="mt-6 rounded-lg border border-amber-500/20 bg-amber-500/5 p-4">
         <div className="flex items-start gap-2">
           <AlertTriangle size={14} className="mt-0.5 shrink-0 text-amber-400" />
           <div className="text-xs text-amber-300/80">
@@ -217,7 +217,7 @@ export function SettingsPage() {
 
 function SettingsSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5">
+    <div className="rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-surface-1)] p-5">
       <h3 className="mb-4 text-sm font-semibold text-[var(--color-text-primary)]">{title}</h3>
       <div className="space-y-4">{children}</div>
     </div>
