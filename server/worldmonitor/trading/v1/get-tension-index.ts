@@ -9,6 +9,7 @@
 import { jsonResponse } from './_shared';
 import { getCachedJson, setCachedJson } from '../../../_shared/redis';
 import { CHROME_UA } from '../../../_shared/constants';
+import { REGION_ASSET_MAP, CATEGORY_ASSET_MAP } from './_geo-signal-data';
 
 interface TensionIndex {
   score: number;
@@ -19,6 +20,8 @@ interface TensionIndex {
     sentiment: number;
     cyber: number;
     natural: number;
+    political: number;
+    supplyChain: number;
   };
   triggers: TensionTrigger[];
   timestamp: number;
@@ -26,7 +29,7 @@ interface TensionIndex {
 
 interface TensionTrigger {
   title: string;
-  category: 'conflict' | 'sentiment' | 'cyber' | 'natural' | 'economic';
+  category: 'conflict' | 'sentiment' | 'cyber' | 'natural' | 'economic' | 'political' | 'supply_chain';
   severity: number;
   region: string;
   timestamp: string;
@@ -44,29 +47,24 @@ function classifyLevel(score: number): TensionIndex['level'] {
   return 'LOW';
 }
 
-/** Map regions to affected asset classes. */
+/** Map regions and categories to affected asset classes using global data. */
 function regionToAssets(region: string, category: string): string[] {
   const r = region.toLowerCase();
   const assets: string[] = [];
-  if (r.includes('middle east') || r.includes('iran') || r.includes('iraq') || r.includes('gulf')) {
-    assets.push('OIL', 'GAS', 'GLD', 'XOM', 'CVX');
+
+  // Match against region patterns
+  for (const entry of REGION_ASSET_MAP) {
+    if (entry.patterns.some((p) => r.includes(p))) {
+      assets.push(...entry.assets);
+    }
   }
-  if (r.includes('ukraine') || r.includes('russia') || r.includes('europe')) {
-    assets.push('GAS', 'WHEAT', 'EURUSD', 'LMT', 'RTX');
+
+  // Match against category-based assets
+  if (CATEGORY_ASSET_MAP[category]) {
+    assets.push(...CATEGORY_ASSET_MAP[category]);
   }
-  if (r.includes('china') || r.includes('taiwan') || r.includes('asia')) {
-    assets.push('TSM', 'NVDA', 'AAPL', 'FXI', 'EEM');
-  }
-  if (r.includes('africa')) {
-    assets.push('MINERALS', 'EEM');
-  }
-  if (category === 'cyber') {
-    assets.push('PANW', 'CRWD', 'ZS', 'FTNT', 'HACK');
-  }
-  if (category === 'natural') {
-    assets.push('OIL', 'GAS', 'CORN', 'WHEAT');
-  }
-  if (assets.length === 0) assets.push('SPY', 'GLD', 'VIX');
+
+  if (assets.length === 0) assets.push('SPY', 'GLD', '^VIX');
   return [...new Set(assets)];
 }
 
@@ -77,7 +75,7 @@ async function fetchConflictScore(): Promise<{ score: number; triggers: TensionT
   try {
     // Use GDELT to gauge recent conflict intensity
     const res = await fetch(
-      'https://api.gdeltproject.org/api/v2/doc/doc?query=conflict%20OR%20war%20OR%20attack%20OR%20missile%20OR%20escalation&mode=artlist&maxrecords=10&format=json&timespan=24h',
+      'https://api.gdeltproject.org/api/v2/doc/doc?query=conflict%20OR%20war%20OR%20attack%20OR%20missile%20OR%20escalation%20OR%20coup%20OR%20insurgency%20OR%20bombing%20OR%20militia%20OR%20terrorism%20OR%20invasion&mode=artlist&maxrecords=10&format=json&timespan=24h',
       { headers: { 'User-Agent': CHROME_UA }, signal: AbortSignal.timeout(8_000) },
     );
     if (res.ok) {
@@ -112,7 +110,7 @@ async function fetchSentimentScore(): Promise<{ score: number; triggers: Tension
 
   try {
     const res = await fetch(
-      'https://api.gdeltproject.org/api/v2/doc/doc?query=sanctions%20OR%20tariff%20OR%20recession%20OR%20crisis&mode=artlist&maxrecords=8&format=json&timespan=24h',
+      'https://api.gdeltproject.org/api/v2/doc/doc?query=sanctions%20OR%20tariff%20OR%20recession%20OR%20crisis%20OR%20default%20OR%20inflation%20OR%20bank%20failure%20OR%20election%20OR%20protest%20OR%20famine%20OR%20pandemic%20OR%20drought%20OR%20blackout&mode=artlist&maxrecords=8&format=json&timespan=24h',
       { headers: { 'User-Agent': CHROME_UA }, signal: AbortSignal.timeout(8_000) },
     );
     if (res.ok) {
@@ -213,6 +211,74 @@ async function fetchNaturalScore(): Promise<{ score: number; triggers: TensionTr
   return { score: Math.min(100, Math.round(score)), triggers };
 }
 
+async function fetchPoliticalScore(): Promise<{ score: number; triggers: TensionTrigger[] }> {
+  const triggers: TensionTrigger[] = [];
+  let score = 5;
+
+  try {
+    const res = await fetch(
+      'https://api.gdeltproject.org/api/v2/doc/doc?query=election%20OR%20coup%20OR%20protest%20OR%20regime%20change%20OR%20impeachment%20OR%20martial%20law&mode=artlist&maxrecords=8&format=json&timespan=24h',
+      { headers: { 'User-Agent': CHROME_UA }, signal: AbortSignal.timeout(8_000) },
+    );
+    if (res.ok) {
+      const json = await res.json() as { articles?: Array<{ title?: string; tone?: number; sourcecountry?: string; seendate?: string }> };
+      const articles = json.articles ?? [];
+
+      for (const a of articles) {
+        const tone = typeof a.tone === 'number' ? a.tone : 0;
+        score += Math.max(0, -tone) * 1.5;
+
+        if (tone < -3) {
+          triggers.push({
+            title: a.title ?? 'Political instability detected',
+            category: 'political',
+            severity: Math.min(100, Math.round(Math.abs(tone) * 12)),
+            region: a.sourcecountry ?? 'Global',
+            timestamp: a.seendate ?? new Date().toISOString(),
+            affectedAssets: regionToAssets(a.sourcecountry ?? '', 'political'),
+          });
+        }
+      }
+    }
+  } catch { /* baseline */ }
+
+  return { score: Math.min(100, Math.round(score)), triggers: triggers.slice(0, 3) };
+}
+
+async function fetchSupplyChainScore(): Promise<{ score: number; triggers: TensionTrigger[] }> {
+  const triggers: TensionTrigger[] = [];
+  let score = 5;
+
+  try {
+    const res = await fetch(
+      'https://api.gdeltproject.org/api/v2/doc/doc?query=earthquake%20OR%20tsunami%20OR%20drought%20OR%20flood%20OR%20wildfire%20OR%20shipping%20disruption%20OR%20port%20strike%20OR%20pipeline&mode=artlist&maxrecords=8&format=json&timespan=24h',
+      { headers: { 'User-Agent': CHROME_UA }, signal: AbortSignal.timeout(8_000) },
+    );
+    if (res.ok) {
+      const json = await res.json() as { articles?: Array<{ title?: string; tone?: number; sourcecountry?: string; seendate?: string }> };
+      const articles = json.articles ?? [];
+
+      for (const a of articles) {
+        const tone = typeof a.tone === 'number' ? a.tone : 0;
+        score += Math.max(0, -tone) * 1.2;
+
+        if (tone < -3) {
+          triggers.push({
+            title: a.title ?? 'Supply chain disruption detected',
+            category: 'supply_chain',
+            severity: Math.min(100, Math.round(Math.abs(tone) * 10)),
+            region: a.sourcecountry ?? 'Global',
+            timestamp: a.seendate ?? new Date().toISOString(),
+            affectedAssets: regionToAssets(a.sourcecountry ?? '', 'supply_chain'),
+          });
+        }
+      }
+    }
+  } catch { /* baseline */ }
+
+  return { score: Math.min(100, Math.round(score)), triggers: triggers.slice(0, 3) };
+}
+
 export async function getTensionIndex(_req: Request): Promise<Response> {
   // Check cache
   try {
@@ -222,27 +288,34 @@ export async function getTensionIndex(_req: Request): Promise<Response> {
     }
   } catch { /* proceed */ }
 
-  // Fetch all components in parallel
-  const [conflict, sentiment, cyber, natural] = await Promise.all([
+  // Fetch all components in parallel (6 components for global coverage)
+  const [conflict, sentiment, cyber, natural, political, supplyChain] = await Promise.all([
     fetchConflictScore(),
     fetchSentimentScore(),
     fetchCyberScore(),
     fetchNaturalScore(),
+    fetchPoliticalScore(),
+    fetchSupplyChainScore(),
   ]);
 
-  // Weighted composite: conflict 35%, sentiment 25%, cyber 20%, natural 20%
+  // Weighted composite: conflict 25%, sentiment 20%, cyber 15%, natural 15%, political 15%, supplyChain 10%
   const composite = Math.round(
-    conflict.score * 0.35 +
-    sentiment.score * 0.25 +
-    cyber.score * 0.20 +
-    natural.score * 0.20,
+    conflict.score * 0.25 +
+    sentiment.score * 0.20 +
+    cyber.score * 0.15 +
+    natural.score * 0.15 +
+    political.score * 0.15 +
+    supplyChain.score * 0.10,
   );
   const score = Math.min(100, Math.max(0, composite));
 
   // Collect all triggers, sort by severity
-  const triggers = [...conflict.triggers, ...sentiment.triggers, ...cyber.triggers, ...natural.triggers]
+  const triggers = [
+    ...conflict.triggers, ...sentiment.triggers, ...cyber.triggers,
+    ...natural.triggers, ...political.triggers, ...supplyChain.triggers,
+  ]
     .sort((a, b) => b.severity - a.severity)
-    .slice(0, 8);
+    .slice(0, 10);
 
   // Compute change from previous cached value
   let change = 0;
@@ -260,6 +333,8 @@ export async function getTensionIndex(_req: Request): Promise<Response> {
       sentiment: sentiment.score,
       cyber: cyber.score,
       natural: natural.score,
+      political: political.score,
+      supplyChain: supplyChain.score,
     },
     triggers,
     timestamp: Date.now(),

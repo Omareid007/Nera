@@ -3,15 +3,16 @@
  * Links GDELT/ACLED events to specific assets with directional signals,
  * confidence scores, and causal reasoning chains.
  *
- * Inspired by GeoTrade's signal card approach — adapted for Nera.
+ * 34 global categories covering all regions and thematic verticals.
+ * Data extracted to _geo-signal-data.ts for maintainability.
  */
 
 import { jsonResponse } from './_shared';
 import { getCachedJson, setCachedJson } from '../../../_shared/redis';
 import { CHROME_UA } from '../../../_shared/constants';
+import { GEO_ASSET_MAP, GDELT_GEO_QUERY } from './_geo-signal-data';
+import type { Direction, AssetClass } from './_geo-signal-data';
 
-type Direction = 'BUY' | 'SELL' | 'HOLD';
-type AssetClass = 'Commodities' | 'Equity Indices' | 'Stocks' | 'Forex' | 'Crypto' | 'ETFs' | 'Bonds';
 type Volatility = 'LOW' | 'MEDIUM' | 'HIGH' | 'EXTREME';
 
 interface GeoSignal {
@@ -55,63 +56,7 @@ interface ReasoningStep {
 const CACHE_KEY = 'trading:geo-signals:v1';
 const CACHE_TTL = 300; // 5 minutes
 
-/** Asset sensitivity mappings — which geopolitical themes affect which assets. */
-const GEO_ASSET_MAP: Array<{
-  keywords: string[];
-  signals: Array<{
-    symbol: string;
-    name: string;
-    assetClass: AssetClass;
-    direction: Direction;
-    baseConfidence: number;
-    reasoning: string;
-    tags: string[];
-  }>;
-}> = [
-  {
-    keywords: ['iran', 'israel', 'missile', 'strait of hormuz', 'middle east', 'naval', 'gulf'],
-    signals: [
-      { symbol: 'XAUUSD', name: 'Gold', assetClass: 'Commodities', direction: 'BUY', baseConfidence: 85, reasoning: 'Safe-haven demand surge driven by military escalation', tags: ['MEDIUM VOLATILITY', 'short-term', 'metals', 'global'] },
-      { symbol: 'CL=F', name: 'WTI Crude Oil', assetClass: 'Commodities', direction: 'BUY', baseConfidence: 80, reasoning: 'Supply disruption risk from Strait of Hormuz threat', tags: ['HIGH', 'short-term', 'energy'] },
-      { symbol: 'LMT', name: 'Lockheed Martin', assetClass: 'Stocks', direction: 'BUY', baseConfidence: 82, reasoning: 'Defense spending increase expected', tags: ['MEDIUM VOLATILITY', 'medium-term', 'defense'] },
-      { symbol: 'SPY', name: 'S&P 500', assetClass: 'Equity Indices', direction: 'SELL', baseConfidence: 65, reasoning: 'Risk-off sentiment from geopolitical escalation', tags: ['HIGH', 'short-term', 'macro'] },
-    ],
-  },
-  {
-    keywords: ['ukraine', 'russia', 'nato', 'nuclear', 'escalation'],
-    signals: [
-      { symbol: 'NG=F', name: 'Natural Gas', assetClass: 'Commodities', direction: 'BUY', baseConfidence: 78, reasoning: 'European energy supply disruption risk', tags: ['HIGH', 'short-term', 'energy'] },
-      { symbol: 'RTX', name: 'RTX Corp', assetClass: 'Stocks', direction: 'BUY', baseConfidence: 80, reasoning: 'NATO defense spending acceleration', tags: ['MEDIUM VOLATILITY', 'medium-term', 'defense'] },
-      { symbol: 'EURUSD', name: 'EUR/USD', assetClass: 'Forex', direction: 'SELL', baseConfidence: 70, reasoning: 'EUR weakness on European security concerns', tags: ['MEDIUM VOLATILITY', 'short-term', 'forex'] },
-      { symbol: 'GLD', name: 'Gold ETF', assetClass: 'ETFs', direction: 'BUY', baseConfidence: 75, reasoning: 'Flight to safety in precious metals', tags: ['MEDIUM VOLATILITY', 'short-term', 'metals'] },
-    ],
-  },
-  {
-    keywords: ['china', 'taiwan', 'south china sea', 'trade war', 'tariff', 'semiconductor'],
-    signals: [
-      { symbol: 'TSM', name: 'TSMC', assetClass: 'Stocks', direction: 'SELL', baseConfidence: 72, reasoning: 'Supply chain risk from cross-strait tension', tags: ['HIGH', 'medium-term', 'semiconductors'] },
-      { symbol: 'NVDA', name: 'NVIDIA', assetClass: 'Stocks', direction: 'SELL', baseConfidence: 68, reasoning: 'China export restriction impact on revenue', tags: ['HIGH', 'short-term', 'semiconductors'] },
-      { symbol: 'FXI', name: 'China Large-Cap ETF', assetClass: 'ETFs', direction: 'SELL', baseConfidence: 75, reasoning: 'Capital flight from escalation risk', tags: ['HIGH', 'short-term', 'emerging'] },
-      { symbol: 'BTC-USD', name: 'Bitcoin', assetClass: 'Crypto', direction: 'BUY', baseConfidence: 55, reasoning: 'Alternative store-of-value narrative during de-globalization', tags: ['EXTREME', 'medium-term', 'crypto'] },
-    ],
-  },
-  {
-    keywords: ['recession', 'fed', 'interest rate', 'inflation', 'unemployment', 'banking crisis'],
-    signals: [
-      { symbol: 'TLT', name: '20+ Year Treasury', assetClass: 'Bonds', direction: 'BUY', baseConfidence: 72, reasoning: 'Flight to quality on recession fears', tags: ['LOW', 'medium-term', 'bonds'] },
-      { symbol: 'SPY', name: 'S&P 500', assetClass: 'Equity Indices', direction: 'SELL', baseConfidence: 68, reasoning: 'Earnings contraction expected', tags: ['MEDIUM VOLATILITY', 'medium-term', 'macro'] },
-      { symbol: 'GLD', name: 'Gold ETF', assetClass: 'ETFs', direction: 'BUY', baseConfidence: 70, reasoning: 'Real rate compression benefits gold', tags: ['MEDIUM VOLATILITY', 'long-term', 'metals'] },
-    ],
-  },
-  {
-    keywords: ['cyber', 'hack', 'ransomware', 'breach', 'vulnerability'],
-    signals: [
-      { symbol: 'PANW', name: 'Palo Alto Networks', assetClass: 'Stocks', direction: 'BUY', baseConfidence: 70, reasoning: 'Cybersecurity spending increase post-breach events', tags: ['MEDIUM VOLATILITY', 'medium-term', 'cybersecurity'] },
-      { symbol: 'CRWD', name: 'CrowdStrike', assetClass: 'Stocks', direction: 'BUY', baseConfidence: 68, reasoning: 'Endpoint security demand surge', tags: ['MEDIUM VOLATILITY', 'medium-term', 'cybersecurity'] },
-      { symbol: 'HACK', name: 'Cybersecurity ETF', assetClass: 'ETFs', direction: 'BUY', baseConfidence: 72, reasoning: 'Sector-wide security spending catalyst', tags: ['LOW', 'medium-term', 'cybersecurity'] },
-    ],
-  },
-];
+// GEO_ASSET_MAP imported from _geo-signal-data.ts — 34 global categories
 
 function buildReasoningChain(event: string, signal: typeof GEO_ASSET_MAP[0]['signals'][0]): ReasoningStep[] {
   return [
@@ -148,7 +93,7 @@ export async function listGeoSignals(_req: Request): Promise<Response> {
   let events: Array<{ title: string; tone: number; country: string; date: string }> = [];
   try {
     const res = await fetch(
-      'https://api.gdeltproject.org/api/v2/doc/doc?query=conflict%20OR%20sanctions%20OR%20escalation%20OR%20crisis%20OR%20attack%20OR%20recession%20OR%20hack&mode=artlist&maxrecords=15&format=json&timespan=24h',
+      `https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(GDELT_GEO_QUERY)}&mode=artlist&maxrecords=25&format=json&timespan=24h`,
       { headers: { 'User-Agent': CHROME_UA }, signal: AbortSignal.timeout(10_000) },
     );
     if (res.ok) {
@@ -221,7 +166,7 @@ export async function listGeoSignals(_req: Request): Promise<Response> {
   // Sort by confidence descending
   signals.sort((a, b) => b.confidence - a.confidence);
 
-  const result = { signals: signals.slice(0, 20), timestamp: Date.now() };
+  const result = { signals: signals.slice(0, 30), timestamp: Date.now() };
 
   try { await setCachedJson(CACHE_KEY, result, CACHE_TTL); } catch { /* non-critical */ }
 

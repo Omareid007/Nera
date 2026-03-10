@@ -768,7 +768,7 @@ export interface TensionIndex {
   score: number;
   change: number;
   level: 'LOW' | 'MODERATE' | 'ELEVATED' | 'HIGH' | 'CRITICAL';
-  components: { conflict: number; sentiment: number; cyber: number; natural: number };
+  components: { conflict: number; sentiment: number; cyber: number; natural: number; political: number; supplyChain: number };
   triggers: TensionTrigger[];
   timestamp: number;
 }
